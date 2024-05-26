@@ -1,0 +1,174 @@
+JewelryStatConfig: {
+	DisplayName: "[i:PeculiarJewelry/MajorJewel] 首饰属性配置 [i:PeculiarJewelry/MajorJewel]"
+
+	ChanceForMajor: {
+		Label: "[i:PeculiarJewelry/MajorJewel] 高级宝石几率"
+		Tooltip: 生成的高级宝石与低级宝石的比例。值为0.33表示有1/3的几率。
+	}
+
+	GlobalPowerScaleSteps: {
+		Label: "[i:PeculiarJewelry/MajorJewel] 力量等级范围"
+		Tooltip: 宝石生成时可拥有的力量范围。范围通过（力量等级 - （范围 * 2））至（力量等级）计算。
+	}
+
+	GlobalPowerScale: {
+		Label: "[i:PeculiarJewelry/MajorJewel] 力量等级"
+		Tooltip: 所有属性效果的力量程度。力量等级为60意味着所有属性都是默认强度的60%。
+	}
+
+	Headers: {
+		Mods: {
+			PeculiarJewelry: {
+				Config: {
+					StatConfigHeader: "[i:PeculiarJewelry/MinorJewel] 具体属性配置"
+					DesecrationHeader: "[i:1274] 亵渎之路配置"
+				}
+			}
+		}
+	}
+
+	AbsolutionStrength: {
+		Label: 赦免之力
+		Tooltip: 控制每次升级增加的穿透伤害。
+	}
+
+	AbundanceStrength: {
+		Label: 丰饶之力
+		Tooltip: 控制每次升级增加的最大召唤物数量。
+	}
+
+	ArcaneStrength: {
+		Label: 奥术之力
+		Tooltip: 控制每次升级增加的最大法力值。
+	}
+
+	CelerityStrength: {
+		Label: 迅捷之力
+		Tooltip: 控制每次升级增加的移动速度。
+	}
+
+	DexterityStrength: {
+		Label: 灵巧之力
+		Tooltip: 控制每次升级增加的行动控制力。
+	}
+
+	ExactitudeStrength: {
+		Label: 精准之力
+		Tooltip: 控制每次升级增加的暴击几率。
+	}
+
+	ExploitationStrength: {
+		Label: 剥削之力
+		Tooltip: 控制每次升级增加的暴击伤害。
+	}
+
+	FrenzyStrength: {
+		Label: 狂热之力
+		Tooltip: 控制每次升级减少的近战武器使用时间。
+	}
+
+	GigantismStrength: {
+		Label: 巨人之力
+		Tooltip: 控制每次升级增加的近战武器尺寸。
+	}
+
+	MightStrength: {
+		Label: 勇猛之力
+		Tooltip: 控制每次升级增加的近战伤害。
+	}
+
+	OrderStrength: {
+		Label: 秩序之力
+		Tooltip: 控制每次升级增加的召唤物伤害。
+	}
+
+	Permenance: {
+		Label: 永久
+		Tooltip: 控制每次升级增加的防御力。
+	}
+
+	PotencyStrength: {
+		Label: 效力之强
+		Tooltip: 控制每次升级增加的所有伤害。
+	}
+
+	PrecisionStrength: {
+		Label: 精准之强
+		Tooltip: 控制每次升级增加的远程伤害。
+	}
+
+	PreservationStrength: {
+		Label: 保护之强
+		Tooltip: 控制每次升级减少的弹药消耗几率。
+	}
+
+	RenewalStrength: {
+		Label: 恢复之强
+		Tooltip: 控制每次升级增加的生命恢复速度。
+	}
+
+	ResurgenceStrength: {
+		Label: 复苏之强
+		Tooltip: 控制每次升级增加的法力恢复速度。
+	}
+
+	TenacityStrength: {
+		Label: 坚韧之强
+		Tooltip: 控制每次升级增加的伤害抗性。
+	}
+
+	TensionStrength: {
+		Label: 张力之强
+		Tooltip: 控制每次升级增加的远程弹丸射击速度。
+	}
+
+	LegionStrength: {
+		Label: 军团之强
+		Tooltip: 控制每次升级增加的最大召唤物数量。
+	}
+
+	VigorStrength: {
+		Label: 活力之强
+		Tooltip: 控制每次升级增加的最大生命值。
+	}
+
+	WillpowerStat: {
+		Label: 意志力属性
+		Tooltip: 控制每次升级增加的魔法伤害。
+	}
+
+	PermenanceStrength: {
+		Label: 永久之强
+		Tooltip: 控制每次升级增加的防御力。
+	}
+
+	PowerScaleStepCount: {
+		Label: 力量等级步数
+		Tooltip: ""
+	}
+
+	GlobalPowerScaleMinimum: {
+		Label: 全局力量等级最小值
+		Tooltip: ""
+	}
+
+	ProfanityStrength: {
+		Label: 亵渎之强
+		Tooltip: 每次亵渎获得的亵渎量。
+	}
+
+	AllureStrength: {
+		Label: 诱惑之强
+		Tooltip: 控制每次升级增加的钓鱼能力。
+	}
+
+	DiligenceStrength: {
+		Label: 勤勉之强
+		Tooltip: 控制每次升级增加的采矿速度、砖块触及范围和物品吸引范围。
+	}
+
+	ToleranceStrength: {
+		Label: 容忍之强
+		Tooltip: ""
+	}
+}
