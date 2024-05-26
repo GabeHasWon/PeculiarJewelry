@@ -1,0 +1,74 @@
+HealTriggerBuff: {
+	DisplayName: 吸血冷却
+	Description: 无法触发吸血！
+}
+
+ImmuneFrameTriggerBuff: {
+	DisplayName: 免疫冷却
+	Description: 无法触发免疫帧！
+}
+
+TitaniumDefenseDebuff: {
+	DisplayName: 钛金防御减益
+	Description: 你不应该看到这个。
+}
+
+LifeCrystalCopper5SetCooldown: {
+	DisplayName: 水晶治疗
+	Description: 无法用水晶治疗！
+}
+
+LifeFruitCopper5SetCooldown: {
+	DisplayName: 水果治疗
+	Description: 无法用水果治疗！
+}
+
+Iron5SetDefenseBonus: {
+	DisplayName: 防御反击
+	Description: 获得 {0} 防御力
+}
+
+OrichalcumDamageBuff: {
+	DisplayName: 山铜伤害增益
+	Description: 获得 {0}% 伤害加成
+}
+
+CrimtaneAggressionDebuff: {
+	DisplayName: 深红之怒
+	Description: 痛苦就是力量
+}
+
+DemoniteAggressionDebuff: {
+	DisplayName: 恶魔之怒
+	Description: 脆弱即是完美
+}
+
+DamageTriggerBuff: {
+	DisplayName: 伤害增强
+	Description: 伤害提升
+}
+
+CritTriggerBuff: {
+	DisplayName: 暴击增强
+	Description: 暴击率提升
+}
+
+DefenseTriggerBuff: {
+	DisplayName: 防御增强
+	Description: 防御力提升
+}
+
+RegenTriggerBuff: {
+	DisplayName: 恢复增强
+	Description: 生命恢复提升
+}
+
+DodgeTriggerBuff: {
+	DisplayName: 闪避增强
+	Description: 闪避率提升
+}
+
+SpeedTriggerBuff: {
+	DisplayName: 速度增强
+	Description: 移动速度提升
+}
