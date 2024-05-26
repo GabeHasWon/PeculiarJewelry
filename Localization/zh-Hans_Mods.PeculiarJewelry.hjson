@@ -1,0 +1,14 @@
+Projectiles: {
+	StellarJadeProjectile.DisplayName: 星玉
+	TrapperMinion.DisplayName: 陷阱仆从
+	EchoProjectile.DisplayName: 回音
+	AoEProjectile.DisplayName: 减益波
+	Smoke.DisplayName: 烟雾
+	SoulProjectile.DisplayName: 灵魂
+	TriggerProj.DisplayName: 触发投射物
+}
+
+TierCutoffCondition: 仅来自{0}级或更高级别的袋子。
+OnceADay: 每天一次
+# The below is formatted like "30.15s left".
+StackableBuffTimeLeft: 秒剩余
