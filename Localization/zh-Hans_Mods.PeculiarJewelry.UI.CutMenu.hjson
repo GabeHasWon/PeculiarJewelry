@@ -1,0 +1,19 @@
+# This is all the localization for the Jewel Cut menu.
+NoJewel: （未插入珠宝）
+Gold: 金币
+Dust: 尘埃
+SuccessChance: 成功几率
+SubstatUpgrade: "一个次要属性将被 "
+Upgraded: 升级
+Added: 添加
+Name: 珠宝切割
+Cut: 切割
+Support: 支持
+MissingJewel: "[c/ff0000:缺少]珠宝！"
+NoCuts: "[c/ff0000:珠宝无法进一步]切割！"
+NoCoins: "{NotEnough} [c/ff0000:金币]！"
+NoDust: "{NotEnough} [i:{0}] [c/ff0000:闪粉]！"
+NotEnough: 不够
+# The above is used for "Not enough Radiant Echo"
+SuccessfulCut: 切割[c/00FF00:成功！]
+FailedCut: 切割[c/FF0000:失败。]
