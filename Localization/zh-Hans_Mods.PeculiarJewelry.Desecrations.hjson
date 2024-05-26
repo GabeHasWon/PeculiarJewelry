@@ -1,0 +1,71 @@
+GiveUp: 你因懦弱而逃跑。这条道路将不再通往这片土地。
+
+HealthBoostDesecration: {
+	Name: 敌人更耐打
+	Description: 每堆叠增加敌人最大生命值50%
+}
+
+DamageDesecration: {
+	Name: 敌人伤害更高
+	Description: 每堆叠增加敌人伤害33%
+}
+
+BehaviourBoostDesecration: {
+	Name: 敌人更快
+	Description: 每堆叠增加敌人行为速度33%
+}
+
+DamageResistDesecration: {
+	Name: 敌人更坚韧
+	Description: 每堆叠增加敌人伤害抗性15%
+}
+
+FullBoostDesecration: {
+	Name: 敌人更强大
+	Description: 每堆叠增加敌人伤害10%，增加敌人生命值10%，增加防御2点，增加敌人行为速度5%
+}
+
+SpawnRateDesecration: {
+	Name: 更多敌人
+	Description: 每堆叠增加敌人生成率50%
+}
+
+PotionHealReductionDesecration: {
+	Name: 玩家治疗量减少
+	Description: 每堆叠减少治疗量25%
+}
+
+LongerHealCooldownDesecration: {
+	Name: 玩家治疗冷却时间更长
+	Description: 每堆叠增加药水病持续时间25%
+}
+
+TrapDoTBuffDesecration: {
+	Name: 陷阱更强，减益效果更强
+	Description: 陷阱造成150%的额外伤害，持续伤害减益效果增强150%
+}
+
+DeathMineDesecration: {
+	Name: 敌人与投射物爆炸
+	Description: 敌人和它们发射的投射物在死亡时会爆炸
+}
+
+BossHealDesecration: {
+	Name: 老板恢复生命
+	Description: 老板在生命值达到2/3和1/3时会恢复其最大生命值的25%
+}
+
+DebuffNPCDesecration: {
+	Name: 受诅咒的敌人
+	Description: 敌人有机会施加一个持久的减益效果
+}
+
+BossEnragementDesecration: {
+	Name: 愤怒的老板
+	Description: 每堆叠增加老板伤害100%，增加防御75%，增加伤害抗性10%，移动速度增加100%或150%
+}
+
+EliteNPCDesecration: {
+	Name: 精英敌人
+	Description: 敌人有机会每堆叠增加伤害33%，防御，最大生命值和行为速度33%
+}
