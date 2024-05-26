@@ -1,0 +1,124 @@
+Vigor: {
+	DisplayName: 活力
+	Description: "{0} 最大生命值"
+}
+
+Renewal: {
+	DisplayName: 再生
+	Description: "{0}% 生命再生"
+}
+
+Permenance: {
+	DisplayName: 永久
+	Description: "{0} 防御力"
+}
+
+Tenacity: {
+	DisplayName: 坚韧
+	Description: "{0}% 伤害抗性"
+}
+
+Exactitude: {
+	DisplayName: 精准
+	Description: "{0}% 暴击几率"
+}
+
+Exploitation: {
+	DisplayName: 利用
+	Description: "{0}% 暴击伤害"
+}
+
+Celerity: {
+	DisplayName: 迅捷
+	Description: "{0}% 移动速度"
+}
+
+Dexterity: {
+	DisplayName: 灵巧
+	Description: "{0}% 移动加速"
+}
+
+Might: {
+	DisplayName: 力量
+	Description: "{0}% 近战伤害"
+}
+
+Gigantism: {
+	DisplayName: 巨人化
+	Description: "{0}% 近战武器大小"
+}
+
+Frenzy: {
+	DisplayName: 狂暴
+	Description: "{0}% 减少使用时间"
+}
+
+Precision: {
+	DisplayName: 精准
+	Description: "{0}% 远程伤害"
+}
+
+Preservation: {
+	DisplayName: 保留
+	Description: "{0}% 弹药保留几率"
+}
+
+Tension: {
+	DisplayName: 张力
+	Description: "{0}% 投射物速度"
+}
+
+Willpower: {
+	DisplayName: 意志力
+	Description: "{0}% 魔法伤害"
+}
+
+Arcane: {
+	DisplayName: 奥术
+	Description: "{0}% 最大法力值"
+}
+
+Resurgence: {
+	DisplayName: 复苏
+	Description: "{0} 法力再生"
+}
+
+Order: {
+	DisplayName: 秩序
+	Description: "{0}% 召唤伤害"
+}
+
+Abundance: {
+	DisplayName: 丰富
+	Description: "{0} 最大仆从数"
+}
+
+Legion: {
+	DisplayName: 军团
+	Description: "{0}% 仆从行为速度"
+}
+
+Potency: {
+	DisplayName: 潜能
+	Description: "{0}% 所有伤害"
+}
+
+Absolution: {
+	DisplayName: 赦免
+	Description: "{0}% 防御穿透"
+}
+
+Allure: {
+	DisplayName: 魅力
+	Description: "{0} 钓鱼力"
+}
+
+Diligence: {
+	DisplayName: 勤勉
+	Description: "{0}% 挖矿速度、放置范围和物品拾取范围"
+}
+
+Tolerance: {
+	DisplayName: 容忍
+	Description: "{0}% 增益时间和最大呼吸时间，-{0}% 减益时间"
+}
