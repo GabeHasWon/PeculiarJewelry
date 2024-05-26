@@ -1,0 +1,86 @@
+Lapidarist: {
+	DisplayName: 宝石匠
+
+	TownNPCMood: {
+		Content: 在这里我可以磨练我的工艺。
+		NoHome: 在这里工作真是艰难。能给我一个房间吗？
+		FarFromHome: 我离我的工作台太远了！要是我的珠宝被毁了怎么办？
+		LoveSpace: 安静让人专注，专注铸就完美。
+		DislikeCrowded: 房间一直在摇晃！我怎么工作？
+		HateCrowded: 我讨厌这么拥挤。
+		LikeBiome: "{BiomeName}是我工作的最佳场所！"
+		DislikeBiome: 我更喜欢在比{BiomeName}更适合的环境里工作。
+		HateBiome: 我讨厌{BiomeName}。
+		LoveNPC: 我喜欢{NPCName}。
+		LikeNPC: 我喜欢{NPCName}。
+		DislikeNPC: 我不喜欢{NPCName}。
+		HateNPC: 我讨厌{NPCName}。
+		LikeNPC_Princess: 我喜欢{NPCName}。
+		Princess_LovesNPC: 我喜欢{NPCName}。
+	}
+
+	Names: {
+		0: 马莎
+		1: 包法利夫人
+		2: 琳娜
+		3: 泰拉
+		4: 朱恩
+		5: 泰
+		6: 哈斯特
+		7: H'aaztre
+		8: 凯万
+		9: 芬里克
+	}
+
+	Bestiary: 有些傲慢，但如果你想让你的珠宝更上一层楼，他可是个了不起的帮手。这家伙懂行。
+
+	Dialogue: {
+		0: 一颗珠宝就能让任何人变成更强大的杀戮机器！
+		1: 你永远别想看到我戴着低于神秘级珠宝的东西，绝对不可能！
+		2: 有时我在想，为什么我不能随心所欲地镶嵌珠宝呢？然后我意识到——那太重了，不是吗？
+		3: 我猜你是来浏览我的商品的，嗯？
+		4: "'什么是回响？' 他们问。别担心！买珠宝！"
+	}
+
+	UIDialogue: {
+		OpenSelectionMenu: 你想让我加工什么？
+		MenuName: 珠宝菜单
+
+		SuccessfulSets: {
+			0: 完成了！对这件作品很自豪。
+			1: 又完成了一件珠宝。享受吧！
+			2: 看到有人喜欢我的艺术总是令人愉快的。
+		}
+
+		SuccessfulCuts: {
+			0: 这颗珠宝真不错，对吧？
+			1: 抛光原石总是很愉快。
+			2: 看到它们变得更美总是令人愉快的。
+		}
+
+		FailedCuts: {
+			0: 抱歉，不是每次都能成功的。
+			1: 嗯，这颗做得不对。
+			2: 有时我的机器有点笨重……
+		}
+
+		Help: {
+			Cut: 切割可以提升珠宝的外观和功能。
+			Set: 镶嵌可以让你在珠宝中使用珠宝，解锁它们的潜力，让你看起来更棒。
+			Imposition: 使用两颗相同切割次数的主要属性、大小和名称的成品珠宝，你可以创造出一个结合它们优势的珠宝。
+			Desecration: 一种更黑暗的技艺。允许你伤害自己并从敌人那里获得更大的奖励。
+		}
+
+		Open: {
+			Cut: 想提升你的珠宝吗？找我就对了。
+			Set: 终于到了我的专长。镶嵌珠宝是我最喜欢的消遣方式。
+			Imposition: 只要确保你有两颗相同切割次数、主要属性、大小和名称的成品珠宝。这部分总是让人困惑。
+			Desecration: 想做点交易吗？别太勉强自己。
+			NoDesecration: 看来你放弃了，伙计。不能反悔。
+		}
+	}
+
+	Census.SpawnCondition: 当你拥有至少1个珠宝或珠宝物品时
+}
+
+Chlorosprout.DisplayName: 绿芽
