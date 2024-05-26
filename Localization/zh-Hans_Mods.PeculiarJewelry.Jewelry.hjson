@@ -1,0 +1,76 @@
+Jewel: 宝石
+Main: 主
+Sub: 副
+//Used for tooltips
+TierTooltip: 第{0}级宝石
+CutsRemaining: 剩余{0}次切割
+HoldShift: 按住Shift键查看属性
+ChanceTo: 有{0}%的几率
+
+TierPrefixes: {
+	Natural: 自然
+	Mutated: 变异
+	Mythical: 神话
+	Celestial: 天界
+	Stellar: 星界
+}
+
+JewelryPrefixes: {
+	Ordinary: 普通
+	Pretty: 漂亮
+	Elegant: 优雅
+	Elaborate: 精致
+	Extravagant: 华贵
+}
+
+StatExclusivities: {
+	Melee: 仅限于[c/990000:近战]
+	Ranged: 仅限于[c/ff6600:远程]
+	Magic: 仅限于[c/0066ff:魔法]
+	Summon: 仅限于[c/fed558:召唤]
+	Generic: 仅限于[c/ffffcc:通用]
+	Utility: 仅限于[c/996633:辅助]
+}
+
+TriggerContexts: {
+	OnTakeDamage: 受到攻击时:
+	OnHeal: 使用治疗药水时:
+	OnUseMana: 使用魔力时:
+	OnRunOutOfMana: 魔力耗尽时:
+	OnJump: 跳跃时:
+	OnHitEnemy: 击中敌人时:
+	OnLand: 落地时:
+	WhenBelowHalfHealth: 生命值低于一半时:
+	WhenAboveHalfHealth: 生命值高于一半时:
+	WhenFullHealth: 生命值满时:
+	WhenBelowHalfMana: 魔力低于一半时:
+	WhenAboveHalfMana: 魔力高于一半时:
+	WhenFullMana: 魔力满时:
+	WhenHaveDebuff: 受到减益效果时:
+	WhenOver10Buffs: 受到任意10个增益效果时:
+	WhenPotionSick: 药水病发作时:
+	WhenNoBuffs: 没有受到任何增益效果时:
+	WhenIdle: 空闲时:
+	WhenNotHitFor15Seconds: 至少15秒内未受到攻击时:
+	WhenHitWithinPast5Seconds: 在过去5秒内受到攻击时:
+}
+
+TriggerEffects: {
+	HealTrigger: 恢复{0}点生命值。
+	ManaTrigger: 恢复{0}点魔力值。
+	ImmuneFrameTrigger: 获得{0}个无敌帧。
+	DamageTriggerConditional: 增加{0}%的伤害
+	DamageTriggerInstant: 立即增加{0}%的伤害
+	DefenseTriggerConditional: 增加{0}点防御力
+	DefenseTriggerInstant: 立即增加{0}点防御力
+	RegenTriggerConditional: 增加{0}点生命再生
+	RegenTriggerInstant: 立即增加{0}点生命再生
+	CritTriggerConditional: 增加{0}%的暴击几率
+	CritTriggerInstant: 立即增加{0}%的暴击几率
+	SpeedTriggerConditional: 增加{0}%的移动速度
+	SpeedTriggerInstant: 立即增加{0}%的移动速度
+	DodgeTrigger: 增加{0}%的闪避几率
+	SpawnProjTrigger: 生成一个造成{0}点伤害的投射物
+	KBAndClearTrigger: 将敌人击退并清除半径为{0}格的投射物
+	DebuffWaveTrigger: 对半径为{0}/2格的敌人施加持续{0}秒的减益效果
+}
