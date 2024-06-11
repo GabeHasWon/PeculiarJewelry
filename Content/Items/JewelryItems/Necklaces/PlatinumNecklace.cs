@@ -10,6 +10,7 @@ public class PlatinumNecklace : BaseNecklace
         CreateRecipe()
             .AddIngredient(ItemID.PlatinumBar, 6)
             .AddTile(TileID.Anvils)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

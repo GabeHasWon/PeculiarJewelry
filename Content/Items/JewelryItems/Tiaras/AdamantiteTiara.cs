@@ -10,6 +10,7 @@ public class AdamantiteTiara : BaseTiara
         CreateRecipe()
             .AddIngredient(ItemID.AdamantiteBar, 8)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

@@ -17,7 +17,7 @@ public static class JewelDrawing
         if (cutAmount == 5)
             cutAmount--;
 
-        var frame = new Rectangle(variation * (frmWidth + 2), (int)(frmHeight * cutAmount), frmWidth, frmHeight);
+        var frame = new Rectangle(variation * (frmWidth + 2), (int)(frmHeight * cutAmount), frmWidth, frmHeight - 1);
         Main.spriteBatch.Draw(tex.Value, position, frame, color, rotation, origin, scale, SpriteEffects.None, 0);
         DrawSparkles(position - origin * scale, new Vector2(frmWidth, frmHeight) * scale, info, color, null);
     }

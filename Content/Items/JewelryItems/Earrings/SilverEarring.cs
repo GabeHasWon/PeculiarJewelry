@@ -11,6 +11,7 @@ public class SilverEarring : BaseEarring
             .AddIngredient(ItemID.SilverBar, 4)
             .AddIngredient(ItemID.Chain)
             .AddTile(TileID.Anvils)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

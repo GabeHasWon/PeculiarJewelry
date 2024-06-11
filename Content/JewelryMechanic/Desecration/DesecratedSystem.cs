@@ -13,7 +13,7 @@ public class DesecratedSystem : ModSystem
     public static float LootScaleFactor => ModContent.GetInstance<DesecratedSystem>()._totalProfanity * 5 / 100f;
     public static int AdditionalJewelTier => (int)(ModContent.GetInstance<DesecratedSystem>()._totalProfanity / 2f);
 
-    public bool givenUp = false;
+    internal int timesGivenUp = 0;
 
     private float _totalProfanity = 0;
 
@@ -25,8 +25,8 @@ public class DesecratedSystem : ModSystem
             Desecrations.Remove(key);
         else
         {
-            if (Desecrations.ContainsKey(key))
-                Desecrations[key].strength = strength;
+            if (Desecrations.TryGetValue(key, out DesecrationModifier value))
+                value.strength = strength;
             else
                 Desecrations.Add(key, DesecrationModifier.Desecrations[key]);
         }
@@ -52,9 +52,7 @@ public class DesecratedSystem : ModSystem
 
     public override void SaveWorldData(TagCompound tag)
     {
-        if (givenUp)
-            tag.Add(nameof(givenUp), true);
-
+        tag.Add(nameof(timesGivenUp), timesGivenUp);
         tag.Add("desecrationsCount", Desecrations.Values.Count);
         int index = 0;
 
@@ -67,11 +65,8 @@ public class DesecratedSystem : ModSystem
 
     public override void LoadWorldData(TagCompound tag)
     {
-        if (tag.ContainsKey(nameof(givenUp)))
-        {
-            givenUp = true;
-            return;
-        }
+        if (tag.TryGet(nameof(timesGivenUp), out object value) && value is int integer)
+            timesGivenUp = integer;
 
         if (!tag.TryGet("desecrationsCount", out int count))
             return;

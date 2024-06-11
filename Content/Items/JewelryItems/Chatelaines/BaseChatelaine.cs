@@ -53,13 +53,13 @@ public class BaseChatelaine : BasicJewelry
 
     protected override void EquipEffect(Player player, bool isVanity = false)
     {
-        if (Info.Any())
+        if (Info.Count != 0)
             player.GetModPlayer<MaterialPlayer>().SetEquip(EquipType.Waist, new MaterialPlayer.EquipLayerInfo(GetDisplayColor(), _jewelsEquip.Value));
     }
 
     public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color i, Vector2 origin, float scale)
     {
-        if (Info.Any())
+        if (Info.Count != 0)
             spriteBatch.Draw(_jewels.Value, position, frame, GetDisplayColor(), 0f, origin, scale, SpriteEffects.None, 0);
 
         base.PostDrawInInventory(spriteBatch, position, frame, drawColor, i, origin, scale);
@@ -67,7 +67,7 @@ public class BaseChatelaine : BasicJewelry
 
     public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
     {
-        if (Info.Any())
+        if (Info.Count != 0)
         {
             Color col = lightColor.MultiplyRGB(GetDisplayColor());
             spriteBatch.Draw(_jewels.Value, Item.Center - Main.screenPosition, null, col, rotation, _jewels.Size() / 2f, scale, SpriteEffects.None, 0);
@@ -76,13 +76,11 @@ public class BaseChatelaine : BasicJewelry
         base.PostDrawInWorld(spriteBatch, lightColor, alphaColor, rotation, scale, whoAmI);
     }
 
-    public override void AddRecipes()
-    {
-        CreateRecipe()
-            .AddIngredient(_material, 8)
-            .AddTile(TileID.Anvils)
-            .Register();
-    }
+    public override void AddRecipes() => CreateRecipe()
+        .AddIngredient(_material, 8)
+        .AddTile(TileID.Anvils)
+        .Register()
+        .DisableRecipe();
 
     public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
     {

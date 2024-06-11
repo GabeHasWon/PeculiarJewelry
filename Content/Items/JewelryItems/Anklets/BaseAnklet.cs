@@ -1,12 +1,11 @@
 using PeculiarJewelry.Content.JewelryMechanic.MaterialBonuses;
 using ReLogic.Content;
-using System.Linq;
 
 namespace PeculiarJewelry.Content.Items.JewelryItems.Anklets;
 
 [AutoloadEquip(EquipType.Shoes)]
 [Autoload(false)]
-public class BaseAnklet : BasicJewelry
+public class BaseAnklet(string name, string category, int mat) : BasicJewelry
 {
     static Asset<Texture2D> _jewels;
     static Asset<Texture2D> _jewelsEquip;
@@ -16,16 +15,9 @@ public class BaseAnklet : BasicJewelry
     public override string Name => _name;
     public override string MaterialCategory => _category;
 
-    protected int _material;
-    protected string _category = string.Empty;
-    protected string _name = string.Empty;
-
-    public BaseAnklet(string name, string category, int mat)
-    {
-        _name = name;
-        _category = category;
-        _material = mat;
-    }
+    protected int _material = mat;
+    protected string _category = category;
+    protected string _name = name;
 
     public override ModItem Clone(Item newEntity)
     {
@@ -53,13 +45,13 @@ public class BaseAnklet : BasicJewelry
 
     protected override void EquipEffect(Player player, bool isVanity = false)
     {
-        if (Info.Any())
+        if (Info.Count != 0)
             player.GetModPlayer<MaterialPlayer>().SetEquip(EquipType.Shoes, new MaterialPlayer.EquipLayerInfo(GetDisplayColor(), _jewelsEquip.Value));
     }
 
     public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color i, Vector2 origin, float scale)
     {
-        if (Info.Any())
+        if (Info.Count != 0)
             spriteBatch.Draw(_jewels.Value, position, frame, GetDisplayColor(), 0f, origin, scale, SpriteEffects.None, 0);
 
         base.PostDrawInInventory(spriteBatch, position, frame, drawColor, i, origin, scale);
@@ -67,7 +59,7 @@ public class BaseAnklet : BasicJewelry
 
     public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
     {
-        if (Info.Any())
+        if (Info.Count != 0)
         {
             Color col = lightColor.MultiplyRGB(GetDisplayColor());
             spriteBatch.Draw(_jewels.Value, Item.Center - Main.screenPosition, null, col, rotation, _jewels.Size() / 2f, scale, SpriteEffects.None, 0);
@@ -76,22 +68,14 @@ public class BaseAnklet : BasicJewelry
         base.PostDrawInWorld(spriteBatch, lightColor, alphaColor, rotation, scale, whoAmI);
     }
 
-    public override void AddRecipes()
-    {
-        CreateRecipe()
-            .AddIngredient(_material, 4)
-            .AddTile(TileID.Chairs)
-            .AddTile(TileID.Tables)
-            .Register();
-    }
+    public override void AddRecipes() => CreateRecipe()
+        .AddIngredient(_material, 4)
+        .AddTile(TileID.Chairs)
+        .AddTile(TileID.Tables)
+        .Register()
+        .DisableRecipe();
 
-    public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
-    {
-        if (equippedItem.ModItem is BaseAnklet)
-            return incomingItem.ModItem is not BaseAnklet;
-
-        return true;
-    }
+    public override bool CanAccessoryBeEquippedWith(Item equip, Item incomingItem, Player player) => equip.ModItem is not BaseAnklet || incomingItem.ModItem is not BaseAnklet;
 }
 
 internal class AnkletLoader : ILoadable

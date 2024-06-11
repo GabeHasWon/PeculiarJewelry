@@ -10,6 +10,7 @@ public class ShroomiteNecklace : BaseNecklace
         CreateRecipe()
             .AddIngredient(ItemID.ShroomiteBar, 6)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

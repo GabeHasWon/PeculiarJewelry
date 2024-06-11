@@ -10,6 +10,7 @@ public class TinTiara : BaseTiara
         CreateRecipe()
             .AddIngredient(ItemID.TinBar, 8)
             .AddTile(TileID.Anvils)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

@@ -101,7 +101,7 @@ internal class CutJewelUIState : UIState, IClosableUIState
     }
 
     private static int JewelCutCoinPrice(JewelInfo info) => Item.buyPrice(0, 1) * ((int)info.tier + info.successfulCuts + 1);
-    private static int JewelCutDustPrice(JewelInfo info) => JewelCutDustPrice(info.tier, info.successfulCuts);
+    public static int JewelCutDustPrice(JewelInfo info) => JewelCutDustPrice(info.tier, info.successfulCuts);
 
     public static int JewelCutDustPrice(JewelTier tier, int successfulCuts) => ((int)tier+ 1) * (successfulCuts + 1);
 
@@ -331,6 +331,7 @@ internal class CutJewelUIState : UIState, IClosableUIState
             float current = info.SubStats[statID].GetEffectValue(Main.LocalPlayer, PeculiarJewelry.StatConfig.GlobalPowerScaleMinimum);
             return text.Text.Replace(replacement, "[c/ffa500:" + current.ToString("#0.##") + " - " + info.SubStats[statID].GetEffectValue(Main.LocalPlayer, 1f).ToString("#0.##") + "]");
         }
+
         return text.Text;
     }
 

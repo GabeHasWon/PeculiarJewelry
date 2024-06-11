@@ -10,6 +10,7 @@ public class TinNecklace : BaseNecklace
         CreateRecipe()
             .AddIngredient(ItemID.TinBar, 6)
             .AddTile(TileID.Anvils)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

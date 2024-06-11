@@ -10,6 +10,7 @@ public class MeteoriteTiara : BaseTiara
         CreateRecipe()
             .AddIngredient(ItemID.MeteoriteBar, 8)
             .AddTile(TileID.Anvils)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

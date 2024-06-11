@@ -11,6 +11,7 @@ public class ShroomiteEarring : BaseEarring
             .AddIngredient(ItemID.ShroomiteBar, 4)
             .AddIngredient(ItemID.Chain)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

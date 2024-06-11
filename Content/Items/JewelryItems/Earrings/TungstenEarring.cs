@@ -11,6 +11,7 @@ public class TungstenEarring : BaseEarring
             .AddIngredient(ItemID.TungstenBar, 4)
             .AddIngredient(ItemID.Chain)
             .AddTile(TileID.Anvils)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

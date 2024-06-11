@@ -10,6 +10,7 @@ public class ChlorophyteTiara : BaseTiara
         CreateRecipe()
             .AddIngredient(ItemID.ChlorophyteBar, 8)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

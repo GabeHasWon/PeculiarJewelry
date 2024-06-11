@@ -10,6 +10,7 @@ public class PalladiumNecklace : BaseNecklace
         CreateRecipe()
             .AddIngredient(ItemID.PalladiumBar, 6)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

@@ -194,7 +194,7 @@ internal class SuperimpositionUIState : UIState, IClosableUIState
         };
         panel.Append(_resultJewel);
 
-        UIButton<string> generateButton = new(Localize("Combine!"))
+        UIButton<string> generateButton = new(Localize("Combine"))
         {
             HAlign = 0.2f,
             VAlign = 1f,

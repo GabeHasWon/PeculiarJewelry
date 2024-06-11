@@ -10,6 +10,7 @@ public class HallowedNecklace : BaseNecklace
         CreateRecipe()
             .AddIngredient(ItemID.HallowedBar, 6)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

@@ -11,6 +11,7 @@ public class TitaniumEarring : BaseEarring
             .AddIngredient(ItemID.TitaniumBar, 4)
             .AddIngredient(ItemID.Chain)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

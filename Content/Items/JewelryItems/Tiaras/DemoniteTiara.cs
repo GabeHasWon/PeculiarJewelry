@@ -10,6 +10,7 @@ public class DemoniteTiara : BaseTiara
         CreateRecipe()
             .AddIngredient(ItemID.DemoniteBar, 8)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

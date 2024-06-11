@@ -10,6 +10,7 @@ public class PlatinumTiara : BaseTiara
         CreateRecipe()
             .AddIngredient(ItemID.PlatinumBar, 8)
             .AddTile(TileID.Anvils)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

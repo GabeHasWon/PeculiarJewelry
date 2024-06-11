@@ -10,6 +10,7 @@ public class SpectreNecklace : BaseNecklace
         CreateRecipe()
             .AddIngredient(ItemID.SpectreBar, 6)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

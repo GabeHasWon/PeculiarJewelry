@@ -1,8 +1,8 @@
 ﻿using PeculiarJewelry.Content.JewelryMechanic.Desecration;
 using PeculiarJewelry.Content.JewelryMechanic.Syncing;
+using System;
 using System.Collections.Generic;
 using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader.UI;
@@ -14,22 +14,7 @@ internal class DesecrationUIState : UIState
 {
     private readonly Dictionary<string, float> TemporaryStrength = [];
 
-    private bool _confirmGiveUp = false;
-    private int _confirmGiveUpTime = 0;
-    private UIButton<string> _giveUpButton = null;
-
     private static string Localize(string postfix) => Language.GetTextValue("Mods.PeculiarJewelry.UI.Misc." + postfix);
-
-    public override void Update(GameTime gameTime)
-    {
-        base.Update(gameTime);
-
-        if (_confirmGiveUpTime-- <= 0)
-        {
-            _giveUpButton.SetText(Localize("GiveUp"));
-            _confirmGiveUp = false;
-        }
-    }
 
     public override void OnInitialize()
     {
@@ -75,6 +60,7 @@ internal class DesecrationUIState : UIState
             HAlign = 0.5f,
         };
         reset.OnLeftClick += (UIMouseEvent evt, UIElement listeningElement) => TemporaryStrength.Clear();
+        
         Append(reset);
 
         UIButton<string> exit = new(Localize("Exit"))
@@ -93,36 +79,6 @@ internal class DesecrationUIState : UIState
         };
 
         Append(exit);
-
-        _giveUpButton = new(Localize("GiveUp"))
-        {
-            Width = StyleDimension.FromPixels(120),
-            Height = StyleDimension.FromPixels(32),
-            Top = StyleDimension.FromPixels(322),
-            Left = StyleDimension.FromPixels(380),
-            VAlign = 0.15f,
-            HAlign = 0.5f,
-        };
-
-        _giveUpButton.OnLeftClick += (UIMouseEvent evt, UIElement listeningElement) =>
-        {
-            if (!_confirmGiveUp)
-            {
-                _confirmGiveUp = true;
-                _confirmGiveUpTime = 360;
-                _giveUpButton.SetText(Localize("AreYouSure"));
-            }
-            else
-            {
-                JewelUISystem.SwitchUI(null);
-                SoundEngine.PlaySound(SoundID.MenuClose);
-                ModContent.GetInstance<DesecratedSystem>().givenUp = true;
-                ModContent.GetInstance<DesecratedSystem>().ClearDesecrations();
-                ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Mods.PeculiarJewelry.Desecrations.GiveUp"), Colors.Hardcore);
-            }
-        };
-
-        Append(_giveUpButton);
         InfoPanel();
     }
 
@@ -173,6 +129,7 @@ internal class DesecrationUIState : UIState
             if (Main.netMode != NetmodeID.SinglePlayer)
                 new DesecrationModule(key, value, Main.myPlayer).Send();
         }
+
         TemporaryStrength.Clear();
     }
 
@@ -226,6 +183,25 @@ internal class DesecrationUIState : UIState
             increaseButton.OnLeftClick += (sender, e) => ClickIncrease(key);
             singleItemPanel.Append(increaseButton);
 
+            UIButton<string> decreaseButton = new($"-{GetDesecrationRemovalCost()}")
+            {
+                Width = StyleDimension.FromPixels(80),
+                Height = StyleDimension.FromPixels(50),
+                Left = StyleDimension.FromPixels(size + 60),
+                VAlign = 0.5f,
+            };
+            decreaseButton.OnLeftClick += (sender, e) => ClickDecrease(key);
+
+            decreaseButton.OnUpdate += (s) =>
+            {
+                var self = s as UIButton<string>;
+                string str = $"-{GetDesecrationRemovalCostStr()}";
+                self.SetText(str);
+                self.Width = StyleDimension.FromPixels(FontAssets.ItemStack.Value.MeasureString(str).X);
+            };
+
+            singleItemPanel.Append(decreaseButton);
+
             UIText countToMax = new("0/" + (value.StrengthCap != -1 ? value.StrengthCap : "∞"))
             {
                 HAlign = 1f,
@@ -238,6 +214,31 @@ internal class DesecrationUIState : UIState
         }
     }
 
+    private static string GetDesecrationRemovalCostStr() => $"{GetDesecrationRemovalCost()/10000}[i:{ItemID.GoldCoin}]";
+    private static int GetDesecrationRemovalCost() => Item.buyPrice(0, 20 + 20 * ModContent.GetInstance<DesecratedSystem>().timesGivenUp, 0, 0);
+
+    private static void ClickDecrease(string key)
+    {
+        float str = DesecrationModifier.Desecrations[key].strength;
+
+        if (str <= 0)
+            return;
+
+        int cost = GetDesecrationRemovalCost();
+        if (!Main.LocalPlayer.CanAfford(cost))
+            return;
+
+        Main.LocalPlayer.PayCurrency(cost);
+        str = Math.Max(str - 1, 0);
+
+        ModContent.GetInstance<DesecratedSystem>().SetDesecration(key, str);
+
+        if (Main.netMode != NetmodeID.SinglePlayer)
+            new DesecrationModule(key, str, Main.myPlayer).Send();
+
+        ModContent.GetInstance<DesecratedSystem>().timesGivenUp++;
+    }
+
     private void ClickIncrease(string key)
     {
         float cap = DesecrationModifier.Desecrations[key].StrengthCap;
@@ -245,8 +246,7 @@ internal class DesecrationUIState : UIState
         if (DesecrationModifier.Desecrations[key].strength == cap)
             return;
 
-        if (!TemporaryStrength.ContainsKey(key))
-            TemporaryStrength.Add(key, DesecrationModifier.Desecrations[key].strength);
+        TemporaryStrength.TryAdd(key, DesecrationModifier.Desecrations[key].strength);
 
         if (cap != -1)
             TemporaryStrength[key] = MathHelper.Clamp(TemporaryStrength[key] + 1, 0, cap);
@@ -258,7 +258,7 @@ internal class DesecrationUIState : UIState
     {
         var dese = DesecrationModifier.Desecrations[key];
         bool hasTemp = TemporaryStrength.TryGetValue(key, out float strength);
-        var str = hasTemp ? strength : dese.strength;
+        float str = hasTemp ? strength : dese.strength;
 
         uiText.SetText(str + "/" + (dese.StrengthCap != -1 ? dese.StrengthCap : "∞"));
         uiText.TextColor = hasTemp ? Color.Red : Color.White;

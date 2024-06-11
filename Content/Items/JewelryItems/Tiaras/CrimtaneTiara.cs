@@ -10,6 +10,7 @@ public class CrimtaneTiara : BaseTiara
         CreateRecipe()
             .AddIngredient(ItemID.CrimtaneBar, 8)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

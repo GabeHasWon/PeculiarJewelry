@@ -5,13 +5,11 @@ public class CopperEarring : BaseEarring
 {
     public override string MaterialCategory => "Copper";
 
-    public override void AddRecipes()
-    {
-        CreateRecipe()
-            .AddIngredient(ItemID.CopperBar, 4)
-            .AddIngredient(ItemID.Chain)
-            .AddTile(TileID.Chairs)
-            .AddTile(TileID.Tables)
-            .Register();
-    }
+    public override void AddRecipes() => CreateRecipe()
+        .AddIngredient(ItemID.CopperBar, 4)
+        .AddIngredient(ItemID.Chain)
+        .AddTile(TileID.Chairs)
+        .AddTile(TileID.Tables)
+        .Register()
+        .DisableRecipe();
 }

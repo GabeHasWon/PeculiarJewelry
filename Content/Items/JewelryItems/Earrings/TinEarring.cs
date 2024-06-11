@@ -11,6 +11,7 @@ public class TinEarring : BaseEarring
             .AddIngredient(ItemID.TinBar, 4)
             .AddIngredient(ItemID.Chain)
             .AddTile(TileID.Anvils)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

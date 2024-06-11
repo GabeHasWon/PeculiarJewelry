@@ -30,13 +30,13 @@ public abstract class BaseRing : BasicJewelry
 
     protected override void EquipEffect(Player player, bool isVanity = false)
     {
-        if (Info.Any())
+        if (Info.Count != 0)
             player.GetModPlayer<MaterialPlayer>().SetEquip(EquipType.HandsOn, new MaterialPlayer.EquipLayerInfo(GetDisplayColor(), _jewelsEquip.Value));
     }
 
     public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
     {
-        if (Info.Any())
+        if (Info.Count != 0)
             spriteBatch.Draw(_jewels.Value, position, frame, GetDisplayColor(), 0f, origin, scale, SpriteEffects.None, 0);
 
         base.PostDrawInInventory(spriteBatch, position, frame, drawColor, itemColor, origin, scale);
@@ -44,7 +44,7 @@ public abstract class BaseRing : BasicJewelry
 
     public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
     {
-        if (Info.Any())
+        if (Info.Count != 0)
         {
             Color col = lightColor.MultiplyRGB(GetDisplayColor());
             spriteBatch.Draw(_jewels.Value, Item.Center - Main.screenPosition, null, col, rotation, _jewels.Size() / 2f, scale, SpriteEffects.None, 0);
@@ -53,13 +53,11 @@ public abstract class BaseRing : BasicJewelry
         base.PostDrawInWorld(spriteBatch, lightColor, alphaColor, rotation, scale, whoAmI);
     }
 
-    public override void AddRecipes()
-    {
-        CreateRecipe()
-            .AddIngredient(Material, 2)
-            .AddTile(Hardmode ? TileID.MythrilAnvil : TileID.Anvils)
-            .Register();
-    }
+    public override void AddRecipes() => CreateRecipe()
+        .AddIngredient(Material, 2)
+        .AddTile(Hardmode ? TileID.MythrilAnvil : TileID.Anvils)
+        .Register()
+        .DisableRecipe();
 
     public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
     {

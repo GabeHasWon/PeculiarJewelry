@@ -10,6 +10,7 @@ public class HallowedTiara : BaseTiara
         CreateRecipe()
             .AddIngredient(ItemID.HallowedBar, 8)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

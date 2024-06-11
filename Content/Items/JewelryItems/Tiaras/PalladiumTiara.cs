@@ -10,6 +10,7 @@ public class PalladiumTiara : BaseTiara
         CreateRecipe()
             .AddIngredient(ItemID.PalladiumBar, 8)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

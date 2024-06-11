@@ -10,6 +10,7 @@ public class BeetleNecklace : BaseNecklace
         CreateRecipe()
             .AddIngredient(ItemID.BeetleHusk, 6)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

@@ -10,6 +10,7 @@ public class LeadTiara : BaseTiara
         CreateRecipe()
             .AddIngredient(ItemID.LeadBar, 8)
             .AddTile(TileID.Anvils)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

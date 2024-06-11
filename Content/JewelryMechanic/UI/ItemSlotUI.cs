@@ -35,7 +35,7 @@ internal class ItemSlotUI(Item[] itemArray, int itemIndex, int itemSlotContext, 
             Main.LocalPlayer.mouseInterface = true;
             Item inv = ItemSlots[0];
 
-            if (_handleItem.Invoke(Main.LocalPlayer.HeldItem, this))
+            if (_handleItem is null || _handleItem.Invoke(Main.LocalPlayer.HeldItem, this))
             {
                 ItemSlot.OverrideHover(ref inv, _context);
                 ItemSlot.LeftClick(ref inv, _context);

@@ -5,13 +5,11 @@ public class ChlorophyteEarring : BaseEarring
 {
     public override string MaterialCategory => "Chlorophyte";
 
-    public override void AddRecipes()
-    {
-        CreateRecipe()
-            .AddIngredient(ItemID.ChlorophyteBar, 4)
-            .AddIngredient(ItemID.Chain)
-            .AddTile(TileID.Chairs)
-            .AddTile(TileID.Tables)
-            .Register();
-    }
+    public override void AddRecipes() => CreateRecipe()
+        .AddIngredient(ItemID.ChlorophyteBar, 4)
+        .AddIngredient(ItemID.Chain)
+        .AddTile(TileID.Chairs)
+        .AddTile(TileID.Tables)
+        .Register()
+        .DisableRecipe();
 }

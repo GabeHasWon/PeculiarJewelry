@@ -10,6 +10,7 @@ public class LuminiteNecklace : BaseNecklace
         CreateRecipe()
             .AddIngredient(ItemID.LunarBar, 6)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

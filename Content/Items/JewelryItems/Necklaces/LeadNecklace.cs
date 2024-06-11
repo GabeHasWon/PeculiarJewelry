@@ -10,6 +10,7 @@ public class LeadNecklace : BaseNecklace
         CreateRecipe()
             .AddIngredient(ItemID.LeadBar, 6)
             .AddTile(TileID.Anvils)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

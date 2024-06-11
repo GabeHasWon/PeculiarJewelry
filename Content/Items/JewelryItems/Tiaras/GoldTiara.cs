@@ -10,6 +10,7 @@ public class GoldTiara : BaseTiara
         CreateRecipe()
             .AddIngredient(ItemID.GoldBar, 8)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

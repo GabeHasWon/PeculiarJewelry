@@ -10,6 +10,7 @@ public class CobaltNecklace : BaseNecklace
         CreateRecipe()
             .AddIngredient(ItemID.CobaltBar, 6)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

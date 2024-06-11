@@ -1,5 +1,6 @@
 ﻿using PeculiarJewelry.Content.JewelryMechanic.GrindstoneSystem;
 using PeculiarJewelry.Content.JewelryMechanic.Misc;
+using PeculiarJewelry.Content.JewelryMechanic.UI;
 using Terraria.DataStructures;
 using Terraria.ObjectData;
 
@@ -39,4 +40,10 @@ public class GrindstoneTile : ModTile
 
     public override void MouseOver(int i, int j) => GrindstoneHandler.Input(i, j);
     public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 4;
+
+    public override bool RightClick(int i, int j)
+    {
+        JewelUISystem.SwitchUI(new JewelryCraftingUI());
+        return true;
+    }
 }

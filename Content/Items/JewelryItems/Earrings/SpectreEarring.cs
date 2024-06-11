@@ -11,6 +11,7 @@ public class SpectreEarring : BaseEarring
             .AddIngredient(ItemID.SpectreBar, 4)
             .AddIngredient(ItemID.Chain)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

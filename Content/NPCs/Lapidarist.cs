@@ -105,6 +105,7 @@ public class Lapidarist : ModNPC
         {
             Main.npcChatText = Language.GetTextValue("Mods.PeculiarJewelry.NPCs.Lapidarist.UIDialogue.OpenSelectionMenu");
             JewelUISystem.Instance.JewelInterface.SetState(new ChooseJewelMechanicUIState(NPC.whoAmI));
+            Main.playerInventory = false;
         }
     }
 

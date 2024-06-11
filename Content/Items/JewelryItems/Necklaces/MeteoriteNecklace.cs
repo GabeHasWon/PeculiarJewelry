@@ -10,6 +10,7 @@ public class MeteoriteNecklace : BaseNecklace
         CreateRecipe()
             .AddIngredient(ItemID.MeteoriteBar, 6)
             .AddTile(TileID.Anvils)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

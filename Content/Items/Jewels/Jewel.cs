@@ -1,4 +1,3 @@
-using Mono.Cecil;
 using PeculiarJewelry.Content.Items.JewelSupport;
 using PeculiarJewelry.Content.Items.Tiles;
 using PeculiarJewelry.Content.JewelryMechanic.GrindstoneSystem;
@@ -8,7 +7,6 @@ using PeculiarJewelry.Content.JewelryMechanic.UI;
 using PeculiarJewelry.Content.NPCs;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using Terraria.DataStructures;
@@ -18,7 +16,7 @@ using Terraria.Utilities;
 
 namespace PeculiarJewelry.Content.Items.Jewels;
 
-public abstract class Jewel : ModItem, IGrindableItem
+public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
 {
     protected abstract Type InfoType { get; }
     protected virtual byte MaxVariations => 1;
@@ -33,6 +31,7 @@ public abstract class Jewel : ModItem, IGrindableItem
         Item.noUseGraphic = true;
         Item.autoReuse = true;
         Item.value = Item.buyPrice(0, 10);
+        Item.maxStack = 1;
 
         info = Activator.CreateInstance(InfoType) as JewelInfo;
         info.Setup(JewelTier.Natural); //Info is tier 0 by default 
@@ -150,12 +149,7 @@ public abstract class Jewel : ModItem, IGrindableItem
 
     public bool GrindstoneUse(int i, int j, IEntitySource source)
     {
-        int totalDustCount = 0;
-
-        for (int x = 0; x < info.cuts; ++x)
-            totalDustCount += CutJewelUIState.JewelCutDustPrice(info.tier, x);
-
-        int dustPayout = (int)(totalDustCount * 0.2f) + (3 + 3 * (int)(info.tier + 1));
+        int dustPayout = (int)(info.TotalDustCost() * 0.2f) + 3 + 3 * (int)(info.tier + 1);
 
         if (dustPayout < 1)
             dustPayout = 1;
@@ -204,7 +198,7 @@ public abstract class Jewel : ModItem, IGrindableItem
                 continue;
 
             Item item = new(ModContent.ItemType<SubShard>());
-            SubShard shard = item.ModItem as SubShard;
+            var shard = item.ModItem as SubShard;
             shard.stat = stat;
             NewItem.SpawnSynced(source, Main.MouseWorld, item, true);
         }

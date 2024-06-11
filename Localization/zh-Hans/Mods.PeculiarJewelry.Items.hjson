@@ -2930,3 +2930,8 @@ NonaRadiantEcho: {
 	DisplayName: 九锻光辉回声
 	Tooltip: 可用于将宝石从切割等级71升级到72
 }
+
+KeepsakeChest: {
+	// DisplayName: Keepsake Chest
+	// Tooltip: ""
+}

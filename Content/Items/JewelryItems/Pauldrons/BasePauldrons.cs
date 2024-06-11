@@ -1,6 +1,5 @@
 using PeculiarJewelry.Content.JewelryMechanic.MaterialBonuses;
 using ReLogic.Content;
-using System.Linq;
 using Terraria.GameContent;
 
 namespace PeculiarJewelry.Content.Items.JewelryItems.Pauldrons;
@@ -45,14 +44,14 @@ public class BasePauldrons(string name, string category, int mat) : BasicJewelry
     {
         Item.width = 46;
         Item.height = 20;
-        Item.accessory = true;
+        Item.accessory = false;
 
         _frame = Main.rand.Next(2);
     }
 
     protected override void EquipEffect(Player player, bool isVanity = false)
     {
-        if (Info.Any())
+        if (Info.Count != 0)
         {
             player.GetModPlayer<MaterialPlayer>().SetEquip(EquipType.Body, new MaterialPlayer.EquipLayerInfo(GetDisplayColor(), _jewelsEquip.Value));
             // Dumb workaround for non-standard layers
@@ -60,24 +59,24 @@ public class BasePauldrons(string name, string category, int mat) : BasicJewelry
         }
     }
 
-    public override bool PreDrawInInventory(SpriteBatch s, Vector2 p, Rectangle frame, Color d, Color itemColor, Vector2 o, float sc) => VariantDraw(s, p, d, o, sc);
+    public override bool PreDrawInInventory(SpriteBatch s, Vector2 p, Rectangle frame, Color d, Color itemColor, Vector2 o, float sc) => VariantDraw(s, p, d, o, sc * 0.7f);
     public override bool PreDrawInWorld(SpriteBatch s, Color d, Color a, ref float r, ref float sc, int w) =>
         VariantDraw(s, Item.Center - Main.screenPosition, d, null, sc / 2f, r);
 
     private bool VariantDraw(SpriteBatch spriteBatch, Vector2 position, Color drawColor, Vector2? origin, float scale, float rotation = 0f)
     {
-        Rectangle rect = new(0, 26 * _frame, 46, 26);
+        Rectangle rect = new(0, 26 * _frame, 46, 24);
         Texture2D tex = TextureAssets.Item[Type].Value;
 
         origin ??= new Vector2(24, 26);
 
-        spriteBatch.Draw(tex, position, rect, drawColor, rotation, origin.Value / new Vector2(1, 2f), scale * 2f, SpriteEffects.None, 0);
+        spriteBatch.Draw(tex, position, rect, drawColor, rotation, origin.Value / new Vector2(1, 2f), scale * 2, SpriteEffects.None, 0);
         return false;
     }
 
     public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color i, Vector2 origin, float scale)
     {
-        if (Info.Any())
+        if (Info.Count != 0)
             spriteBatch.Draw(_jewels.Value, position, frame, GetDisplayColor(), 0f, origin / new Vector2(1, 2), scale * 2, SpriteEffects.None, 0);
 
         base.PostDrawInInventory(spriteBatch, position, frame, drawColor, i, origin, scale);
@@ -85,7 +84,7 @@ public class BasePauldrons(string name, string category, int mat) : BasicJewelry
 
     public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
     {
-        if (Info.Any())
+        if (Info.Count != 0)
         {
             Color col = lightColor.MultiplyRGB(GetDisplayColor());
             spriteBatch.Draw(_jewels.Value, Item.Center - Main.screenPosition, null, col, rotation, _jewels.Size() / 2f, scale, SpriteEffects.None, 0);
@@ -94,21 +93,11 @@ public class BasePauldrons(string name, string category, int mat) : BasicJewelry
         base.PostDrawInWorld(spriteBatch, lightColor, alphaColor, rotation, scale, whoAmI);
     }
 
-    public override void AddRecipes()
-    {
-        CreateRecipe()
-            .AddIngredient(_material, 10)
-            .AddTile(TileID.Anvils)
-            .Register();
-    }
-
-    public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
-    {
-        if (equippedItem.ModItem is BasePauldrons)
-            return incomingItem.ModItem is not BasePauldrons;
-
-        return true;
-    }
+    public override void AddRecipes() => CreateRecipe()
+        .AddIngredient(_material, 10)
+        .AddTile(TileID.Anvils)
+        .Register()
+        .DisableRecipe();
 }
 
 internal class PauldronLoader : ILoadable

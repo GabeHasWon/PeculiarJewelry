@@ -10,6 +10,7 @@ public class AdamantiteNecklace : BaseNecklace
         CreateRecipe()
             .AddIngredient(ItemID.AdamantiteBar, 6)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

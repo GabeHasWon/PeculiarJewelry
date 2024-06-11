@@ -5,11 +5,9 @@ public class CrimtaneNecklace : BaseNecklace
 {
     public override string MaterialCategory => "Crimtane";
 
-    public override void AddRecipes()
-    {
-        CreateRecipe()
-            .AddIngredient(ItemID.CrimtaneBar, 6)
-            .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
-    }
+    public override void AddRecipes() => CreateRecipe()
+        .AddIngredient(ItemID.CrimtaneBar, 6)
+        .AddTile(TileID.Chairs).AddTile(TileID.Tables)
+        .Register()
+        .DisableRecipe();
 }

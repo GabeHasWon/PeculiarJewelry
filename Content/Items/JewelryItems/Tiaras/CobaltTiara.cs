@@ -10,6 +10,7 @@ public class CobaltTiara : BaseTiara
         CreateRecipe()
             .AddIngredient(ItemID.CobaltBar, 8)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

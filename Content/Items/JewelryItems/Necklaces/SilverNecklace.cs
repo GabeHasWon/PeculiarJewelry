@@ -10,6 +10,7 @@ public class SilverNecklace : BaseNecklace
         CreateRecipe()
             .AddIngredient(ItemID.SilverBar, 6)
             .AddTile(TileID.Anvils)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

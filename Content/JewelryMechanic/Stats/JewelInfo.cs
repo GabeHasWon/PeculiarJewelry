@@ -1,4 +1,5 @@
 ﻿using PeculiarJewelry.Content.Items.Jewels;
+using PeculiarJewelry.Content.JewelryMechanic.UI;
 using System;
 using System.Collections.Generic;
 
@@ -126,6 +127,7 @@ public abstract partial class JewelInfo
             SuccessfulCut();
             return true;
         }
+
         return false;
     }
 
@@ -151,4 +153,14 @@ public abstract partial class JewelInfo
     }
 
     public bool InThresholdCut() => (cuts - 7) % 8 == 0;
+
+    public int TotalDustCost()
+    {
+        int totalDustCount = 0;
+
+        for (int x = 0; x < cuts; ++x)
+            totalDustCount += CutJewelUIState.JewelCutDustPrice(tier, x);
+
+        return totalDustCount;
+    }
 }

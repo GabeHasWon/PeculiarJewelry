@@ -10,6 +10,7 @@ public class TitaniumNecklace : BaseNecklace
         CreateRecipe()
             .AddIngredient(ItemID.TitaniumBar, 6)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

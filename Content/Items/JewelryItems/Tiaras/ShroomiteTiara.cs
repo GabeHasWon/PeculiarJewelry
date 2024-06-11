@@ -10,6 +10,7 @@ public class ShroomiteTiara : BaseTiara
         CreateRecipe()
             .AddIngredient(ItemID.ShroomiteBar, 8)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

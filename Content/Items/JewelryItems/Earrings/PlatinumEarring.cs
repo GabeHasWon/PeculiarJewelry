@@ -11,6 +11,7 @@ public class PlatinumEarring : BaseEarring
             .AddIngredient(ItemID.PlatinumBar, 4)
             .AddIngredient(ItemID.Chain)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

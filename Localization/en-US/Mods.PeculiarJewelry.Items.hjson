@@ -2226,8 +2226,9 @@ Grindstone: {
 	DisplayName: Grindstone
 	Tooltip:
 		'''
-		Can be used to grind jewels into [i:PeculiarJewelry/SparklyDust] and [i:PeculiarJewelry/SubShard]
-		'Covered in flecks and spots'
+		Used to grind jewels into [i:PeculiarJewelry/SparklyDust] and [i:PeculiarJewelry/SubShard] by left clicking
+		Also used to craft jewelry from materials by right clicking
+		'Covered in flecks and shards'
 		'''
 }
 
@@ -2933,4 +2934,9 @@ OctoRadiantEcho: {
 NonaRadiantEcho: {
 	DisplayName: Ennea-Forged Radiant Echo
 	Tooltip: Can be used to upgrade jewels from cut 71 to 72
+}
+
+KeepsakeChest: {
+	DisplayName: Keepsake Chest
+	Tooltip: ""
 }

@@ -12,6 +12,7 @@ public class PalladiumEarring : BaseEarring
             .AddIngredient(ItemID.Chain)
             .AddTile(TileID.Chairs)
             .AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

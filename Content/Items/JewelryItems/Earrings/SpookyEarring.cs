@@ -11,6 +11,7 @@ public class SpookyEarring : BaseEarring
             .AddIngredient(ItemID.SpookyWood, 4)
             .AddIngredient(ItemID.Chain)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

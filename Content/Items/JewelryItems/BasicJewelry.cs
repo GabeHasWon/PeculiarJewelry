@@ -1,9 +1,11 @@
 ﻿using PeculiarJewelry.Content.Items.Jewels;
+using PeculiarJewelry.Content.JewelryMechanic.Globals;
 using PeculiarJewelry.Content.JewelryMechanic.MaterialBonuses;
 using PeculiarJewelry.Content.JewelryMechanic.MaterialBonuses.Bonuses;
 using PeculiarJewelry.Content.JewelryMechanic.Misc;
 using PeculiarJewelry.Content.JewelryMechanic.Stats;
 using PeculiarJewelry.Content.JewelryMechanic.Stats.IO;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,7 +14,7 @@ using Terraria.ModLoader.IO;
 
 namespace PeculiarJewelry.Content.Items.JewelryItems;
 
-public abstract class BasicJewelry : ModItem
+public abstract class BasicJewelry : ModItem, IStorableItem
 {
     public enum JewelryTier : byte
     {
@@ -25,6 +27,11 @@ public abstract class BasicJewelry : ModItem
 
     public abstract string MaterialCategory { get; }
 
+    ///// <summary>
+    ///// Internal name of the jewelry type, i.e. "Necklace".
+    ///// </summary>
+    //public abstract string JewelryName { get; }
+
     public List<JewelInfo> Info { get; protected set; }
     public JewelryTier tier = JewelryTier.Ordinary;
 
@@ -33,6 +40,8 @@ public abstract class BasicJewelry : ModItem
         Item.accessory = true;
         Item.rare = ModContent.RarityType<JewelRarity>();
         Item.value = Item.sellPrice(gold: 1);
+
+        //JewelrySets.LoadedJewelryTypes.Add(GetType().Name);
 
         SetTier(JewelryTier.Ordinary);
         Defaults();
@@ -60,7 +69,7 @@ public abstract class BasicJewelry : ModItem
     {
         var name = tooltips.First(x => x.Name == "ItemName");
 
-        if (Info.Any())
+        if (Info.Count != 0)
         {
             var stat = DetermineHighestStat(Info);
             name.Text = $"{JewelryPrefix(tier)} {name.Text} of {stat.Localize()}";
@@ -80,7 +89,7 @@ public abstract class BasicJewelry : ModItem
         {
             SummaryJewelryTooltips(tooltips, this, Mod);
 
-            if (Info.Any())
+            if (Info.Count != 0)
                 tooltips.Add(new TooltipLine(Mod, "ShiftNotice", Language.GetTextValue("Mods.PeculiarJewelry.Jewelry.HoldShift")));
         }
         else
@@ -127,8 +136,8 @@ public abstract class BasicJewelry : ModItem
     public static void SummaryJewelryTooltips(List<TooltipLine> tooltips, BasicJewelry jewelry, Mod mod, Player player = null, List<JewelInfo> overrideInfo = null)
     {
         List<JewelInfo> info = overrideInfo ?? jewelry.Info;
-        Dictionary<StatType, float> strengthsByType = new();
-        Dictionary<StatType, Color> colorsByType = new();
+        Dictionary<StatType, float> strengthsByType = [];
+        Dictionary<StatType, Color> colorsByType = [];
         int triggerIndex = 0;
 
         player ??= Main.LocalPlayer;
@@ -136,8 +145,7 @@ public abstract class BasicJewelry : ModItem
 
         foreach (var item in info)
         {
-            List<JewelStat> stats = new() { item.Major };
-            stats.AddRange(item.SubStats);
+            List<JewelStat> stats = [item.Major, .. item.SubStats];
 
             foreach (var stat in stats)
             {
@@ -156,13 +164,30 @@ public abstract class BasicJewelry : ModItem
 
         foreach (var (type, strength) in strengthsByType)
         {
-            var desc = "+" + Language.GetText("Mods.PeculiarJewelry.Jewelry.StatTypes." + type + ".Description").WithFormatArgs(strength.ToString("#0.##")).Value;
+            string desc = "+" + Language.GetText("Mods.PeculiarJewelry.Jewelry.StatTypes." + type + ".Description").WithFormatArgs(strength.ToString("#0.##")).Value;
             tooltips.Add(new TooltipLine(mod, "SummaryInfo" + type, desc) { OverrideColor = colorsByType[type] });
         }
 
         jewelry.ResetSingleJewelBonus(player);
     }
 
+    public override void OnSpawn(IEntitySource source)
+    {
+        if (source is not EntitySource_Loot { Context: "JewelCrafting" })
+            return;
+
+        if (Main.LocalPlayer.GetModPlayer<RevelationPlayer>().hasReveled)
+        {
+            Main.LocalPlayer.GetModPlayer<RevelationPlayer>().hasReveled = false;
+            SetTier(JewelryTier.Extravagant);
+            return;
+        }
+
+        if (Main.LocalPlayer.GetModPlayer<RichPlayer>().isRich)
+            SetTier((JewelryTier)Main.rand.Next((int)JewelryTier.Extravagant + 1));
+    }
+
+    [Obsolete]
     public override void OnCreated(ItemCreationContext context)
     {
         if (context is not RecipeItemCreationContext)
@@ -237,7 +262,7 @@ public abstract class BasicJewelry : ModItem
             return;
 
         Color color = Info.Count > 0 ? GetDisplayColor() : Color.White;
-        JewelDrawing.DrawSparks(position - (Item.Size / 2f) * scale, Item.Size * scale, (int)tier, color, 1f);
+        JewelDrawing.DrawSparks(position - Item.Size / 2f * scale, Item.Size * scale, (int)tier, color, 1f);
     }
 
     public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)

@@ -10,6 +10,7 @@ public class SpookyTiara : BaseTiara
         CreateRecipe()
             .AddIngredient(ItemID.SpookyWood, 8)
             .AddTile(TileID.Chairs).AddTile(TileID.Tables)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

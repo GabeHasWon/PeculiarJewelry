@@ -35,7 +35,8 @@ internal class SetJewelUIState : UIState, IClosableUIState
 
     public override void OnInitialize()
     {
-        Width = StyleDimension.Fill; Height = StyleDimension.Fill;
+        Width = StyleDimension.Fill; 
+        Height = StyleDimension.Fill;
 
         SetDialoguePanel();
         SetSetPanel();
@@ -147,7 +148,7 @@ internal class SetJewelUIState : UIState, IClosableUIState
             }
         }
 
-        if (!info.Any())
+        if (info.Count == 0)
             return Localize("Empty");
 
         const string Hex = "[c/ffff00:";

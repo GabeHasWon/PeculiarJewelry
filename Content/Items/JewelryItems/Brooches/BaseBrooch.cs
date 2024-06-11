@@ -60,7 +60,7 @@ public class BaseBrooch : BasicJewelry
 
     protected override void EquipEffect(Player player, bool isVanity = false)
     {
-        if (Info.Any())
+        if (Info.Count != 0)
             player.GetModPlayer<MaterialPlayer>().SetEquip(EquipType.Front, new MaterialPlayer.EquipLayerInfo(GetDisplayColor(), _jewelsEquip.Value));
     }
 
@@ -81,7 +81,7 @@ public class BaseBrooch : BasicJewelry
 
     public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color i, Vector2 origin, float scale)
     {
-        if (Info.Any())
+        if (Info.Count != 0)
             spriteBatch.Draw(_jewels.Value, position, frame, GetDisplayColor(), 0f, origin / new Vector2(1, 3), scale * 3, SpriteEffects.None, 0);
 
         base.PostDrawInInventory(spriteBatch, position, frame, drawColor, i, origin, scale * 2);
@@ -89,7 +89,7 @@ public class BaseBrooch : BasicJewelry
 
     public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
     {
-        if (Info.Any())
+        if (Info.Count != 0)
         {
             Color col = lightColor.MultiplyRGB(GetDisplayColor());
             spriteBatch.Draw(_jewels.Value, Item.Center - Main.screenPosition, null, col, rotation, _jewels.Size() / 2f, scale, SpriteEffects.None, 0);
@@ -98,14 +98,12 @@ public class BaseBrooch : BasicJewelry
         base.PostDrawInWorld(spriteBatch, lightColor, alphaColor, rotation, scale, whoAmI);
     }
 
-    public override void AddRecipes()
-    {
-        CreateRecipe()
-            .AddIngredient(_material, 6)
-            .AddTile(TileID.Chairs)
-            .AddTile(TileID.Tables)
-            .Register();
-    }
+    public override void AddRecipes() => CreateRecipe()
+        .AddIngredient(_material, 6)
+        .AddTile(TileID.Chairs)
+        .AddTile(TileID.Tables)
+        .Register()
+        .DisableRecipe();
 
     public override bool CanAccessoryBeEquippedWith(Item equippedItem, Item incomingItem, Player player)
     {

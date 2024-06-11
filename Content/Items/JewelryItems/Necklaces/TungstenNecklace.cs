@@ -10,6 +10,7 @@ public class TungstenNecklace : BaseNecklace
         CreateRecipe()
             .AddIngredient(ItemID.TungstenBar, 6)
             .AddTile(TileID.Anvils)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

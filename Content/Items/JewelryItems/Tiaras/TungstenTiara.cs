@@ -10,6 +10,7 @@ public class TungstenTiara : BaseTiara
         CreateRecipe()
             .AddIngredient(ItemID.TungstenBar, 8)
             .AddTile(TileID.Anvils)
-            .Register();
+            .Register()
+            .DisableRecipe();
     }
 }

@@ -1,1 +1,2 @@
-- Added Chinese localization thanks to sjzd123456 on GitHub
+- Fixed "Combine!" text in Superimposition screen being unlocalized and consequently unreadable
+- Made the jewel selection menu for the Lapidarist close when not talking to the Lapidarist
