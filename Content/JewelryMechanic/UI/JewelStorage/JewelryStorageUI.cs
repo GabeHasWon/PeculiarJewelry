@@ -4,6 +4,7 @@ using Steamworks;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader.UI;
 using Terraria.ModLoader.UI.Elements;
@@ -55,16 +56,16 @@ internal class JewelryStorageUI() : UIState
         /// </summary>
         DustCost,
 
-        ExlJewelMajorStat,
-        ExlJewelSubStat,
-        ExlJewelryMaterial,
+        //ExlJewelMajorStat,
+        //ExlJewelSubStat,
+        //ExlJewelryMaterial,
 
         Max,
     }
 
     public enum SortMode
     {
-        None,
+        All,
         Jewel,
         Jewelry
     }
@@ -77,9 +78,10 @@ internal class JewelryStorageUI() : UIState
     private UIGrid grid = null;
     private UIPanel panel = null;
     private UIPanel searchPanel = null;
+    private UIPanel helpPanel = null;
     private int id = 0;
     private bool reverseOrder = true;
-    private SortMode sortMode = SortMode.None;
+    private SortMode sortMode = SortMode.All;
     private string searchTerm = string.Empty;
 
     internal static string Localize(string postfix) => Language.GetTextValue("Mods.PeculiarJewelry.UI.Misc." + postfix);
@@ -114,7 +116,7 @@ internal class JewelryStorageUI() : UIState
         };
         Append(panel);
 
-        panel.Append(new UIText("Jewel Storage", 0.7f, true) { VAlign = 0, HAlign = 0.25f, Top = StyleDimension.FromPixels(4) });
+        panel.Append(new UIText(Localize("StorageTitle"), 0.7f, true) { VAlign = 0, HAlign = 0.25f, Top = StyleDimension.FromPixels(4) });
 
         CreateSortButton(panel);
 
@@ -127,7 +129,7 @@ internal class JewelryStorageUI() : UIState
 
         grid.OnLeftClick += AddItemToStorage;
 
-        ResetGridContents(false);
+        ResetGridContents();
 
         panel.Append(grid);
 
@@ -150,6 +152,15 @@ internal class JewelryStorageUI() : UIState
         exitButton.OnLeftClick += (sender, e) => JewelUISystem.SwitchUI(null);
         panel.Append(exitButton);
 
+        UIButton<string> questionButton = new($"?")
+        {
+            Width = StyleDimension.FromPixels(30),
+            Height = StyleDimension.FromPixels(30),
+            Left = StyleDimension.FromPixels(34)
+        };
+        questionButton.OnLeftClick += ToggleQuestionPanel;
+        panel.Append(questionButton);
+
         UIButton<string> ascButton = new($"^")
         {
             Width = StyleDimension.FromPixels(30),
@@ -165,16 +176,53 @@ internal class JewelryStorageUI() : UIState
         };
 
         panel.Append(ascButton);
+
+        AppendSearch();
     }
+
+    private void ToggleQuestionPanel(UIMouseEvent evt, UIElement listeningElement)
+    {
+        if (helpPanel is null)
+        {
+            helpPanel = new()
+            {
+                Width = StyleDimension.FromPixels(592),
+                Height = StyleDimension.FromPixels(300),
+                Top = StyleDimension.FromPixels(332),
+                HAlign = 0.5f,
+                VAlign = 0.2f
+            };
+            Append(helpPanel);
+
+            helpPanel.Append(new UIText("You can search in normal text, or with any of the following tags:\n" +
+                $"[c/AAFFAA:For jewelry]:\n{AsTag("material")} - matches material, {AsTag("jewelrytier")} - matches jewelry tier\n[c/AAFFAA:For jewels:]" +
+                $"\n{AsTag("tier")} - matches jewel tier, {AsTag("cut")} - matches cut count, {AsTag("type")} - matches jewelry type, major or minor, " +
+                $"{AsTag("sub")} - matches any sub stat on the jewel, {AsTag("successfulcuts")} - matches successful cut count\n" +
+                $"[c/AAFFAA:For example:]\n\"material:iron jewelrytier:extravagant sub:vigor\"\nwould get any extravagant iron jewelry with at least 1 sub of vigor in it.\n" +
+                $"All jewels in jewelry will count for the search.", 0.9f)
+            {
+                IsWrapped = true,
+                Width = StyleDimension.Fill,
+                Height = StyleDimension.Fill,
+            });
+        }
+        else
+        {
+            RemoveChild(helpPanel);
+            helpPanel = null;
+        }
+    }
+
+    public static string AsTag(string tag) => $"\"{tag}\"";
 
     private void CreateSortButton(UIPanel panel)
     {
-        var button = new UIButton<string>("Sort by: Default", 1f, false)
+        var button = new UIButton<string>(Localize("OrderBy") + Localize("OrderType." + Order), 1f, false)
         {
             VAlign = 0,
             HAlign = 1f,
             Left = StyleDimension.FromPixels(-34),
-            Width = StyleDimension.FromPixels(180),
+            Width = StyleDimension.FromPixels(170),
             Height = StyleDimension.FromPixels(30)
         };
 
@@ -194,24 +242,9 @@ internal class JewelryStorageUI() : UIState
         if (Order < OrderMode.Default)
             Order = OrderMode.Max - 1;
 
-        SortMode oldSortMode = sortMode;
-
-        sortMode = Order switch
-        {
-            OrderMode.ExlJewelryMaterial => SortMode.Jewelry,
-            OrderMode.ExlJewelMajorStat or OrderMode.ExlJewelSubStat => SortMode.Jewel,
-            _ => SortMode.None
-        };
-
-        string text = $"Sort by: {Order}";
+        string text = Localize("OrderBy") + Localize("OrderType." + Order);
         
-        if (Order.ToString().StartsWith("Exl"))
-            text = $"Search by: {Order}";
-
         (listeningElement as UIButton<string>).SetText(text);
-
-        if (oldSortMode != sortMode)
-            ResetGridContents(true);
 
         grid.UpdateOrder();
 
@@ -219,81 +252,107 @@ internal class JewelryStorageUI() : UIState
             grid._items.Reverse();
     }
 
-    private void ResetGridContents(bool resetSearch)
+    private void ResetGridContents()
     {
-        if (resetSearch)
-        {
-            if (searchPanel is not null && HasChild(searchPanel))
-                RemoveChild(searchPanel);
-
-            if (sortMode != SortMode.None)
-            {
-                searchPanel = new UIPanel()
-                {
-                    HAlign = 0.5f,
-                    VAlign = 0.2f,
-                    Top = StyleDimension.FromPixels(-100),
-                    Left = StyleDimension.FromPixels(156),
-                    Width = StyleDimension.FromPixels(200),
-                    Height = StyleDimension.FromPixels(40),
-                };
-
-                var searchBar = new UISearchBar(Language.GetText("Mods.PeculiarJewelry.UI.Misc.Search"), 1f)
-                {
-                    Width = StyleDimension.Fill,
-                    Height = StyleDimension.Fill,
-                    IgnoresMouseInteraction = true
-                };
-                searchBar.SetContents(null, true);
-                searchPanel.Append(searchBar);
-                searchPanel.OnLeftClick += (_, self) => searchBar.ToggleTakingText();
-                searchBar.OnContentsChanged += SearchBar_OnContentsChanged;
-
-                Append(searchPanel);
-            }
-        }
-
         grid.Clear();
+        int count = Main.LocalPlayer.GetModPlayer<JewelStoragePlayer>().storage.Count;
 
-        for (int i = 0; i < Main.LocalPlayer.GetModPlayer<JewelStoragePlayer>().storage.Count; i++)
+        for (int i = 0; i < count; i++)
         {
             Item item = Main.LocalPlayer.GetModPlayer<JewelStoragePlayer>().storage[i];
 
-            if (sortMode == SortMode.None || sortMode == SortMode.Jewelry && item.ModItem is BasicJewelry || sortMode == SortMode.Jewel && item.ModItem is Jewel)
+            if (sortMode == SortMode.All || sortMode == SortMode.Jewelry && item.ModItem is BasicJewelry || sortMode == SortMode.Jewel && item.ModItem is Jewel)
             {
-                if (sortMode == SortMode.None)
+                if (sortMode == SortMode.All)
                     grid.Add(GenerateJewelSlot(i));
                 else if (searchTerm == string.Empty || ItemFitsSearch(item))
                     grid.Add(GenerateJewelSlot(i));
             }
         }
+
+        if (count % 9 != 0)
+        {
+            int remainder = 9 - count % 9;
+            var air = new Item();
+            air.TurnToAir();
+
+            for (int i = 0; i < remainder; ++i)
+            {
+                grid.Add(new UIJewelSlot(air, id++, (self, _) => self.id = 200)
+                {
+                    HAlign = 0.02f,
+                    VAlign = 0.01f
+                });
+            }    
+        }
+
+        grid.Add(new UIElement() { Height = StyleDimension.FromPixels(10), Width = StyleDimension.FromPixels(20) });
+    }
+
+    private void AppendSearch()
+    {
+        searchPanel = new UIPanel()
+        {
+            HAlign = 0.5f,
+            VAlign = 0.2f,
+            Top = StyleDimension.FromPixels(-100),
+            Left = StyleDimension.FromPixels(66),
+            Width = StyleDimension.FromPixels(400),
+            Height = StyleDimension.FromPixels(40),
+        };
+
+        var searchBar = new UISearchBar(Language.GetText("Mods.PeculiarJewelry.UI.Misc.Search"), 1f)
+        {
+            Width = StyleDimension.Fill,
+            Height = StyleDimension.Fill,
+            IgnoresMouseInteraction = true
+        };
+        searchBar.SetContents(null, true);
+        searchPanel.Append(searchBar);
+        searchPanel.OnLeftClick += (_, self) => searchBar.ToggleTakingText();
+        searchBar.OnContentsChanged += SearchBar_OnContentsChanged;
+
+        Append(searchPanel);
+
+        var sortToggle = new UIButton<string>(Localize("SortType.All"))
+        {
+            Width = StyleDimension.FromPixels(120),
+            Height = StyleDimension.FromPixels(40),
+            HAlign = 0.5f,
+            VAlign = 0.2f,
+            Left = StyleDimension.FromPixels(-206),
+            Top = StyleDimension.FromPixels(-100)
+        };
+
+        sortToggle.OnLeftClick += (_, self) => ClickSortToggle(self, 1);
+        sortToggle.OnRightClick += (_, self) => ClickSortToggle(self, -1);
+        Append(sortToggle);
+    }
+
+    private void ClickSortToggle(UIElement listeningElement, int inc)
+    {
+        var sortToggle = listeningElement as UIButton<string>;
+
+        sortMode += inc;
+
+        if (sortMode > SortMode.Jewelry)
+            sortMode = SortMode.All;
+
+        if (sortMode < SortMode.All)
+            sortMode = SortMode.Jewelry;
+
+        sortToggle.SetText(Localize("SortType." + sortMode.ToString()));
+        ResetGridContents();
     }
 
     private bool ItemFitsSearch(Item item)
     {
-        if (Order == OrderMode.ExlJewelryMaterial)
+        if (sortMode == SortMode.Jewelry)
+            return StorageSearching.JewelryMatches(searchTerm, item.ModItem as BasicJewelry);
+        else if (sortMode == SortMode.Jewel)
         {
-            var jewelry = item.ModItem as BasicJewelry;
-
-            if (jewelry.MaterialCategory.Contains(searchTerm))
-                return true;
-        }
-
-        var jewel = item.ModItem as Jewel;
-
-        switch (Order)
-        {
-            case OrderMode.ExlJewelMajorStat:
-                return jewel.info.Major.GetName().Value.Contains(searchTerm);
-
-            case OrderMode.ExlJewelSubStat:
-                foreach (var sub in jewel.info.SubStats)
-                {
-                    if (sub.GetName().Value.Contains(searchTerm))
-                        return true;
-                }
-
-                break;
+            var jewel = item.ModItem as Jewel;
+            return StorageSearching.JewelMatches(searchTerm, jewel.info, jewel);
         }
 
         return false;
@@ -306,7 +365,7 @@ internal class JewelryStorageUI() : UIState
         else
             searchTerm = obj;
         
-        ResetGridContents(false);
+        ResetGridContents();
     }
 
     private UIJewelSlot GenerateJewelSlot(int i)
@@ -353,6 +412,7 @@ internal class JewelryStorageUI() : UIState
         }
 
         AddItem(heldItem);
+        ResetGridContents();
 
         UIJewelSlot.HoveringSlot = false;
     }

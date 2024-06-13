@@ -9,7 +9,7 @@ public class UIJewelSlot : UIElement
 {
     public static bool HoveringSlot = false;
 
-    private readonly int _id;
+    internal int id;
 
     public bool Empty => item.IsAir;
 
@@ -21,7 +21,7 @@ public class UIJewelSlot : UIElement
 
     public UIJewelSlot(Item item, int id, Action<UIJewelSlot, Item> onEmptySlot = null, int itemSlotContext = ItemSlot.Context.ChestItem)
     {
-        _id = id;
+        this.id = id;
         this.item = item;
         _itemSlotContext = itemSlotContext;
         _onEmptySlot = onEmptySlot;
@@ -95,7 +95,7 @@ public class UIJewelSlot : UIElement
                 return DustCostCompare(obj);
         }
 
-        return obj is UIJewelSlot slot ? _id.CompareTo(slot._id) : base.CompareTo(obj);
+        return obj is UIJewelSlot slot ? id.CompareTo(slot.id) : base.CompareTo(obj);
     }
 
     private int DustCostCompare(object obj)
@@ -138,7 +138,7 @@ public class UIJewelSlot : UIElement
                 int comp = valueFunc.Invoke(otherJewel, jewel);
 
                 if (comp == 0)
-                    comp = obj is UIJewelSlot slot ? _id.CompareTo(slot._id) : base.CompareTo(obj);
+                    comp = obj is UIJewelSlot slot ? id.CompareTo(slot.id) : base.CompareTo(obj);
 
                 return comp;
             }

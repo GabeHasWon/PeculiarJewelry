@@ -13,4 +13,24 @@ JewelTiers: jewel tiers
 Craft: Craft
 Material: Material
 Type: Type
+# Storage stuff
+StorageTitle: Jewelry Storage
 Search: Search
+OrderBy: "Order by: "
+
+OrderType: {
+	Default: Default
+	Material: Material
+	Tier: Tier
+	CutsRemaining: Cuts Remaining
+	MainStat: Main Stat
+	SuccessfulCuts: Successful Cuts
+	JewelryQuality: Jewelry Quality
+	DustCost: Dust Cost
+}
+
+SortType: {
+	All: All
+	Jewelry: Jewelry
+	Jewel: Jewel
+}
