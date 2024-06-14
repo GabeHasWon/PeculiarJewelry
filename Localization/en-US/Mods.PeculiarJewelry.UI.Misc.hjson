@@ -33,4 +33,18 @@ SortType: {
 	All: All
 	Jewelry: Jewelry
 	Jewel: Jewel
+	Misc: Misc
 }
+
+StorageHelp:
+	'''
+	You can search in normal text, or with any of the following tags:
+	[c/AAFFAA:For jewelry]:
+	"material" - matches material, "jewelrytier" - matches jewelry tier
+	[c/AAFFAA:For jewels]:
+	"tier" - matches jewel tier, "cut" - matches cut count, "type" - matches jewelry type, major or minor - "sub" - matches any sub stat on the jewel, "successfulcuts" - matches successful cut count
+	[c/AAFFAA:For example:]
+	"material:iron jewelrytier:extravagant sub:vigor"
+	would get any extravagant iron jewelry with at least 1 sub of vigor in it.
+	All jewels set in jewelry will count for the search, even if you're searching by jewelry.
+	'''

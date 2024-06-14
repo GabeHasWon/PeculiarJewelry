@@ -67,7 +67,8 @@ internal class JewelryStorageUI() : UIState
     {
         All,
         Jewel,
-        Jewelry
+        Jewelry,
+        Misc
     }
 
     public static OrderMode Order = OrderMode.Default;
@@ -79,7 +80,6 @@ internal class JewelryStorageUI() : UIState
     private UIPanel panel = null;
     private UIPanel searchPanel = null;
     private UIPanel helpPanel = null;
-    private int id = 0;
     private bool reverseOrder = true;
     private SortMode sortMode = SortMode.All;
     private string searchTerm = string.Empty;
@@ -89,6 +89,7 @@ internal class JewelryStorageUI() : UIState
     public override void Update(GameTime gameTime)
     {
         ReverseGridOrder = reverseOrder;
+        UIJewelSlot.HoveringSlot = false;
 
         base.Update(gameTime);
 
@@ -167,7 +168,7 @@ internal class JewelryStorageUI() : UIState
             Height = StyleDimension.FromPixels(30),
             HAlign = 1f
         };
-        
+
         ascButton.OnLeftClick += (sender, e) =>
         {
             reverseOrder = !reverseOrder;
@@ -187,19 +188,14 @@ internal class JewelryStorageUI() : UIState
             helpPanel = new()
             {
                 Width = StyleDimension.FromPixels(592),
-                Height = StyleDimension.FromPixels(300),
-                Top = StyleDimension.FromPixels(332),
+                Height = StyleDimension.FromPixels(320),
+                Top = StyleDimension.FromPixels(336),
                 HAlign = 0.5f,
                 VAlign = 0.2f
             };
             Append(helpPanel);
 
-            helpPanel.Append(new UIText("You can search in normal text, or with any of the following tags:\n" +
-                $"[c/AAFFAA:For jewelry]:\n{AsTag("material")} - matches material, {AsTag("jewelrytier")} - matches jewelry tier\n[c/AAFFAA:For jewels:]" +
-                $"\n{AsTag("tier")} - matches jewel tier, {AsTag("cut")} - matches cut count, {AsTag("type")} - matches jewelry type, major or minor, " +
-                $"{AsTag("sub")} - matches any sub stat on the jewel, {AsTag("successfulcuts")} - matches successful cut count\n" +
-                $"[c/AAFFAA:For example:]\n\"material:iron jewelrytier:extravagant sub:vigor\"\nwould get any extravagant iron jewelry with at least 1 sub of vigor in it.\n" +
-                $"All jewels in jewelry will count for the search.", 0.9f)
+            helpPanel.Append(new UIText(Localize("StorageHelp"), 0.9f)
             {
                 IsWrapped = true,
                 Width = StyleDimension.Fill,
@@ -212,8 +208,6 @@ internal class JewelryStorageUI() : UIState
             helpPanel = null;
         }
     }
-
-    public static string AsTag(string tag) => $"\"{tag}\"";
 
     private void CreateSortButton(UIPanel panel)
     {
@@ -243,7 +237,7 @@ internal class JewelryStorageUI() : UIState
             Order = OrderMode.Max - 1;
 
         string text = Localize("OrderBy") + Localize("OrderType." + Order);
-        
+
         (listeningElement as UIButton<string>).SetText(text);
 
         grid.UpdateOrder();
@@ -261,7 +255,8 @@ internal class JewelryStorageUI() : UIState
         {
             Item item = Main.LocalPlayer.GetModPlayer<JewelStoragePlayer>().storage[i];
 
-            if (sortMode == SortMode.All || sortMode == SortMode.Jewelry && item.ModItem is BasicJewelry || sortMode == SortMode.Jewel && item.ModItem is Jewel)
+            if (sortMode == SortMode.All || sortMode == SortMode.Jewelry && item.ModItem is BasicJewelry || sortMode == SortMode.Jewel && item.ModItem is Jewel ||
+                sortMode == SortMode.Misc && item.ModItem is not Jewel and not BasicJewelry)
             {
                 if (sortMode == SortMode.All)
                     grid.Add(GenerateJewelSlot(i));
@@ -269,24 +264,6 @@ internal class JewelryStorageUI() : UIState
                     grid.Add(GenerateJewelSlot(i));
             }
         }
-
-        if (count % 9 != 0)
-        {
-            int remainder = 9 - count % 9;
-            var air = new Item();
-            air.TurnToAir();
-
-            for (int i = 0; i < remainder; ++i)
-            {
-                grid.Add(new UIJewelSlot(air, id++, (self, _) => self.id = 200)
-                {
-                    HAlign = 0.02f,
-                    VAlign = 0.01f
-                });
-            }    
-        }
-
-        grid.Add(new UIElement() { Height = StyleDimension.FromPixels(10), Width = StyleDimension.FromPixels(20) });
     }
 
     private void AppendSearch()
@@ -295,7 +272,7 @@ internal class JewelryStorageUI() : UIState
         {
             HAlign = 0.5f,
             VAlign = 0.2f,
-            Top = StyleDimension.FromPixels(-100),
+            Top = StyleDimension.FromPixels(-104),
             Left = StyleDimension.FromPixels(66),
             Width = StyleDimension.FromPixels(400),
             Height = StyleDimension.FromPixels(40),
@@ -321,7 +298,7 @@ internal class JewelryStorageUI() : UIState
             HAlign = 0.5f,
             VAlign = 0.2f,
             Left = StyleDimension.FromPixels(-206),
-            Top = StyleDimension.FromPixels(-100)
+            Top = StyleDimension.FromPixels(-104)
         };
 
         sortToggle.OnLeftClick += (_, self) => ClickSortToggle(self, 1);
@@ -335,11 +312,11 @@ internal class JewelryStorageUI() : UIState
 
         sortMode += inc;
 
-        if (sortMode > SortMode.Jewelry)
+        if (sortMode > SortMode.Misc)
             sortMode = SortMode.All;
 
         if (sortMode < SortMode.All)
-            sortMode = SortMode.Jewelry;
+            sortMode = SortMode.Misc;
 
         sortToggle.SetText(Localize("SortType." + sortMode.ToString()));
         ResetGridContents();
@@ -364,17 +341,17 @@ internal class JewelryStorageUI() : UIState
             searchTerm = string.Empty;
         else
             searchTerm = obj;
-        
+
         ResetGridContents();
     }
 
     private UIJewelSlot GenerateJewelSlot(int i)
     {
         Item item = Main.LocalPlayer.GetModPlayer<JewelStoragePlayer>().storage[i];
-        var slot = new UIJewelSlot(item, id++, (self, _) => ClearSelf(self, item)) 
-        { 
-            HAlign = 0.02f, 
-            VAlign = 0.01f 
+        var slot = new UIJewelSlot(item, (self, _) => ClearSelf(self, item))
+        {
+            HAlign = 0.02f,
+            VAlign = 0.01f
         };
 
         slot.OnUpdate += HoverJewelSlot;
@@ -406,13 +383,16 @@ internal class JewelryStorageUI() : UIState
         Item heldItem = Main.LocalPlayer.HeldItem;
 
         if (UIJewelSlot.HoveringSlot || IsInvalidItemForStorage(heldItem))
-        {
-            UIJewelSlot.HoveringSlot = false;
             return;
-        }
 
         AddItem(heldItem);
+
+        ReverseGridOrder = true;
         ResetGridContents();
+        ReverseGridOrder = false;
+
+        if (reverseOrder)
+            grid._items.Reverse();
 
         UIJewelSlot.HoveringSlot = false;
     }
@@ -436,7 +416,14 @@ internal class JewelryStorageUI() : UIState
     {
         float oldScale = Main.inventoryScale;
         Main.inventoryScale = 1f;
-        base.DrawChildren(spriteBatch);
+        HijackGridInnerListDrawing.DrawAdditionalSlots = true;
+
+        foreach (UIElement element in Elements)
+        {
+            element.Draw(spriteBatch);
+        }
+
+        HijackGridInnerListDrawing.DrawAdditionalSlots = false;
         Main.inventoryScale = oldScale;
     }
 }

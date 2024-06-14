@@ -226,7 +226,7 @@ internal class SuperimpositionUIState : UIState, IClosableUIState
         if (_storedStats.Count != (_minor ? 1 : 2))
             return;
 
-        if (_triggerChoice is null)
+        if (!_minor && _triggerChoice is null)
             return;
 
         Item jewelItem = new(_minor ? ModContent.ItemType<MinorJewel>() : ModContent.ItemType<MajorJewel>());

@@ -9,22 +9,21 @@ public class UIJewelSlot : UIElement
 {
     public static bool HoveringSlot = false;
 
-    internal int id;
-
     public bool Empty => item.IsAir;
 
-    private readonly Action<UIJewelSlot, Item> _onEmptySlot;
+    internal Action<UIJewelSlot, Item> onEmptySlot;
+    internal Action<UIJewelSlot, Item> onFullSlot;
 
     public Item item;
     
     private int _itemSlotContext;
 
-    public UIJewelSlot(Item item, int id, Action<UIJewelSlot, Item> onEmptySlot = null, int itemSlotContext = ItemSlot.Context.ChestItem)
+    public UIJewelSlot(Item item, Action<UIJewelSlot, Item> onEmpty = null, Action<UIJewelSlot, Item> onFull = null, int itemSlotContext = ItemSlot.Context.ChestItem)
     {
-        this.id = id;
         this.item = item;
         _itemSlotContext = itemSlotContext;
-        _onEmptySlot = onEmptySlot;
+        onEmptySlot = onEmpty;
+        onFullSlot = onFull;
         Width = new StyleDimension(48f, 0f);
         Height = new StyleDimension(48f, 0f);
     }
@@ -50,12 +49,13 @@ public class UIJewelSlot : UIElement
 
             ItemSlot.OverrideHover(ref item, _itemSlotContext);
             ItemSlot.LeftClick(ref item, _itemSlotContext);
-            ItemSlot.RightClick(ref item, _itemSlotContext);
             ItemSlot.MouseHover(ref item, _itemSlotContext);
         }
 
         if (item.IsAir)
-            _onEmptySlot?.Invoke(this, item);
+            onEmptySlot?.Invoke(this, item);
+        else
+            onFullSlot?.Invoke(this, item);
     }
 
     private static bool ValidItem(Item item, bool checkHeld)
@@ -68,6 +68,9 @@ public class UIJewelSlot : UIElement
 
     public override int CompareTo(object obj)
     {
+        if (obj is not UIJewelSlot)
+            return JewelryStorageUI.ReverseGridOrder ? -1 : 1;
+
         switch (JewelryStorageUI.Order)
         {
             case JewelryStorageUI.OrderMode.Default:
@@ -95,7 +98,7 @@ public class UIJewelSlot : UIElement
                 return DustCostCompare(obj);
         }
 
-        return obj is UIJewelSlot slot ? id.CompareTo(slot.id) : base.CompareTo(obj);
+        return obj is UIJewelSlot slot ? UniqueId.CompareTo(slot.UniqueId) : base.CompareTo(obj);
     }
 
     private int DustCostCompare(object obj)
@@ -138,7 +141,7 @@ public class UIJewelSlot : UIElement
                 int comp = valueFunc.Invoke(otherJewel, jewel);
 
                 if (comp == 0)
-                    comp = obj is UIJewelSlot slot ? id.CompareTo(slot.id) : base.CompareTo(obj);
+                    comp = obj is UIJewelSlot slot ? UniqueId.CompareTo(slot.UniqueId) : base.CompareTo(obj);
 
                 return comp;
             }

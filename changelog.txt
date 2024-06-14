@@ -1,2 +1,3 @@
-- Fixed "Combine!" text in Superimposition screen being unlocalized and consequently unreadable
-- Made the jewel selection menu for the Lapidarist close when not talking to the Lapidarist
+- Added Keepsake Chest/Jewel Storage, which allows you to store an indefinite amount of Peculiar Jewelry items in one place
+	The Storage is per-player, like piggy banks, has no limit, works with quick stack, and has a ton of search, sort and filter options.
+- Fixed Superimposition button not working with minor jewels
