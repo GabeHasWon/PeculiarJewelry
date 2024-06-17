@@ -44,7 +44,7 @@ internal class HijackGridInnerListDrawing : ILoadable
     {
         orig(self, spriteBatch);
 
-        if (!DrawAdditionalSlots)
+        if (!DrawAdditionalSlots || !self.Children.Any())
             return;
 
         // Sometimes, we write bad code. It's inevitable, uneviable, and most of all, probably not going to change.

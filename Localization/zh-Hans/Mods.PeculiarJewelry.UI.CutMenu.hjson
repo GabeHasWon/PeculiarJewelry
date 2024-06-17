@@ -17,3 +17,11 @@ NotEnough: 不够
 # The above is used for "Not enough Radiant Echo"
 SuccessfulCut: 切割[c/00FF00:成功！]
 FailedCut: 切割[c/FF0000:失败。]
+/* Help:
+	'''
+	[c/189DE3:Jewel Cutting] is nice and simple.
+	Each cut has a chance to succeed - shown on the left - and each successful cut will improve the jewel by a certain amount.
+	[c/189DE3:The Major stat] will always get +1 strength per successful cut, no matter what.
+	[c/189DE3:Every 4 successful cuts], a random sub stat will be added, or upgraded if the sub slots are full.
+	You can use a variety of [c/189DE3:support items] to supplement cuts, such as increasing success chance or removing price.
+	''' */

@@ -17,6 +17,7 @@ internal class SuperimpositionUIState : UIState, IClosableUIState
     private readonly List<JewelStat> _storedStats = [];
     private readonly Dictionary<JewelStat, bool> _storedStatsSide = [];
 
+    private UIPanel _helpPanel;
     private ItemSlotUI _leftJewel;
     private ItemSlotUI _rightJewel;
     private ItemSlotUI _resultJewel;
@@ -216,6 +217,44 @@ internal class SuperimpositionUIState : UIState, IClosableUIState
             Top = StyleDimension.FromPixels(366)
         };
         panel.Append(_subShardSlot);
+
+        UIButton<string> questionButton = new($"?")
+        {
+            Width = StyleDimension.FromPixels(30),
+            Height = StyleDimension.FromPixels(30),
+            HAlign = 0.55f,
+            VAlign = 1f
+        };
+        questionButton.OnLeftClick += ToggleQuestionPanel;
+        panel.Append(questionButton);
+    }
+
+    private void ToggleQuestionPanel(UIMouseEvent evt, UIElement listeningElement)
+    {
+        if (_helpPanel is null)
+        {
+            _helpPanel = new()
+            {
+                Width = StyleDimension.FromPixels(450),
+                Height = StyleDimension.FromPixels(320),
+                Top = StyleDimension.FromPixels(516),
+                HAlign = 0.5f,
+                Left = StyleDimension.FromPixels(-340)
+            };
+            Append(_helpPanel);
+
+            _helpPanel.Append(new UIText(Localize("Help"), 0.9f)
+            {
+                IsWrapped = true,
+                Width = StyleDimension.Fill,
+                Height = StyleDimension.Fill,
+            });
+        }
+        else
+        {
+            RemoveChild(_helpPanel);
+            _helpPanel = null;
+        }
     }
 
     private void GenerateJewel(UIMouseEvent evt, UIElement listeningElement)

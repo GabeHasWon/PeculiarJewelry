@@ -10,6 +10,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
+using Terraria.ModLoader.UI;
 using Terraria.UI;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.UI;
@@ -26,6 +27,7 @@ internal class CutJewelUIState : UIState, IClosableUIState
     private Item _storedItem = null;
     private bool _hasJewel = false;
     private UIPanel _statPanel = null;
+    private UIPanel _helpPanel = null;
     private bool _hoveringAnvil = false;
 
     // Info stuff
@@ -430,6 +432,44 @@ internal class CutJewelUIState : UIState, IClosableUIState
                 VAlign = 0.95f
             };
             panel.Append(_supportItems[i]);
+        }
+
+        UIButton<string> questionButton = new($"?")
+        {
+            Width = StyleDimension.FromPixels(30),
+            Height = StyleDimension.FromPixels(30),
+            HAlign = 1,
+            VAlign = 0
+        };
+        questionButton.OnLeftClick += ToggleQuestionPanel;
+        panel.Append(questionButton);
+    }
+
+    private void ToggleQuestionPanel(UIMouseEvent evt, UIElement listeningElement)
+    {
+        if (_helpPanel is null)
+        {
+            _helpPanel = new()
+            {
+                Width = StyleDimension.FromPixels(450),
+                Height = StyleDimension.FromPixels(290),
+                Top = StyleDimension.FromPixels(368),
+                HAlign = 0.5f,
+                Left = StyleDimension.FromPixels(-332)
+            };
+            Append(_helpPanel);
+
+            _helpPanel.Append(new UIText(Localize("Help"), 0.9f)
+            {
+                IsWrapped = true,
+                Width = StyleDimension.Fill,
+                Height = StyleDimension.Fill,
+            });
+        }
+        else
+        {
+            RemoveChild(_helpPanel);
+            _helpPanel = null;
         }
     }
 

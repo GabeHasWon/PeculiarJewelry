@@ -5,5 +5,15 @@ Full: "[c/FF8888:珠宝首饰无法接受更多珠宝！]"
 Empty: 珠宝首饰没有镶嵌珠宝！
 Name: 镶嵌珠宝
 Jewelry: 珠宝首饰
+// NoJewelry: (No jewelry inserted)
 Jewels: 珠宝
 SupportItems: 辅助物品
+/* Help:
+	'''
+	[c/C04AF0:Jewelry] can hold a certain amount of jewels according to their quality:
+	Ordinary: 1, Pretty: 2, Elegant: 3, Elaborate: 4, and Extravagant: 5.
+	[c/C04AF0:Jewelry] can have however many Minor jewels you want, but only one Major jewel.
+	[c/C04AF0:Confirming] will set the jewels in and allow you to use the jewelry to its new potential.
+	If you wish to remove a jewel from jewelry, you can purchase various Pliers from the Lapidarist. 
+	The better the plier, the less likely ...[c/C04AF0:something bad]... will happen to the jewel.
+	''' */

@@ -1,3 +1,7 @@
-- Added Keepsake Chest/Jewel Storage, which allows you to store an indefinite amount of Peculiar Jewelry items in one place
-	The Storage is per-player, like piggy banks, has no limit, works with quick stack, and has a ton of search, sort and filter options.
-- Fixed Superimposition button not working with minor jewels
+- Fixed Set Jewels UI saying "(No jewel inserted)" instead of "(No jewelry inserted)"
+- Fixed Keepsake Chest not functioning
+- Changed the "Stronger traps and stronger debuffs" to "Stronger traps and debuffs"
+- Added tooltip to Keepsake Chest
+- Fixed Pauldrons displaying set jewels incorrectly
+- Added help screens to all remaining UI
+	These should help clarify all functionality, especially for Superimposition.

@@ -14,6 +14,8 @@ internal class DesecrationUIState : UIState
 {
     private readonly Dictionary<string, float> TemporaryStrength = [];
 
+    private UIPanel _helpPanel = null;
+
     private static string Localize(string postfix) => Language.GetTextValue("Mods.PeculiarJewelry.UI.Misc." + postfix);
 
     public override void OnInitialize()
@@ -60,7 +62,7 @@ internal class DesecrationUIState : UIState
             HAlign = 0.5f,
         };
         reset.OnLeftClick += (UIMouseEvent evt, UIElement listeningElement) => TemporaryStrength.Clear();
-        
+
         Append(reset);
 
         UIButton<string> exit = new(Localize("Exit"))
@@ -118,6 +120,45 @@ internal class DesecrationUIState : UIState
         };
         tierBonus.OnUpdate += (self) => (self as UIText).SetText($"+{DesecratedSystem.AdditionalJewelTier} {Localize("JewelTiers")}");
         panel.Append(tierBonus);
+
+        UIButton<string> questionButton = new($"?")
+        {
+            Width = StyleDimension.FromPixels(30),
+            Height = StyleDimension.FromPixels(30),
+            HAlign = 1,
+            VAlign = 1
+        };
+        questionButton.OnLeftClick += ToggleQuestionPanel;
+        panel.Append(questionButton);
+    }
+
+    private void ToggleQuestionPanel(UIMouseEvent evt, UIElement listeningElement)
+    {
+        if (_helpPanel is null)
+        {
+            _helpPanel = new()
+            {
+                Width = StyleDimension.FromPixels(250),
+                Height = StyleDimension.FromPixels(400),
+                Top = StyleDimension.FromPixels(380),
+                Left = StyleDimension.FromPixels(380),
+                HAlign = 0.5f,
+                VAlign = 0.15f
+            };
+            Append(_helpPanel);
+
+            _helpPanel.Append(new UIText(Localize("DesecrationHelp"), 0.9f)
+            {
+                IsWrapped = true,
+                Width = StyleDimension.Fill,
+                Height = StyleDimension.Fill,
+            });
+        }
+        else
+        {
+            RemoveChild(_helpPanel);
+            _helpPanel = null;
+        }
     }
 
     private void ConfirmClick(UIMouseEvent evt, UIElement listeningElement)

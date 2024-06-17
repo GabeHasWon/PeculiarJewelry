@@ -41,7 +41,7 @@ LongerHealCooldownDesecration: {
 }
 
 TrapDoTBuffDesecration: {
-	Name: Stronger traps and stronger debuffs
+	Name: Stronger traps and debuffs
 	Description: Traps deal 150% more damage and damage over time debuffs are 150% more powerful
 }
 

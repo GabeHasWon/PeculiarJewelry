@@ -11,6 +11,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
+using Terraria.ModLoader.UI;
 using Terraria.UI;
 using Terraria.UI.Chat;
 
@@ -25,6 +26,7 @@ internal class SetJewelUIState : UIState, IClosableUIState
 
     DynamicSpriteFont Font => FontAssets.MouseText.Value;
 
+    UIPanel _helpPanel = null;
     ItemSlotUI _jewelrySlot = null;
     ItemSlotUI[] _jewelSlots = null;
     ItemSlotUI[] _supportSlots = null;
@@ -91,7 +93,7 @@ internal class SetJewelUIState : UIState, IClosableUIState
         };
         Append(panel);
 
-        UIText stats = new(CutJewelUIState.Localize("NoJewel"))
+        UIText stats = new(Localize("NoJewelry"))
         {
             IsWrapped = true,
             Width = StyleDimension.Fill,
@@ -117,7 +119,7 @@ internal class SetJewelUIState : UIState, IClosableUIState
     private string GetStats(bool isFuture, Player player = null)
     {
         if (!HasJewelry)
-            return CutJewelUIState.Localize("NoJewel");
+            return Localize("NoJewelry");
 
         player ??= Main.LocalPlayer;
 
@@ -293,6 +295,44 @@ internal class SetJewelUIState : UIState, IClosableUIState
             Top = StyleDimension.FromPixels(-14)
         };
         _supportSlots[1].Append(supportText);
+
+        UIButton<string> questionButton = new($"?")
+        {
+            Width = StyleDimension.FromPixels(30),
+            Height = StyleDimension.FromPixels(30),
+            HAlign = 1,
+            VAlign = 0
+        };
+        questionButton.OnLeftClick += ToggleQuestionPanel;
+        panel.Append(questionButton);
+    }
+
+    private void ToggleQuestionPanel(UIMouseEvent evt, UIElement listeningElement)
+    {
+        if (_helpPanel is null)
+        {
+            _helpPanel = new()
+            {
+                Width = StyleDimension.FromPixels(280),
+                Height = StyleDimension.FromPixels(450),
+                Top = StyleDimension.FromPixels(-100),
+                HAlign = 0.5f,
+                VAlign = 1f
+            };
+            Append(_helpPanel);
+
+            _helpPanel.Append(new UIText(Localize("Help"), 0.9f)
+            {
+                IsWrapped = true,
+                Width = StyleDimension.Fill,
+                Height = StyleDimension.Fill,
+            });
+        }
+        else
+        {
+            RemoveChild(_helpPanel);
+            _helpPanel = null;
+        }
     }
 
     public static bool CanSupportSlotAcceptItem(Item item, ItemSlotUI _)

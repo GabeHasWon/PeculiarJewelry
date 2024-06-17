@@ -77,7 +77,7 @@ public class BasePauldrons(string name, string category, int mat) : BasicJewelry
     public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color i, Vector2 origin, float scale)
     {
         if (Info.Count != 0)
-            spriteBatch.Draw(_jewels.Value, position, frame, GetDisplayColor(), 0f, origin / new Vector2(1, 2), scale * 2, SpriteEffects.None, 0);
+            spriteBatch.Draw(_jewels.Value, position, frame, GetDisplayColor(), 0f, origin / new Vector2(1, 2), scale * 0.7f, SpriteEffects.None, 0);
 
         base.PostDrawInInventory(spriteBatch, position, frame, drawColor, i, origin, scale);
     }
@@ -87,7 +87,7 @@ public class BasePauldrons(string name, string category, int mat) : BasicJewelry
         if (Info.Count != 0)
         {
             Color col = lightColor.MultiplyRGB(GetDisplayColor());
-            spriteBatch.Draw(_jewels.Value, Item.Center - Main.screenPosition, null, col, rotation, _jewels.Size() / 2f, scale, SpriteEffects.None, 0);
+            spriteBatch.Draw(_jewels.Value, Item.Center - Main.screenPosition, null, col, rotation, _jewels.Size() / 2f, scale / 2, SpriteEffects.None, 0);
         }
 
         base.PostDrawInWorld(spriteBatch, lightColor, alphaColor, rotation, scale, whoAmI);

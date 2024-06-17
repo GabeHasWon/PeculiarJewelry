@@ -4,3 +4,11 @@ Effects: Effects
 Result: Result
 Combine: Combine!
 Shard: Sub Shard
+Help:
+	'''
+	[c/DDB04A:Superimposition] requires two similar jewels. Specifically, they need the following:
+	The same cut count, tier, type (Major or Minor), successful cut count and major stat.
+	[c/DDB04A:The easy way to tell] is if both share a name, i.e. Major Stellar Jewel of Diligence +6, then they're able to be superimposed.
+	[c/DDB04A:Superimposition], specifically, allows you to combine two jewels and choose a couple of their aspects in order to get a more specialized jewel easily. 
+	You can guarantee 1 (minor) or 2 (major) sub stats, and an additional one with a [c/DDB04A:Sub Shard].
+	'''

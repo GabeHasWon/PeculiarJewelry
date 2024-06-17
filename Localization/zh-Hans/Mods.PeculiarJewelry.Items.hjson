@@ -2933,5 +2933,10 @@ NonaRadiantEcho: {
 
 KeepsakeChest: {
 	// DisplayName: Keepsake Chest
-	// Tooltip: ""
+	/* Tooltip:
+		'''
+		Used to store an indefinite amount of Peculiar Jewelry items.
+		Dropping items in will add them to storage.
+		This storage is per-player, like Piggy Banks.
+		''' */
 }

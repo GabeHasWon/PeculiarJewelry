@@ -5,5 +5,15 @@ Full: "[c/FF8888:Jewelry cannot accept more jewels!]"
 Empty: Jewelry has no jewels!
 Name: Jewel Setting
 Jewelry: Jewelry
+NoJewelry: (No jewelry inserted)
 Jewels: Jewels
 SupportItems: Support Items
+Help:
+	'''
+	[c/C04AF0:Jewelry] can hold a certain amount of jewels according to their quality:
+	Ordinary: 1, Pretty: 2, Elegant: 3, Elaborate: 4, and Extravagant: 5.
+	[c/C04AF0:Jewelry] can have however many Minor jewels you want, but only one Major jewel.
+	[c/C04AF0:Confirming] will set the jewels in and allow you to use the jewelry to its new potential.
+	If you wish to remove a jewel from jewelry, you can purchase various Pliers from the Lapidarist. 
+	The better the plier, the less likely ...[c/C04AF0:something bad]... will happen to the jewel.
+	'''

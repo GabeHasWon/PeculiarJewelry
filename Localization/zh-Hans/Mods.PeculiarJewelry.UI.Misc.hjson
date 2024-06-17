@@ -13,6 +13,13 @@ JewelTiers: 珠宝等级
 // Craft: Craft
 // Material: Material
 // Type: Type
+/* DesecrationHelp:
+	'''
+	[c/B74646:Desecration] allows you to buff enemies, bosses and nerf yourself in order to get greater rewards.
+	Specifically, bosses will drop [c/B74646:SIGNIFICANTLY] more items and stronger jewels.
+	Increasing [c/B74646:any] Desecration will increase your Profanity and apply its effect.
+	[c/b74646:Removing] any Desecrations will cost an ever increasing amount of money, so be careful!
+	''' */
 # Storage stuff
 // StorageTitle: Jewelry Storage
 // Search: Search
