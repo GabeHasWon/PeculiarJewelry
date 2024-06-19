@@ -8,7 +8,10 @@ namespace PeculiarJewelry.Content.JewelryMechanic.Stats;
 public abstract partial class JewelInfo
 {
     public abstract string Prefix { get; }
+
+    public virtual string JewelTitle => "Jewel";
     public virtual int MaxCuts => 20 + (int)tier;
+    public virtual bool HasExclusivity => true;
 
     public int RemainingCuts => MaxCuts - cuts;
 
@@ -16,7 +19,7 @@ public abstract partial class JewelInfo
     {
         get
         {
-            string text = $"{Prefix} {tier.Localize()} {Jewel.Localize("Jewelry.Jewel")} of {Major.GetName().Value}";
+            string text = $"{Jewel.Localize("Jewels.Prefixes." + Prefix)} {tier.Localize()} {Jewel.Localize("Jewels.Titles." + JewelTitle)} of {Major.GetName().Value}";
 
             if (Major.Strength > 1)
                 text += $" +{successfulCuts}";
@@ -72,24 +75,27 @@ public abstract partial class JewelInfo
             AddSubStat(takenTypes, i);
     }
 
-    private void AddSubStat(List<StatType> takenTypes, int index)
+    protected void AddSubStat(List<StatType> takenTypes, int index)
     {
         if (index < SubStats.Capacity) //Fill slots
         {
             SubStats.Add(JewelStat.Random);
 
-            while ((SubStats[index].Get().Exclusivity != exclusivity && SubStats[index].Get().Exclusivity != StatExclusivity.None) || takenTypes.Contains(SubStats[index].Get().Type))
-                SubStats[index] = JewelStat.Random;
+            if (HasExclusivity)
+            {
+                while (SubStats[index].Get().Exclusivity != exclusivity && SubStats[index].Get().Exclusivity != StatExclusivity.None || takenTypes.Contains(SubStats[index].Get().Type))
+                    SubStats[index] = JewelStat.Random;
+            }
 
             takenTypes.Add(SubStats[index].Get().Type);
 
-            if (exclusivity == StatExclusivity.None)
+            if (HasExclusivity && exclusivity == StatExclusivity.None)
                 exclusivity = SubStats[index].Get().Exclusivity;
         }
         else
         {
             int adjI = index - SubStats.Capacity;
-            SubStats[adjI].Strength++;
+            SubStats[adjI].Strength += JewelryCommon.StatStrengthRange(this);
         }
     }
 
@@ -134,12 +140,12 @@ public abstract partial class JewelInfo
     internal void SuccessfulCut()
     {
         successfulCuts++;
-        Major.Strength += JewelryCommon.StatStrengthRange();
+        Major.Strength += JewelryCommon.StatStrengthRange(this);
 
         if (successfulCuts % 4 == 0)
         {
             if (SubStats.Count == SubStats.Capacity)
-                Main.rand.Next(SubStats).Strength += JewelryCommon.StatStrengthRange();
+                Main.rand.Next(SubStats).Strength += JewelryCommon.StatStrengthRange(this);
             else
             {
                 List<StatType> takenTypes = [Major.Type];

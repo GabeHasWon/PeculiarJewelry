@@ -2945,3 +2945,13 @@ KeepsakeChest: {
 		This storage is per-player, like Piggy Banks.
 		'''
 }
+
+ImpureMajor: {
+	DisplayName: Impure Major
+	Tooltip: ""
+}
+
+ImpureMinor: {
+	DisplayName: Impure Minor
+	Tooltip: ""
+}

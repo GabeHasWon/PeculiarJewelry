@@ -1,4 +1,5 @@
 ﻿using PeculiarJewelry.Content.Items.Jewels;
+using PeculiarJewelry.Content.JewelryMechanic.Stats;
 using System.Collections.Generic;
 
 namespace PeculiarJewelry.Content.JewelryMechanic;
@@ -12,8 +13,10 @@ internal class JewelryCommon
         "Cobalt Palladium Mythril Orichalcum Adamantite Titanium Chlorophyte Hallowed Spooky Spectre Shroomite Beetle Luminite").Split(' ');
 
     public static int MajorMinorType() => Main.rand.NextFloat() <= Config.ChanceForMajor ? ModContent.ItemType<MajorJewel>() : ModContent.ItemType<MinorJewel>();
+    public static int MajorMinorType<TMajor, TMinor>() where TMajor : Jewel where TMinor : Jewel
+        => Main.rand.NextFloat() <= Config.ChanceForMajor ? ModContent.ItemType<TMajor>() : ModContent.ItemType<TMinor>();
 
-    public static float StatStrengthRange()
+    public static float StatStrengthRange(JewelInfo info)
     {
         if (Config.GlobalPowerScaleMinimum == 1 || Config.PowerScaleStepCount == 1)
             return 1;

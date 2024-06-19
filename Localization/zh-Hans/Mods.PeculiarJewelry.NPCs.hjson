@@ -69,6 +69,7 @@ Lapidarist: {
 			Set: 镶嵌可以让你在珠宝中使用珠宝，解锁它们的潜力，让你看起来更棒。
 			Imposition: 使用两颗相同切割次数的主要属性、大小和名称的成品珠宝，你可以创造出一个结合它们优势的珠宝。
 			Desecration: 一种更黑暗的技艺。允许你伤害自己并从敌人那里获得更大的奖励。
+			// Examination: Show me a jewel, any jewel, and I'll let you know how it works.
 		}
 
 		Open: {
@@ -77,6 +78,7 @@ Lapidarist: {
 			Imposition: 只要确保你有两颗相同切割次数、主要属性、大小和名称的成品珠宝。这部分总是让人困惑。
 			Desecration: 想做点交易吗？别太勉强自己。
 			NoDesecration: 看来你放弃了，伙计。不能反悔。
+			// Examination: You got something to show me? Go ahead, bud.
 		}
 	}
 

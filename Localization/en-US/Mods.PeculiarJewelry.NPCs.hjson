@@ -69,6 +69,7 @@ Lapidarist: {
 			Set: Setting allows you to use jewels in jewelry, unlocking their potential AND making you look good.
 			Imposition: By using two finished jewels of the same cut count, you can create a jewel that combines their strengths.
 			Desecration: A darker art. Allows you to hurt yourself and benefit your enemies for greater reward.
+			Examination: Show me a jewel, any jewel, and I'll let you know how it works.
 		}
 
 		Open: {
@@ -77,6 +78,7 @@ Lapidarist: {
 			Imposition: Just make sure you've got two finished jewels of the same cut count, major stat, size and name. That part always confuses people.
 			Desecration: Looking to make a couple'a deals, eh? Don't push yourself too hard.
 			NoDesecration: It seems you've given up on that, pal. Can't go back on that choice.
+			Examination: You got something to show me? Go ahead, bud.
 		}
 	}
 

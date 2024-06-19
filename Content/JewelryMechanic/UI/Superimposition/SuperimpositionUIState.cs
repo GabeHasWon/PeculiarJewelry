@@ -299,7 +299,7 @@ internal class SuperimpositionUIState : UIState, IClosableUIState
         }
 
         jewel.info.Major = (_leftJewel.Item.ModItem as Jewel).info.Major;
-        jewel.info.Major.Strength = JewelryCommon.StatStrengthRange();
+        jewel.info.Major.Strength = JewelryCommon.StatStrengthRange((_leftJewel.Item.ModItem as Jewel).info);
 
         _leftJewel.ForceItem(airItem);
         _rightJewel.ForceItem(airItem);

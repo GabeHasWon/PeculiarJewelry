@@ -27,11 +27,6 @@ public abstract class BasicJewelry : ModItem, IStorableItem
 
     public abstract string MaterialCategory { get; }
 
-    ///// <summary>
-    ///// Internal name of the jewelry type, i.e. "Necklace".
-    ///// </summary>
-    //public abstract string JewelryName { get; }
-
     public List<JewelInfo> Info { get; protected set; }
     public JewelryTier tier = JewelryTier.Ordinary;
 

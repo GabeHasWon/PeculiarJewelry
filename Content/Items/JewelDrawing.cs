@@ -1,4 +1,5 @@
-﻿using PeculiarJewelry.Content.JewelryMechanic.Stats;
+﻿using PeculiarJewelry.Content.Items.Jewels;
+using PeculiarJewelry.Content.JewelryMechanic.Stats;
 using ReLogic.Content;
 using System;
 using Terraria.GameContent;
@@ -9,8 +10,8 @@ public static class JewelDrawing
 {
     private static readonly Vector2[] DefaultSparkLocations = [new Vector2(0.25f, 0.75f), new Vector2(0), new Vector2(1f, 0.67f), new Vector2(0.67f, 0.33f)];
 
-    public static void DrawJewel(Asset<Texture2D> tex, Vector2 position, Vector2 origin, Color color, float rotation, float scale, 
-        int frmWidth, int frmHeight, JewelInfo info, int variation)
+    public static void DrawJewel(Jewel jewel, Asset<Texture2D> tex, Vector2 position, Vector2 origin, Color color, float rotation, float scale, 
+        int frmWidth, int frmHeight, JewelInfo info, int variation, bool inInventory)
     {
         float cutAmount = MathF.Floor(info.successfulCuts / (float)info.MaxCuts / 5f * 25);
 
@@ -18,7 +19,11 @@ public static class JewelDrawing
             cutAmount--;
 
         var frame = new Rectangle(variation * (frmWidth + 2), (int)(frmHeight * cutAmount), frmWidth, frmHeight - 1);
-        Main.spriteBatch.Draw(tex.Value, position, frame, color, rotation, origin, scale, SpriteEffects.None, 0);
+
+        if (jewel.PreDrawJewel(tex.Value, position, frame, color, rotation, origin, scale, inInventory))
+            Main.spriteBatch.Draw(tex.Value, position, frame, color, rotation, origin, scale, SpriteEffects.None, 0);
+
+        jewel.PostDrawJewel(position, frame, color, scale, rotation, origin, inInventory);
         DrawSparkles(position - origin * scale, new Vector2(frmWidth, frmHeight) * scale, info, color, null);
     }
 

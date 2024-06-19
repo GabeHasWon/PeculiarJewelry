@@ -1,6 +1,8 @@
-﻿using PeculiarJewelry.Content.Items;
+﻿using Mono.Cecil;
+using PeculiarJewelry.Content.Items;
 using PeculiarJewelry.Content.Items.JewelryItems;
 using PeculiarJewelry.Content.Items.Jewels;
+using PeculiarJewelry.Content.Items.Jewels.Rares.Impure;
 using PeculiarJewelry.Content.Items.JewelSupport;
 using PeculiarJewelry.Content.Items.Pliers;
 using PeculiarJewelry.Content.Items.RadiantEchoes;
@@ -14,7 +16,7 @@ namespace PeculiarJewelry.Content.NPCs;
 
 internal class LapidaristStock : StockedShop
 {
-    private const int JewelCount = 3;
+    private const int JewelCount = 4;
     private const int JewelryCount = 5;
 
     internal static WeightedRandom<int> MiscPool
@@ -79,11 +81,11 @@ internal class LapidaristStock : StockedShop
         FullStock.Add(MiscShopItem<HeavenlyRevelation>(1, Item.buyPrice(platinum: 1)));
         FullStock.Add(MiscShopItem<TranscendantEcho>(1, Item.buyPrice(platinum: 1)));
 
-        // Jewels (3)
+        // Jewels (3), Impure Jewel (1)
         for (int i = 0; i < JewelCount; ++i)
         {
-            Item item = new(JewelryCommon.MajorMinorType());
-            item.value = Item.buyPrice(0, item.type == ModContent.ItemType<MajorJewel>() ? 15 : 8, 0, 0);
+            int type = i == 3 ? JewelryCommon.MajorMinorType<ImpureMajor, ImpureMinor>() : JewelryCommon.MajorMinorType();
+            Item item = new(type);
             (item.ModItem as Jewel).info.Setup(BossLootGlobal.HighestBeatenTier);
             _jewelItems[i] = new(item);
             FullStock.Add(_jewelItems[i]);

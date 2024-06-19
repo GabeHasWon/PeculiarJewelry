@@ -107,7 +107,7 @@
         <member name="M:StockableShops.Stock.StockedShop.SetupStock(Terraria.NPC)">
             <summary>
             Called when the stock needs to be set up. Modify <see cref="F:StockableShops.Stock.StockedShop.FullStock"/>, as <see cref="F:StockableShops.Stock.StockedShop.stock"/> is the stock after being checked for availability.<br/>
-            This is ONLY RUN ONCE. It's similar to ModifyNPCLoot, so only use it when creating the initial stock.
+            This is ONLY RUN ONCE PER LOAD. It's similar to ModifyNPCLoot, so only use it when creating the initial stock.
             </summary>
         </member>
         <member name="M:StockableShops.Stock.StockedShop.StockShop(Terraria.NPC,System.String,Terraria.Item[])">
@@ -171,8 +171,8 @@
             <summary>
             Handles a single stocked item with a given condition.<br/>
             For example:
-            <code>new ShopItem(new Condition.NotTheBeesWorld(), new Item(ItemID.Dirt, 20));</code>
-            would create a shop item that is only available on a Not The Bees! world, and has a max stock of 20.
+            <c>new ShopItem(new Condition.NotTheBeesWorld(), new Item(ItemID.Dirt, 20));</c>
+            would create a shop item that is only available on a Not The Bees! world, and has a max stock of 20.<br/><br/>
             </summary>
         </member>
         <member name="P:StockableShops.Stock.StockedShop.ShopItem.Condition">
@@ -212,8 +212,17 @@
         </member>
         <member name="T:StockableShops.Stock.StockedVendorNPC">
             <summary>
-            Handles stocked vendor NPCs. This is the primary reason this mod must be loaded, otherwise this'd be a dllReference.
+            Handles stocked vendor NPCs.
             </summary>
+        </member>
+        <member name="M:StockableShops.Stock.StockedVendorNPC.AppliesToEntity(Terraria.NPC,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:StockableShops.Stock.StockedVendorNPC.ModifyActiveShop(Terraria.NPC,System.String,Terraria.Item[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:StockableShops.Stock.StockedVendorNPC.PostAI(Terraria.NPC)">
+            <inheritdoc/>
         </member>
     </members>
 </doc>

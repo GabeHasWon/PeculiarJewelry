@@ -13,6 +13,7 @@ internal class ChooseJewelMechanicUIState(int whoAmI) : UIState
     private static readonly Asset<Texture2D> _SetTexture;
     private static readonly Asset<Texture2D> _SuperimpositionTexture;
     private static readonly Asset<Texture2D> _DesecrationTexture;
+    private static readonly Asset<Texture2D> _ExaminationTexture;
 
     private NPC LapidaristOwner => Main.npc[_lapidaristWhoAmI];
 
@@ -24,6 +25,7 @@ internal class ChooseJewelMechanicUIState(int whoAmI) : UIState
         _SetTexture = ModContent.Request<Texture2D>("PeculiarJewelry/Content/JewelryMechanic/UI/JewelSet");
         _SuperimpositionTexture = ModContent.Request<Texture2D>("PeculiarJewelry/Content/JewelryMechanic/UI/Superimposition");
         _DesecrationTexture = ModContent.Request<Texture2D>("PeculiarJewelry/Content/JewelryMechanic/UI/Desecration");
+        _ExaminationTexture = ModContent.Request<Texture2D>("PeculiarJewelry/Content/JewelryMechanic/UI/Examination");
     }
 
     internal static string Localize(string postfix) => Language.GetTextValue("Mods.PeculiarJewelry.UI.Misc." + postfix);
@@ -40,8 +42,8 @@ internal class ChooseJewelMechanicUIState(int whoAmI) : UIState
     {
         UIPanel panel = new() // Main back panel
         {
-            Width = StyleDimension.FromPixels(436),
-            Height = StyleDimension.FromPixels(60),
+            Width = StyleDimension.FromPixels(546),
+            Height = StyleDimension.FromPixels(70),
             HAlign = 0.5f,
             VAlign = 0.25f
         };
@@ -52,7 +54,7 @@ internal class ChooseJewelMechanicUIState(int whoAmI) : UIState
             Width = StyleDimension.FromPixels(32),
             Height = StyleDimension.FromPixels(32),
             Left = StyleDimension.FromPixels(20),
-            Top = StyleDimension.FromPixelsAndPercent(-30, 1),
+            Top = StyleDimension.FromPixels(6),
             VAlign = 1f,
         };
 
@@ -70,7 +72,7 @@ internal class ChooseJewelMechanicUIState(int whoAmI) : UIState
         UIText cutJewelsText = new(Localize("CutJewels"), 0.8f)
         {
             HAlign = 0.5f,
-            Top = StyleDimension.FromPixels(-10)
+            Top = StyleDimension.FromPixels(-20)
         };
         cutButton.Append(cutJewelsText);
 
@@ -79,7 +81,7 @@ internal class ChooseJewelMechanicUIState(int whoAmI) : UIState
             Width = StyleDimension.FromPixels(32),
             Height = StyleDimension.FromPixels(32),
             Left = StyleDimension.FromPixels(120),
-            Top = StyleDimension.FromPixelsAndPercent(-30, 1),
+            Top = StyleDimension.FromPixels(6),
             VAlign = 1f,
         };
         setButton.OnLeftClick += (UIMouseEvent evt, UIElement listeningElement) =>
@@ -96,7 +98,7 @@ internal class ChooseJewelMechanicUIState(int whoAmI) : UIState
         UIText setText = new(Localize("SetJewels"), 0.8f)
         {
             HAlign = 0.5f,
-            Top = StyleDimension.FromPixels(-10)
+            Top = StyleDimension.FromPixels(-20)
         };
         setButton.Append(setText);
 
@@ -107,7 +109,7 @@ internal class ChooseJewelMechanicUIState(int whoAmI) : UIState
             Width = StyleDimension.FromPixels(32),
             Height = StyleDimension.FromPixels(32),
             Left = StyleDimension.FromPixels(220),
-            Top = StyleDimension.FromPixelsAndPercent(-30, 1),
+            Top = StyleDimension.FromPixels(6),
             VAlign = 1f,
         };
 
@@ -126,7 +128,7 @@ internal class ChooseJewelMechanicUIState(int whoAmI) : UIState
         UIText impositionText = new(Language.GetTextValue("Mods.PeculiarJewelry.UI.Superimposition.Superimposition"), 0.8f)
         {
             HAlign = 0.5f,
-            Top = StyleDimension.FromPixels(-10)
+            Top = StyleDimension.FromPixels(-20)
         };
         impositionButton.Append(impositionText);
 
@@ -136,8 +138,8 @@ internal class ChooseJewelMechanicUIState(int whoAmI) : UIState
         {
             Width = StyleDimension.FromPixels(32),
             Height = StyleDimension.FromPixels(32),
-            Left = StyleDimension.FromPixels(340),
-            Top = StyleDimension.FromPixelsAndPercent(-30, 1),
+            Left = StyleDimension.FromPixels(346),
+            Top = StyleDimension.FromPixels(6),
             VAlign = 1f,
         };
 
@@ -156,13 +158,44 @@ internal class ChooseJewelMechanicUIState(int whoAmI) : UIState
         UIText desecrationText = new(Localize("Path"), 0.8f)
         {
             HAlign = 0.5f,
-            Top = StyleDimension.FromPixels(-10)
+            Top = StyleDimension.FromPixels(-20)
         };
         desecrationButton.Append(desecrationText);
+
+        // Examination
+
+        UIImageButton examinationButton = new(_ExaminationTexture)
+        {
+            Width = StyleDimension.FromPixels(32),
+            Height = StyleDimension.FromPixels(32),
+            Left = StyleDimension.FromPixels(460),
+            Top = StyleDimension.FromPixels(6),
+            VAlign = 1f,
+        };
+
+        examinationButton.OnLeftClick += (UIMouseEvent evt, UIElement listeningElement) =>
+        {
+            Main.npcChatText = Language.GetTextValue("Mods.PeculiarJewelry.NPCs.Lapidarist.UIDialogue.Open.Examination");
+            Main.playerInventory = true;
+
+            JewelUISystem.SwitchUI(new DesecrationUIState());
+        };
+
+        examinationButton.OnRightClick += ExamHelp;
+
+        panel.Append(examinationButton);
+
+        UIText examText = new(Localize("Examination"), 0.8f)
+        {
+            HAlign = 0.5f,
+            Top = StyleDimension.FromPixels(-20)
+        };
+        examinationButton.Append(examText);
     }
 
     private void ImposHelp(UIMouseEvent e, UIElement lE) => Main.npcChatText = Language.GetTextValue("Mods.PeculiarJewelry.NPCs.Lapidarist.UIDialogue.Help.Imposition");
     private void SetHelp(UIMouseEvent e, UIElement lE) => Main.npcChatText = Language.GetTextValue("Mods.PeculiarJewelry.NPCs.Lapidarist.UIDialogue.Help.Set");
     private void CutHelp(UIMouseEvent e, UIElement lE) => Main.npcChatText = Language.GetTextValue("Mods.PeculiarJewelry.NPCs.Lapidarist.UIDialogue.Help.Cut");
     private void DeseHelp(UIMouseEvent e, UIElement lE) => Main.npcChatText = Language.GetTextValue("Mods.PeculiarJewelry.NPCs.Lapidarist.UIDialogue.Help.Desecration");
+    private void ExamHelp(UIMouseEvent e, UIElement lE) => Main.npcChatText = Language.GetTextValue("Mods.PeculiarJewelry.NPCs.Lapidarist.UIDialogue.Help.Examination");
 }

@@ -1,12 +1,16 @@
+using PeculiarJewelry.Content.Items.Jewels.Rares.Impure;
 using PeculiarJewelry.Content.Items.JewelSupport;
 using PeculiarJewelry.Content.Items.Tiles;
+using PeculiarJewelry.Content.JewelryMechanic;
 using PeculiarJewelry.Content.JewelryMechanic.GrindstoneSystem;
 using PeculiarJewelry.Content.JewelryMechanic.Stats;
 using PeculiarJewelry.Content.JewelryMechanic.Stats.IO;
+using PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos;
 using PeculiarJewelry.Content.JewelryMechanic.UI;
 using PeculiarJewelry.Content.NPCs;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using Terraria.DataStructures;
@@ -44,6 +48,16 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
 
     public override void OnSpawn(IEntitySource source)
     {
+        if (this is MajorJewel or MinorJewel && JewelRarePool.CheckForBiomes(Main.LocalPlayer, out var flags, out int count))
+        {
+            bool isRare = false;// Main.rand.NextBool(10);
+
+            if (isRare)
+                Item.SetDefaults(JewelRarePool.GetRareJewelType(flags));
+            else if (Main.rand.NextFloat() < count * 0.05f)
+                Item.SetDefaults(JewelryCommon.MajorMinorType<ImpureMajor, ImpureMinor>());
+        }
+
         if (source is EntitySource_Loot loot && loot.Entity is NPC npc && npc.boss)
             info.Setup(BossLootGlobal.GetBossTier(npc));
         else if (source is EntitySource_ItemOpen open && (open.ItemType == ModContent.ItemType<BagOfShinies>() || open.ItemType == ModContent.ItemType<AncientCoffer>()))
@@ -100,7 +114,7 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
 
         if (displayAsJewel)
         {
-            if (info.exclusivity != StatExclusivity.None)
+            if (info.exclusivity != StatExclusivity.None && info.HasExclusivity)
                 tooltips.Add(new TooltipLine(modItem.Mod, "StatExclusivity", info.exclusivity.Localize()));
 
             tooltips.Add(new TooltipLine(modItem.Mod, "JewelCuts", info.MaxCuts - info.cuts + "/" + info.MaxCuts + Localize("Jewelry.CutsRemaining")));
@@ -109,18 +123,21 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
 
     public sealed override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
     {
-        JewelDrawing.DrawJewel(TextureAssets.Item[Type], position, Item.Size / 2f, info.Major.Get().Color, 0f, 32f / Item.width, 
-            Item.width, Item.height + 2, info, variant);
+        JewelDrawing.DrawJewel(this, TextureAssets.Item[Type], position, Item.Size / 2f, info.Major.Get().Color, 0f,
+            32f / Item.width, Item.width, Item.height + 2, info, variant, true);
         return false;
     }
 
     public sealed override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
     {
         Color col = lightColor.MultiplyRGB(info.Major.Get().Color);
-        JewelDrawing.DrawJewel(TextureAssets.Item[Type], Item.Center - Main.screenPosition, Item.Size / 2f, col, rotation, scale, Item.width, Item.height + 2, 
-            info, variant);
+        JewelDrawing.DrawJewel(this, TextureAssets.Item[Type], Item.Center - Main.screenPosition, Item.Size / 2f, col,
+            rotation, scale, Item.width, Item.height + 2, info, variant, false);
         return false;
     }
+
+    public virtual bool PreDrawJewel(Texture2D texture, Vector2 position, Rectangle frame, Color color, float rotation, Vector2 origin, float scale, bool inInventory) => true;
+    public virtual void PostDrawJewel(Vector2 position, Rectangle frame, Color color, float scale, float rotation, Vector2 origin, bool inInventory) { }
 
     public override void SaveData(TagCompound tag)
     {
