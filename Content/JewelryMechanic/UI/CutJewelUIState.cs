@@ -316,8 +316,10 @@ internal class CutJewelUIState : UIState, IClosableUIState
             overrideColor = Color.Yellow;
 
             string replacement = Replacement(text.Text, out bool _);
-            float current = info.Major.GetEffectValue(Main.LocalPlayer, PeculiarJewelry.StatConfig.GlobalPowerScaleMinimum);
-            return text.Text.Replace(replacement, "[c/ffa500:" + current.ToString("#0.##") + " - " + info.Major.GetEffectValue(Main.LocalPlayer, 1f).ToString("#0.##") + "]");
+            (float min, float max) = info.BuffStatRange();
+            float current = info.Major.GetEffectValue(Main.LocalPlayer, min);
+            float maxValue = info.Major.GetEffectValue(Main.LocalPlayer, max);
+            return text.Text.Replace(replacement, "[c/ffa500:" + current.ToString("#0.##") + " - " + maxValue.ToString("#0.##") + "]");
         }
 
         if (text.Name.StartsWith("SubStat"))

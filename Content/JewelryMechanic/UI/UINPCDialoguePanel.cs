@@ -6,18 +6,15 @@ using Terraria.UI.Chat;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.UI;
 
-internal class UINPCDialoguePanel : UIElement
+internal class UINPCDialoguePanel(float width = 200, Color? backColor = null) : UIElement
 {
-    DynamicSpriteFont Font => FontAssets.MouseText.Value;
+    static DynamicSpriteFont Font => FontAssets.MouseText.Value;
+
+    readonly float _width = width;
 
     UIPanel _panel;
     UIText _text;
-    float _width;
-
-    public UINPCDialoguePanel(float width = 200)
-    {
-        _width = width;
-    }
+    StyleDimension? _originalTop;
 
     public override void OnInitialize()
     {
@@ -31,6 +28,10 @@ internal class UINPCDialoguePanel : UIElement
             HAlign = 0.5f,
             Top = Top
         };
+
+        if (backColor is not null)
+            _panel.BackgroundColor = backColor.Value;
+
         Append(_panel);
 
         _text = new UIText(Main.npcChatText)
@@ -43,14 +44,20 @@ internal class UINPCDialoguePanel : UIElement
         _panel.Append(_text);
     }
 
+    public void SetText(string text) => _text.SetText(text);
+
     public override void Update(GameTime gameTime)
     {
-        if (Main.npcChatText != "")
+        _originalTop ??= Top;
+
+        if (Main.npcChatText != string.Empty)
             _text.SetText(Main.npcChatText);
 
         var size = ChatManager.GetStringSize(Font, Font.CreateWrappedText(_text.Text, _panel.GetInnerDimensions().Width), Vector2.One);
         size = !_text.IsWrapped ? new Vector2(size.X, 16f) : new Vector2(size.X, size.Y + _text.WrappedTextBottomPadding);
 
         Height = StyleDimension.FromPixels(size.Y);
+        Top = StyleDimension.FromPixelsAndPercent(_originalTop.Value.Pixels - size.Y / 8f, _originalTop.Value.Percent);
+        Recalculate();
     }
 }

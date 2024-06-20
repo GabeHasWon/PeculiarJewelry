@@ -1,17 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Numerics;
-using tModPorter;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos;
 
-internal class MinorImpureJewelInfo : JewelInfo
+internal class MajorLuckyJewelInfo : JewelInfo
 {
-    public override string Prefix => "Minor";
+    public override string Prefix => "Major";
     public override string JewelTitle => "Impure";
-    public override int MaxCuts => 10 + (int)((int)tier / 2f);
     public override bool HasExclusivity => false;
 
-    internal override void InternalSetup() => SubStats = new List<JewelStat>(2);
+    internal override void InternalSetup() => SubStats = new List<JewelStat>(4);
 
     public override bool PreBuffStat(out float result)
     {

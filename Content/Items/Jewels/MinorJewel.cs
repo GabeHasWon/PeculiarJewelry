@@ -5,6 +5,7 @@ namespace PeculiarJewelry.Content.Items.Jewels;
 
 public class MinorJewel : Jewel
 {
+    public override LocalizedText ExaminationLocalization => Language.GetText("Mods.PeculiarJewelry.UI.Exam.Help.MinorJewel");
     protected override Type InfoType => typeof(MinorJewelInfo);
     protected override byte MaxVariations => 5;
 

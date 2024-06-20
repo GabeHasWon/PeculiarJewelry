@@ -10,6 +10,7 @@
     <None Remove="changelog.txt" />
     <None Remove="Content\Items\JewelryItems\BasicJewelry.png" />
     <None Remove="Localization\en-US\Mods.PeculiarJewelry.Jewels.hjson" />
+    <None Remove="Localization\en-US\Mods.PeculiarJewelry.UI.Exam.hjson" />
     <None Remove="Localization\en-US_Mods.PeculiarJewelry.Buffs.hjson" />
     <None Remove="Localization\en-US_Mods.PeculiarJewelry.Configs.hjson" />
     <None Remove="Localization\en-US_Mods.PeculiarJewelry.Desecrations.hjson" />

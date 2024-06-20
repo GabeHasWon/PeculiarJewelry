@@ -5,6 +5,7 @@ namespace PeculiarJewelry.Content.Items.Jewels.Rares.Impure;
 
 public class ImpureMinor : ImpureMajor
 {
+    public override LocalizedText ExaminationLocalization => Language.GetText("Mods.PeculiarJewelry.UI.Exam.Help.ImpureMinor");
     protected override Type InfoType => typeof(MinorImpureJewelInfo);
     protected override byte MaxVariations => 5;
 

@@ -21,9 +21,18 @@ internal class JewelryCommon
         if (Config.GlobalPowerScaleMinimum == 1 || Config.PowerScaleStepCount == 1)
             return 1;
 
-        float factor = Main.rand.Next(Config.PowerScaleStepCount) / (float)(Config.PowerScaleStepCount - 1);
-        float result = MathHelper.Lerp(Config.GlobalPowerScaleMinimum, 1, factor);
+        if (info is not null && info.PreBuffStat(out float overrideResult))
+            return overrideResult;
 
+        return DefaultStatRangeFunction();
+    }
+
+    public static float DefaultStatRangeFunction() => StatRangeFunction(Main.rand.Next(Config.PowerScaleStepCount) / Config.PowerScaleStepCount - 1);
+
+    public static float StatRangeFunction(int factor, float? originalValue = null)
+    {
+        originalValue ??= Config.GlobalPowerScaleMinimum;
+        float result = MathHelper.Lerp(originalValue.Value, 1, factor);
         return result;
     }
 

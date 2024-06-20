@@ -178,7 +178,7 @@ internal class ChooseJewelMechanicUIState(int whoAmI) : UIState
             Main.npcChatText = Language.GetTextValue("Mods.PeculiarJewelry.NPCs.Lapidarist.UIDialogue.Open.Examination");
             Main.playerInventory = true;
 
-            JewelUISystem.SwitchUI(new DesecrationUIState());
+            JewelUISystem.SwitchUI(new ExaminationUIState());
         };
 
         examinationButton.OnRightClick += ExamHelp;

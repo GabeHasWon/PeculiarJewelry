@@ -1,0 +1,12 @@
+Help: {
+	// MajorJewel: Ah, a Major Jewel. These stones pack in way higher cut count, a trigger effect to spice up your weaponry, and also hold four sub stats at a time. However, only one can be set in jewelry. Personally, I find them to be a wonderful paper weight.
+	// MinorJewel: A demure Minor Jewel. While not as strong as a Major jewel, they are way easier to get your hands on, and can be fit as many times as you please per jewelry. Again, lower max sub stats - maximum two - and no trigger effect, but these come in handy.
+	// ImpureMajor: An Impure Major Jewel, I see. Impure sometimes is a negative, but it depends on how you see it here - these uncommon variants are the same as Major Jewels, aside from two facts. They can roll any stat of any class, and they are way less consistent in their upgrades. Sometimes, you'll get almost no bonus, and sometimes you'll get a big boost.
+	// ImpureMinor: Impure Minor Jewel, hm? Much like its Major brother, these function the same as their regular Minor Jewel variants, but lack any exclusivity and are way more volatile in their upgrades. Nice if you want some extremely specific stat spread, and their chromatic colouration is truly gorgeous.
+}
+
+Idle: {
+	// 0: Anything else you'd like to check on?
+	// 1: Let me know when you're good to go, I've got some polishing to do.
+	// 2: Take your time. I've no complaints about getting to see more spectacular stones.
+}

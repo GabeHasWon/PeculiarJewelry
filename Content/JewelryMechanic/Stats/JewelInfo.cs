@@ -2,6 +2,7 @@
 using PeculiarJewelry.Content.JewelryMechanic.UI;
 using System;
 using System.Collections.Generic;
+using tModPorter;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats;
 
@@ -105,7 +106,11 @@ public abstract partial class JewelInfo
 
         foreach (var subStat in SubStats)
             subStat.Apply(player, add, multiplier);
+
+        PostApplyTo(player, add, multiplier);
     }
+
+    protected virtual void PostApplyTo(Player player, float add, float multiplier) { }
 
     public string[] SubStatTooltips(Player player)
     {
@@ -168,5 +173,17 @@ public abstract partial class JewelInfo
             totalDustCount += CutJewelUIState.JewelCutDustPrice(tier, x);
 
         return totalDustCount;
+    }
+
+    public virtual bool PreBuffStat(out float result)
+    {
+        result = 0;
+        return false;
+    }
+
+    public virtual (float, float) BuffStatRange()
+    {
+        var config = ModContent.GetInstance<JewelryStatConfig>();
+        return config.GlobalPowerScaleMinimum == 1 || config.PowerScaleStepCount == 1 ? (1, 1) : ((float, float))(config.GlobalPowerScaleMinimum, 1);
     }
 }

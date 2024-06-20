@@ -32,6 +32,7 @@ internal class ItemSlotUI(Item[] itemArray, int itemIndex, int itemSlotContext, 
     {
         if (IsMouseHovering)
         {
+            Main.NewText("eg");
             Main.LocalPlayer.mouseInterface = true;
             Item inv = ItemSlots[0];
 

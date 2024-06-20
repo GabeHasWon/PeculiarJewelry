@@ -1,8 +1,5 @@
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using Microsoft.Xna.Framework.Graphics;
 using PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos;
 using System;
-using Terraria.GameContent;
 using Snaker.Common.Effects;
 using Terraria.ModLoader.IO;
 
@@ -10,7 +7,8 @@ namespace PeculiarJewelry.Content.Items.Jewels.Rares.Impure;
 
 public class ImpureMajor : Jewel
 {
-    protected override Type InfoType => typeof(MajorImpureJewelInfo);
+    public override LocalizedText ExaminationLocalization => Language.GetText("Mods.PeculiarJewelry.UI.Exam.Help.ImpureMajor");
+    protected override Type InfoType => typeof(MajorLuckyJewelInfo);
     protected override byte MaxVariations => 3;
     protected override bool CloneNewInstances => true;
 

@@ -5,12 +5,10 @@ using PeculiarJewelry.Content.JewelryMechanic;
 using PeculiarJewelry.Content.JewelryMechanic.GrindstoneSystem;
 using PeculiarJewelry.Content.JewelryMechanic.Stats;
 using PeculiarJewelry.Content.JewelryMechanic.Stats.IO;
-using PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos;
 using PeculiarJewelry.Content.JewelryMechanic.UI;
 using PeculiarJewelry.Content.NPCs;
 using System;
 using System.Collections.Generic;
-using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using Terraria.DataStructures;
@@ -22,7 +20,9 @@ namespace PeculiarJewelry.Content.Items.Jewels;
 
 public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
 {
+    public abstract LocalizedText ExaminationLocalization { get; }
     protected abstract Type InfoType { get; }
+
     protected virtual byte MaxVariations => 1;
 
     public JewelInfo info;
