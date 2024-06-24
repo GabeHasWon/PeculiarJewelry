@@ -36,8 +36,6 @@ public abstract class BasicJewelry : ModItem, IStorableItem
         Item.rare = ModContent.RarityType<JewelRarity>();
         Item.value = Item.sellPrice(gold: 1);
 
-        //JewelrySets.LoadedJewelryTypes.Add(GetType().Name);
-
         SetTier(JewelryTier.Ordinary);
         Defaults();
     }
@@ -287,13 +285,16 @@ public abstract class BasicJewelry : ModItem, IStorableItem
 
     public Color GetDisplayColor()
     {
-        var jewel = Info.FirstOrDefault(x => x is MajorJewelInfo);
+        var info = Info.FirstOrDefault(x => x.PriorityDisplay);
 
-        if (jewel is null && Info.Count <= 0)
+        if (info is null && Info.Count <= 0)
             return Color.White;
 
-        jewel ??= Info.First();
-        return jewel.Major.Get().Color;
+        if (info.OverrideDisplayColor(out Color color))
+            return color;
+
+        info ??= Info.First();
+        return info.Major.Get().Color;
     }
 
     internal void ApplyConstantTrigger(Player player)

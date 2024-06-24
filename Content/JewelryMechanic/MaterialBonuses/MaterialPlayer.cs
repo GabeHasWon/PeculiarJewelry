@@ -7,16 +7,10 @@ namespace PeculiarJewelry.Content.JewelryMechanic.MaterialBonuses;
 
 internal class MaterialPlayer : ModPlayer
 {
-    internal readonly struct EquipLayerInfo
+    internal readonly struct EquipLayerInfo(Color color, Texture2D texture)
     {
-        public readonly Color Color;
-        public readonly Texture2D Texture;
-
-        public EquipLayerInfo(Color color, Texture2D texture)
-        {
-            Color = color;
-            Texture = texture;
-        }
+        public readonly Color Color = color;
+        public readonly Texture2D Texture = texture;
     }
 
     internal readonly Dictionary<EquipType, EquipLayerInfo?> jewelryEquips = new();

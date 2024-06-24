@@ -1,7 +1,1 @@
-- Fixed Set Jewels UI saying "(No jewel inserted)" instead of "(No jewelry inserted)"
-- Fixed Keepsake Chest not functioning
-- Changed the "Stronger traps and stronger debuffs" to "Stronger traps and debuffs"
-- Added tooltip to Keepsake Chest
-- Fixed Pauldrons displaying set jewels incorrectly
-- Added help screens to all remaining UI
-	These should help clarify all functionality, especially for Superimposition.
+- Made Abundance round up towards nearest whole minion

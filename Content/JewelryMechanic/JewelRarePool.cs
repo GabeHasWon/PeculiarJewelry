@@ -1,4 +1,5 @@
 ﻿using FullSerializer;
+using PeculiarJewelry.Content.Items.Jewels.Rares.Lucky;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,6 +103,11 @@ internal class JewelRarePool
 
     public static int GetRareJewelType(OpenRareTypes rareTypes)
     {
-        return -1;
+        List<int> types = [];
+
+        if (rareTypes.HasFlag(OpenRareTypes.Lucky))
+            types.Add(JewelryCommon.MajorMinorType<MajorLucky, MinorLucky>());
+
+        return types.Count == 0 ? -1 : Main.rand.Next(types);
     }
 }

@@ -1,28 +1,38 @@
-﻿using System.Collections.Generic;
+﻿using PeculiarJewelry.Content.Items.Pliers;
+using System;
+using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos;
 
 internal class MajorLuckyJewelInfo : JewelInfo
 {
+    public static JewelryStatConfig Config => ModContent.GetInstance<JewelryStatConfig>();
+
     public override string Prefix => "Major";
-    public override string JewelTitle => "Impure";
+    public override string JewelTitle => "Lucky";
     public override bool HasExclusivity => false;
+    public override bool PriorityDisplay => true;
 
     internal override void InternalSetup() => SubStats = new List<JewelStat>(4);
 
-    public override bool PreBuffStat(out float result)
+    protected override void PostApplyTo(Player player, float add, float multiplier) => player.luck += 0.2f;
+    internal override void PostAddStatTooltips(List<TooltipLine> tooltips, JewelInfo info, ModItem modItem) 
+        => tooltips.Add(new TooltipLine(ModContent.GetInstance<PeculiarJewelry>(), "LuckBonus", Language.GetTextValue("Mods.PeculiarJewelry.Jewels.Misc.MajorLuckBonus")));
+    internal override bool OverridePlierAttempt(Plier plier) => true;
+    internal override int ModifyCoinPrice(int price) => (int)MathF.Ceiling(price * 0.8f);
+    internal override int ModifyDustPrice(int price) => (int)MathF.Ceiling(price * 0.8f);
+    internal override float BaseJewelCutChance() => 1f - successfulCuts * 0.035f;
+
+    internal override bool OverrideDisplayColor(out Color color)
     {
-        var config = ModContent.GetInstance<JewelryStatConfig>();
-        result = GetScale(Main.rand.Next(config.PowerScaleStepCount + 1) / (float)config.PowerScaleStepCount);
+        color = new Color(57, 143, 41);
         return true;
     }
 
-    private static float GetScale(float factor)
+    public override bool PreBuffStat(out float result)
     {
-        var config = ModContent.GetInstance<JewelryStatConfig>();
-        float result = MathHelper.Lerp(0, 1 + config.GlobalPowerScaleMinimum, factor);
-        return result + 0.1f;
+        result = MathF.Max(JewelryCommon.DefaultStatRangeFunction(), JewelryCommon.DefaultStatRangeFunction());
+        return true;
     }
-
-    public override (float, float) BuffStatRange() => (GetScale(0), GetScale(1));
 }

@@ -1,6 +1,6 @@
 ﻿using ReLogic.Content;
 
-namespace Snaker.Common.Effects;
+namespace PeculiarJewelry.Assets.Effects;
 
 internal class EffectAssets : ILoadable
 {

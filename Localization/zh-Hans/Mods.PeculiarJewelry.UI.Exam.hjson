@@ -1,8 +1,10 @@
 Help: {
 	// MajorJewel: Ah, a Major Jewel. These stones pack in way higher cut count, a trigger effect to spice up your weaponry, and also hold four sub stats at a time. However, only one can be set in jewelry. Personally, I find them to be a wonderful paper weight.
 	// MinorJewel: A demure Minor Jewel. While not as strong as a Major jewel, they are way easier to get your hands on, and can be fit as many times as you please per jewelry. Again, lower max sub stats - maximum two - and no trigger effect, but these come in handy.
-	// ImpureMajor: An Impure Major Jewel, I see. Impure sometimes is a negative, but it depends on how you see it here - these uncommon variants are the same as Major Jewels, aside from two facts. They can roll any stat of any class, and they are way less consistent in their upgrades. Sometimes, you'll get almost no bonus, and sometimes you'll get a big boost.
-	// ImpureMinor: Impure Minor Jewel, hm? Much like its Major brother, these function the same as their regular Minor Jewel variants, but lack any exclusivity and are way more volatile in their upgrades. Nice if you want some extremely specific stat spread, and their chromatic colouration is truly gorgeous.
+	// ImpureMajor: An [c/AAAAAA:Impure Major Jewel], I see. Impure sometimes is a negative, but it depends on how you see it here - these uncommon variants are the same as Major Jewels, aside from two facts. They can roll any stat of any class, and they are way less consistent in their upgrades. Sometimes, you'll get almost no bonus, and sometimes you'll get a big boost.
+	// ImpureMinor: "[c/AAAAAA:Impure Minor Jewel], hm? Much like its Major brother, these function the same as their regular Minor Jewel variants, but lack any exclusivity and are way more volatile in their upgrades. Nice if you want some extremely specific stat spread, and their chromatic colouration is truly gorgeous."
+	// MajorLucky: A [c/AAFFAA:Major Lucky Jade], one of my personal favorites. They grant you a small sum of luck per jewel - not much, but some - and just...work nicer. Cuts? Cheaper and easier. Removal from jewelry? Risk free. Stat upgrades? Better. What's to dislike? Other than these nicities, they're just another Major Jewel.
+	// MinorLucky: Nothing quite like a [c/AAFFAA:Minor Lucky Jade]. It's like a lucky charm, except very literally. A small bit of luck on the go, easier and cheaper cuts, trivial to take out of jewelry, slightly stronger benefits. A Minor Jewel just polished up - pun wholly intended - enough to be that much nicer.
 }
 
 Idle: {

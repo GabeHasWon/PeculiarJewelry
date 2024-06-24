@@ -39,13 +39,19 @@ internal class ExaminationUIState : UIState, IClosableUIState
 
     public override void OnInitialize()
     {
-        Width = StyleDimension.Fill;
-        Height = StyleDimension.Fill;
+        _dialogue = new(500)
+        {
+            HAlign = 0.5f,
+            VAlign = 0f,
+            Top = StyleDimension.FromPixelsAndPercent(60, 0.15f),
+        };
+
+        Append(_dialogue);
 
         UIPanel panel = new()
         {
             Width = StyleDimension.FromPixels(90),
-            Height = StyleDimension.FromPixels(90),
+            Height = StyleDimension.FromPixels(120),
             Top = StyleDimension.FromPercent(0.15f),
             HAlign = 0.5f,
             VAlign = 0f
@@ -53,15 +59,6 @@ internal class ExaminationUIState : UIState, IClosableUIState
 
         Append(panel);
         BuildMainPanel(panel);
-
-        _dialogue = new(500)
-        {
-            HAlign = 0.5f,
-            VAlign = 0f,
-            Top = StyleDimension.FromPixelsAndPercent(45, 0.15f),
-        };
-
-        Append(_dialogue);
     }
 
     private void BuildMainPanel(UIPanel panel)

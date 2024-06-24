@@ -415,7 +415,7 @@ internal class SuperimpositionUIState : UIState, IClosableUIState
         Append(new UINPCDialoguePanel()
         {
             HAlign = 0.5f,
-            Top = StyleDimension.FromPixels(258),
+            Top = StyleDimension.FromPixels(268),
             Width = StyleDimension.FromPixels(300),
             Height = StyleDimension.FromPixels(600)
         });

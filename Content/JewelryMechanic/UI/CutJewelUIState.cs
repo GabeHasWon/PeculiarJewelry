@@ -102,10 +102,10 @@ internal class CutJewelUIState : UIState, IClosableUIState
         _infoText.SetText(coinPrice + "\n" + dustPrice + "\n" + cutChance + "\n" + echoCost + "\n" + _statusText);
     }
 
-    private static int JewelCutCoinPrice(JewelInfo info) => Item.buyPrice(0, 1) * ((int)info.tier + info.successfulCuts + 1);
-    public static int JewelCutDustPrice(JewelInfo info) => JewelCutDustPrice(info.tier, info.successfulCuts);
+    private static int JewelCutCoinPrice(JewelInfo info) => info.ModifyCoinPrice(Item.buyPrice(0, 1) * ((int)info.tier + info.successfulCuts + 1));
+    public static int JewelCutDustPrice(JewelInfo info) => info.ModifyDustPrice(JewelCutDustPrice(info.tier, info.successfulCuts));
 
-    public static int JewelCutDustPrice(JewelTier tier, int successfulCuts) => ((int)tier+ 1) * (successfulCuts + 1);
+    internal static int JewelCutDustPrice(JewelTier tier, int successfulCuts) => ((int)tier+ 1) * (successfulCuts + 1);
 
     public static int JewelCutEchoType(int cuts) => cuts switch
     {
@@ -124,7 +124,7 @@ internal class CutJewelUIState : UIState, IClosableUIState
     private static float JewelCutChance(JewelInfo info, ItemSlotUI[] support, out float delta, bool consumeSupport = true)
     {
         delta = 0f;
-        float originalChance = 1f - (info.successfulCuts * 0.05f);
+        float originalChance = info.BaseJewelCutChance();
         float baseChance = originalChance;
         float baseOverrideChance = -1;
         Dictionary<int, int> itemCountsById = new();
@@ -501,7 +501,7 @@ internal class CutJewelUIState : UIState, IClosableUIState
         Append(new UINPCDialoguePanel()
         {
             HAlign = 0.5f,
-            Top = StyleDimension.FromPixelsAndPercent(100, 0.15f),
+            Top = StyleDimension.FromPixelsAndPercent(106, 0.15f),
             Width = StyleDimension.FromPixels(320),
             Height = StyleDimension.FromPixels(600)
         });

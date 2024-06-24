@@ -384,7 +384,7 @@ internal class SetJewelUIState : UIState, IClosableUIState
             bool hasStopwatch = _supportSlots.Any(x => x.HasItem && x.Item.type == ModContent.ItemType<BrokenStopwatch>());
             bool hasLuckyCoin = _supportSlots.Any(x => x.HasItem && x.Item.type == ModContent.ItemType<LuckyCoin>());
 
-            if (hasJade || plier.SuccessfulAttempt())
+            if (hasJade || (jewel.ModItem as Jewel).info.OverridePlierAttempt(plier) || plier.SuccessfulAttempt())
             {
                 Item newJewel = jewel.Clone();
                 item = newJewel;
@@ -486,7 +486,7 @@ internal class SetJewelUIState : UIState, IClosableUIState
 
                 if (_displayJewelItems[i] is null || (_displayJewelItems[i].ModItem as Jewel).info.Major.Type != info.Major.Type || !similarSubs)
                 {
-                    Item item = new(info is MajorJewelInfo ? ModContent.ItemType<MajorJewel>() : ModContent.ItemType<MinorJewel>());
+                    Item item = new(ModContent.GetInstance<PeculiarJewelry>().Find<ModItem>(Jewel.TypeLookup[info.GetType().Name].Name).Type);
                     (item.ModItem as Jewel).info = info;
                     _displayJewelItems[i] = item;
                 }
@@ -502,7 +502,7 @@ internal class SetJewelUIState : UIState, IClosableUIState
         Append(new UINPCDialoguePanel()
         {
             HAlign = 0.5f,
-            Top = StyleDimension.FromPixels(174),
+            Top = StyleDimension.FromPixels(180),
             Width = StyleDimension.FromPixels(280),
             Height = StyleDimension.FromPixels(600)
         });

@@ -6,4 +6,10 @@ Prefixes: {
 Titles: {
 	Jewel: Jewel
 	Impure: Impure Jewel
+	Lucky: Lucky Jade
+}
+
+Misc: {
+	MajorLuckBonus: +0.2 luck
+	MinorLuckBonus: +0.1 luck
 }

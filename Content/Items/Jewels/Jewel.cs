@@ -1,3 +1,4 @@
+using Microsoft.Build.Tasks.Hosting;
 using PeculiarJewelry.Content.Items.Jewels.Rares.Impure;
 using PeculiarJewelry.Content.Items.JewelSupport;
 using PeculiarJewelry.Content.Items.Tiles;
@@ -13,6 +14,7 @@ using System.IO;
 using System.Linq;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.ModLoader.Core;
 using Terraria.ModLoader.IO;
 using Terraria.Utilities;
 
@@ -20,6 +22,10 @@ namespace PeculiarJewelry.Content.Items.Jewels;
 
 public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
 {
+    internal static bool InstancedTypeLookup = false;
+
+    internal static Dictionary<string, Jewel> TypeLookup = [];
+
     public abstract LocalizedText ExaminationLocalization { get; }
     protected abstract Type InfoType { get; }
 
@@ -27,6 +33,23 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
 
     public JewelInfo info;
     public byte variant;
+
+    public override sealed void SetStaticDefaults()
+    {
+        if (!InstancedTypeLookup)
+        {
+            TypeLookup.Clear();
+            var types = AssemblyManager.GetLoadableTypes(Mod.Code).Where(x => typeof(Jewel).IsAssignableFrom(x) && !x.IsAbstract);
+
+            foreach (var type in types)
+            {
+                var jewel = Activator.CreateInstance(type) as Jewel;
+                TypeLookup.Add(jewel.InfoType.Name, jewel);
+            }
+
+            InstancedTypeLookup = true;
+        }
+    }
 
     public sealed override void SetDefaults()
     {
@@ -50,10 +73,11 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
     {
         if (this is MajorJewel or MinorJewel && JewelRarePool.CheckForBiomes(Main.LocalPlayer, out var flags, out int count))
         {
-            bool isRare = false;// Main.rand.NextBool(10);
+            bool isRare = Main.rand.NextBool(10);
+            int rareType = JewelRarePool.GetRareJewelType(flags);
 
-            if (isRare)
-                Item.SetDefaults(JewelRarePool.GetRareJewelType(flags));
+            if (isRare && rareType != -1)
+                Item.SetDefaults(rareType);
             else if (Main.rand.NextFloat() < count * 0.05f)
                 Item.SetDefaults(JewelryCommon.MajorMinorType<ImpureMajor, ImpureMinor>());
         }
@@ -110,6 +134,8 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
                 string text = i < info.SubStats.Count ? "   +" + subStatTooltips[i] : "   " + subStatTooltips[i];
                 tooltips.Add(new TooltipLine(modItem.Mod, "SubStat" + i, text) { OverrideColor = color });
             }
+
+            info.PostAddStatTooltips(tooltips, info, modItem);
         }
 
         if (displayAsJewel)

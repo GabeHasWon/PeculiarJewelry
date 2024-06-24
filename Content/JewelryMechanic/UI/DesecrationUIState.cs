@@ -34,7 +34,7 @@ internal class DesecrationUIState : UIState
         {
             HAlign = 0.5f,
             VAlign = 0.15f,
-            Top = StyleDimension.FromPixels(180)
+            Top = StyleDimension.FromPixels(184)
         };
 
         panel.Append(dialoguePanel);

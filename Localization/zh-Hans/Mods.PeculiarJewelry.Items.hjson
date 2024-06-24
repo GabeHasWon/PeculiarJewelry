@@ -2950,3 +2950,13 @@ ImpureMinor: {
 	// DisplayName: Impure Minor
 	// Tooltip: ""
 }
+
+MajorLucky: {
+	// DisplayName: Major Lucky
+	// Tooltip: ""
+}
+
+MinorLucky: {
+	// DisplayName: Minor Lucky
+	// Tooltip: ""
+}

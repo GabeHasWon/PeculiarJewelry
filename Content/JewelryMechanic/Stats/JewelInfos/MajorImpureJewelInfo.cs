@@ -5,6 +5,7 @@ internal class MajorImpureJewelInfo : MajorJewelInfo
 {
     public override string JewelTitle => "Impure";
     public override bool HasExclusivity => false;
+    public override bool PriorityDisplay => true;
 
     public override bool PreBuffStat(out float result)
     {
