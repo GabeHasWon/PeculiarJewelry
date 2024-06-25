@@ -145,9 +145,18 @@ public enum StatType
     Diligence,
 
     /// <summary>
-    /// Solely used as a bookend, i.e. Main.rand.Next(Max).
+    /// Solely used as a bookend, i.e. Main.rand.Next(BasicMax).
     /// </summary>
-    Max
+    BasicMax,
+
+    //MoonstoneAxe,
+    MoonstoneSword,
+    //MoonstoneKnife,
+
+    /// <summary>
+    /// Solely used as a bookend for Moonstone stats, i.e. Main.rand.Next(BasicMax + 1, MaxMoonstone).
+    /// </summary>
+    MaxMoonstone
 }
 
 public static class StatTypeLocalization

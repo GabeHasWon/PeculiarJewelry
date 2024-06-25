@@ -122,3 +122,8 @@ Tolerance: {
 	DisplayName: Tolerance
 	Description: "{0}% buff time and max breath time, -{0}% debuff time"
 }
+
+MoonstoneSword: {
+	DisplayName: the Ancient Sword
+	Description: Gain {0} sword to fight alongside you
+}

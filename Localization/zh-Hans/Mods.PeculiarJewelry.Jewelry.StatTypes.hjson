@@ -122,3 +122,8 @@ Tolerance: {
 	DisplayName: 容忍
 	Description: "{0}% 增益时间和最大呼吸时间，-{0}% 减益时间"
 }
+
+MoonstoneSword: {
+	// DisplayName: Ancient Sword
+	// Description: Gain {0} sword to fight alongside you
+}

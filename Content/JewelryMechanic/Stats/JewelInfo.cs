@@ -44,7 +44,7 @@ public abstract partial class JewelInfo
     {
         this.tier = tier;
 
-        Major = JewelStat.Random;
+        Major = GenStat();
 
         InternalSetup();
 
@@ -59,6 +59,8 @@ public abstract partial class JewelInfo
         Major = major;
         InternalSetup();
     }
+
+    public virtual JewelStat GenStat() => JewelStat.Random;
 
     public void RollSubstats()
     {

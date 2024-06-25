@@ -2960,3 +2960,8 @@ MinorLucky: {
 	// DisplayName: Minor Lucky
 	// Tooltip: ""
 }
+
+MajorMoonstone: {
+	// DisplayName: Major Moonstone
+	// Tooltip: ""
+}
