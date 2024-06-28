@@ -1,6 +1,6 @@
 ﻿using PeculiarJewelry.Content.JewelryMechanic.MoonstoneMinions;
 
-namespace PeculiarJewelry.Content.JewelryMechanic.Stats.Effects.Moonstone;
+namespace PeculiarJewelry.Content.JewelryMechanic.Stats.Effects.Custom.Moonstone;
 
 /// <summary>
 /// Defense piercing. MP safe.

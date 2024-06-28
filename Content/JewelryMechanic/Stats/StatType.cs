@@ -156,7 +156,12 @@ public enum StatType
     /// <summary>
     /// Solely used as a bookend for Moonstone stats, i.e. Main.rand.Next(BasicMax + 1, MaxMoonstone).
     /// </summary>
-    MaxMoonstone
+    MaxMoonstone,
+
+    /// <summary>
+    /// Holds an Accessory.
+    /// </summary>
+    Amber,
 }
 
 public static class StatTypeLocalization
