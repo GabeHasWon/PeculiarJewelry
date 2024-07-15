@@ -34,6 +34,7 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
     public JewelInfo info;
     public byte variant;
 
+
     public override sealed void SetStaticDefaults()
     {
         if (!InstancedTypeLookup)
@@ -121,7 +122,7 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
 
         if (displayAsJewel || PeculiarJewelry.ShiftDown)
         {
-            tooltips.Add(new TooltipLine(modItem.Mod, "MajorStat", "+" + info.Major.GetDescription(Main.LocalPlayer, false)) { OverrideColor = info.Major.Get().Color });
+            tooltips.Add(new TooltipLine(modItem.Mod, "MajorStat", info.Major.GetDescription(Main.LocalPlayer, false)) { OverrideColor = info.Major.Get().Color });
 
             var subStatTooltips = info.SubStatTooltips(Main.LocalPlayer);
 
@@ -131,7 +132,7 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
                     continue;
 
                 Color color = i < info.SubStats.Count ? info.SubStats[i].Get().Color : Color.White;
-                string text = i < info.SubStats.Count ? "   +" + subStatTooltips[i] : "   " + subStatTooltips[i];
+                string text = i < info.SubStats.Count ? "   " + subStatTooltips[i] : "   " + subStatTooltips[i];
                 tooltips.Add(new TooltipLine(modItem.Mod, "SubStat" + i, text) { OverrideColor = color });
             }
 
@@ -143,7 +144,8 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
             if (info.exclusivity != StatExclusivity.None && info.HasExclusivity)
                 tooltips.Add(new TooltipLine(modItem.Mod, "StatExclusivity", info.exclusivity.Localize()));
 
-            tooltips.Add(new TooltipLine(modItem.Mod, "JewelCuts", info.MaxCuts - info.cuts + "/" + info.MaxCuts + Localize("Jewelry.CutsRemaining")));
+            if (info.MaxCuts > 0)
+                tooltips.Add(new TooltipLine(modItem.Mod, "JewelCuts", info.MaxCuts - info.cuts + "/" + info.MaxCuts + Localize("Jewelry.CutsRemaining")));
         }
     }
 

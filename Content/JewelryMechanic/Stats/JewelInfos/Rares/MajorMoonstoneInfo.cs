@@ -9,7 +9,7 @@ internal class MajorMoonstoneInfo : JewelInfo
     public override string Prefix => "Major";
     public override string JewelTitle => "Moonstone";
     public override bool HasExclusivity => false;
-    public override bool PriorityDisplay => true;
+    public override bool CountsAsMajor => true;
 
     internal override void InternalSetup() => SubStats = new List<JewelStat>(1) { new(Major.Type) };
 

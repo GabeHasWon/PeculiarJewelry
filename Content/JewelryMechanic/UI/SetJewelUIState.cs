@@ -519,7 +519,7 @@ internal class SetJewelUIState : UIState, IClosableUIState
         if (Jewelry.Info.Count >= Jewelry.Info.Capacity || Jewelry.Info.Count >= JewelSlots)
             return;
 
-        int majorCount = Jewelry.Info.Count(x => x is MajorJewelInfo);
+        int majorCount = Jewelry.Info.Count(x => x.CountsAsMajor);
 
         for (int i = 0; i < Jewelry.Info.Capacity; ++i) 
         {
@@ -528,7 +528,7 @@ internal class SetJewelUIState : UIState, IClosableUIState
 
             var jewel = _jewelSlots[i].Item.ModItem as Jewel;
 
-            if (jewel.info is MajorJewelInfo)
+            if (jewel.info.CountsAsMajor)
             {
                 if (majorCount >= Jewelry.MaxMajorCount())
                     continue;

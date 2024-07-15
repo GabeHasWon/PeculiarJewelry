@@ -123,6 +123,11 @@ Tolerance: {
 	Description: "{0}% buff time and max breath time, -{0}% debuff time"
 }
 
+Amber: {
+	DisplayName: Crystallization
+	Description: Gain the effects of {0} when worn
+}
+
 MoonstoneSword: {
 	DisplayName: the Ancient Sword
 	Description: Gain {0} sword to fight alongside you

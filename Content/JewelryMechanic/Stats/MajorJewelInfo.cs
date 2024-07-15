@@ -9,7 +9,7 @@ internal class MajorJewelInfo : JewelInfo
     internal TriggerEffect effect;
 
     public override string Prefix => "Major";
-    public override bool PriorityDisplay => true;
+    public override bool CountsAsMajor => true;
 
     internal override void InternalSetup()
     {

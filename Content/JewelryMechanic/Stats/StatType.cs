@@ -2,6 +2,8 @@
 
 public enum StatType
 {
+    None = -1,
+
     /// <summary>
     /// Max health.
     /// </summary>

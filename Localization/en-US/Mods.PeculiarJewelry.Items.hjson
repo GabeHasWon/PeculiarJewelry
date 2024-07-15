@@ -2970,3 +2970,13 @@ MajorMoonstone: {
 	DisplayName: Major Moonstone
 	Tooltip: ""
 }
+
+FullAmber: {
+	DisplayName: Full Amber
+	Tooltip: ""
+}
+
+PureAmber: {
+	DisplayName: Pure Amber
+	Tooltip: ""
+}

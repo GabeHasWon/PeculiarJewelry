@@ -123,7 +123,12 @@ Tolerance: {
 	Description: "{0}% 增益时间和最大呼吸时间，-{0}% 减益时间"
 }
 
+Amber: {
+	// DisplayName: Crystallization
+	// Description: Gain the effects of {0} when worn
+}
+
 MoonstoneSword: {
-	// DisplayName: Ancient Sword
+	// DisplayName: the Ancient Sword
 	// Description: Gain {0} sword to fight alongside you
 }

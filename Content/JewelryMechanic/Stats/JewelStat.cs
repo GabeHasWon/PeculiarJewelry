@@ -10,13 +10,13 @@ public class JewelStat(StatType category)
 
     public float Strength = category < StatType.BasicMax ? JewelryCommon.StatStrengthRange(null) : 1;
 
-    public virtual void Apply(Player player, float add = 0, float multiplier = 0) => JewelStatEffect.StatsByType[Type].Apply(player, (Strength + add) * multiplier);
-    public float GetEffectValue(Player player, float add = 0f) => JewelStatEffect.StatsByType[Type].GetEffectBonus(player, Strength + add);
+    public virtual void Apply(Player player, float add = 0, float multiplier = 0) => Get().Apply(player, (Strength + add) * multiplier);
+    public float GetEffectValue(Player player, float add = 0f) => Get().GetEffectBonus(player, Strength + add);
 
-    public JewelStatEffect Get() => JewelStatEffect.StatsByType[Type];
-    public LocalizedText GetName() => JewelStatEffect.StatsByType[Type].DisplayName;
+    public virtual JewelStatEffect Get() => JewelStatEffect.StatsByType[Type];
+    public LocalizedText GetName() => Get().DisplayName;
 
-    public virtual string GetDescription(Player player, bool showStars = true)
+    public string GetDescription(Player player, bool showStars = true)
     {
         string stars = " ";
 
@@ -24,6 +24,8 @@ public class JewelStat(StatType category)
             for (int i = 1; i < Strength - 1; ++i)
                 stars += "⋆";
 
-        return Get().Description.WithFormatArgs(Get().GetEffectBonus(player, Strength).ToString("#0.##")).Value + stars;
+        return GetFinalDescriptionString(player, stars);
     }
+
+    private string GetFinalDescriptionString(Player player, string stars) => Get().GetDescription(player, stars, Strength);
 }

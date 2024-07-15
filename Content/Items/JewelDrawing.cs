@@ -18,6 +18,9 @@ public static class JewelDrawing
         if (cutAmount == 5)
             cutAmount--;
 
+        if (float.IsNaN(cutAmount))
+            cutAmount = 0;
+
         var frame = new Rectangle(variation * (frmWidth + 2), (int)(frmHeight * cutAmount), frmWidth, frmHeight - 1);
 
         if (jewel.PreDrawJewel(tex.Value, position, frame, color, rotation, origin, scale, inInventory))

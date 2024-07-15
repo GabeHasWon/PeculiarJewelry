@@ -15,7 +15,7 @@ public abstract partial class JewelInfo
     public virtual string JewelTitle => "Jewel";
     public virtual int MaxCuts => 20 + (int)tier;
     public virtual bool HasExclusivity => true;
-    public virtual bool PriorityDisplay => false;
+    public virtual bool CountsAsMajor => false;
 
     public int RemainingCuts => MaxCuts - cuts;
 
@@ -62,7 +62,7 @@ public abstract partial class JewelInfo
 
     public virtual JewelStat GenStat() => JewelStat.Random;
 
-    public void RollSubstats()
+    public virtual void RollSubstats()
     {
         exclusivity = Major.Get().Exclusivity;
 
@@ -107,6 +107,7 @@ public abstract partial class JewelInfo
 
     public void ApplyTo(Player player, float add = 0, float multiplier = 1f)
     {
+        PreApplyTo(player, add, multiplier);
         Major.Apply(player, add, multiplier);
 
         foreach (var subStat in SubStats)
@@ -115,6 +116,7 @@ public abstract partial class JewelInfo
         PostApplyTo(player, add, multiplier);
     }
 
+    protected virtual void PreApplyTo(Player player, float add, float multiplier) { }
     protected virtual void PostApplyTo(Player player, float add, float multiplier) { }
 
     public string[] SubStatTooltips(Player player)

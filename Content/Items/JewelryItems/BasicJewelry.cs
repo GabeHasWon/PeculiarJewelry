@@ -5,6 +5,7 @@ using PeculiarJewelry.Content.JewelryMechanic.MaterialBonuses.Bonuses;
 using PeculiarJewelry.Content.JewelryMechanic.Misc;
 using PeculiarJewelry.Content.JewelryMechanic.Stats;
 using PeculiarJewelry.Content.JewelryMechanic.Stats.IO;
+using PeculiarJewelry.Content.JewelryMechanic.Stats.Stats;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -132,6 +133,7 @@ public abstract class BasicJewelry : ModItem, IStorableItem
         Dictionary<StatType, float> strengthsByType = [];
         Dictionary<StatType, Color> colorsByType = [];
         int triggerIndex = 0;
+        int miscIndex = 0;
 
         player ??= Main.LocalPlayer;
         jewelry.ApplySingleJewelBonus(player);
@@ -142,6 +144,12 @@ public abstract class BasicJewelry : ModItem, IStorableItem
 
             foreach (var stat in stats)
             {
+                if (stat is AmberStatContainer amber)
+                {
+                    tooltips.Add(new TooltipLine(mod, "AmberLine" + miscIndex++, amber.GetDescription(player, false)) { OverrideColor = stat.Get().Color });
+                    continue;
+                }
+
                 if (strengthsByType.ContainsKey(stat.Type))
                     strengthsByType[stat.Type] += stat.GetEffectValue(player) * player.GetModPlayer<HallowedBonus.HallowedBonusPlayer>().fiveSetPower;
                 else
@@ -157,7 +165,7 @@ public abstract class BasicJewelry : ModItem, IStorableItem
 
         foreach (var (type, strength) in strengthsByType)
         {
-            string desc = "+" + Language.GetText("Mods.PeculiarJewelry.Jewelry.StatTypes." + type + ".Description").WithFormatArgs(strength.ToString("#0.##")).Value;
+            string desc = Language.GetText("Mods.PeculiarJewelry.Jewelry.StatTypes." + type + ".Description").WithFormatArgs(strength.ToString("#0.##")).Value;
             tooltips.Add(new TooltipLine(mod, "SummaryInfo" + type, desc) { OverrideColor = colorsByType[type] });
         }
 
@@ -285,7 +293,7 @@ public abstract class BasicJewelry : ModItem, IStorableItem
 
     public Color GetDisplayColor()
     {
-        var info = Info.FirstOrDefault(x => x.PriorityDisplay);
+        var info = Info.FirstOrDefault(x => x.CountsAsMajor);
 
         if (info is null && Info.Count <= 0)
             return Color.White;

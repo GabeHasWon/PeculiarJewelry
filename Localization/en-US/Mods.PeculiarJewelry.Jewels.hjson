@@ -1,6 +1,8 @@
 Prefixes: {
 	Major: Major
 	Minor: Minor
+	Pure: Pure
+	Full: Full
 }
 
 Titles: {
@@ -8,6 +10,7 @@ Titles: {
 	Impure: Impure Jewel
 	Lucky: Lucky Jade
 	Moonstone: Moonstone
+	Amber: Amber
 }
 
 Misc: {

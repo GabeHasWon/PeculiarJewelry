@@ -12,7 +12,7 @@ internal class MajorLuckyJewelInfo : JewelInfo
     public override string Prefix => "Major";
     public override string JewelTitle => "Lucky";
     public override bool HasExclusivity => false;
-    public override bool PriorityDisplay => true;
+    public override bool CountsAsMajor => true;
 
     internal override void InternalSetup() => SubStats = new List<JewelStat>(4);
 

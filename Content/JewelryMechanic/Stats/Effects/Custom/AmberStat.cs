@@ -2,21 +2,31 @@
 
 internal class AmberStat : JewelStatEffect
 {
-    public override StatType Type => StatType.Exploitation;
-    public override Color Color => new Color(217, 110, 4);
+    public override StatType Type => StatType.Amber;
+    public override Color Color => new(217, 110, 4);
 
-    Item _acc = null;
+    internal Item accessory = null;
+
+    public AmberStat()
+    {
+        Description = Language.GetText("Mods.PeculiarJewelry.Jewelry.StatTypes." + Type + ".Description");
+        DisplayName = Language.GetText("Mods.PeculiarJewelry.Jewelry.StatTypes." + Type + ".DisplayName");
+    }
 
     public override void Apply(Player player, float strength)
     {
-        if (_acc.expertOnly && !Main.expertMode)
+        if (accessory.type == ItemID.None)
             return;
 
-        if (_acc.accessory)
-            player.GrantPrefixBenefits(_acc);
+        if (accessory.expertOnly && !Main.expertMode)
+            return;
 
-        player.GrantArmorBenefits(_acc);
+        player.ApplyEquipFunctional(accessory, false);
     }
 
     protected override float InternalEffectBonus(float multiplier, Player player) => 0;
+
+    internal override string GetDescription(Player player, string stars, float str) => accessory is null
+            ? "Holds one accessory.\nRight click this item while holding an accesory to slot it in."
+            : Description.WithFormatArgs($"{accessory.Name} [i:{accessory.type}]").Value + stars;
 }
