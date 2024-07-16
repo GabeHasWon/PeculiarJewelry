@@ -1,4 +1,5 @@
-﻿using PeculiarJewelry.Content.Items.Jewels;
+﻿using PeculiarJewelry.Content.Items;
+using PeculiarJewelry.Content.Items.Jewels;
 using PeculiarJewelry.Content.Items.Pliers;
 using PeculiarJewelry.Content.JewelryMechanic.UI;
 using System;
@@ -17,6 +18,7 @@ public abstract partial class JewelInfo
     public virtual int MaxCuts => 20 + (int)tier;
     public virtual bool HasExclusivity => true;
     public virtual bool CountsAsMajor => false;
+    public virtual int CutDustType => ModContent.ItemType<SparklyDust>();
 
     public int RemainingCuts => MaxCuts - cuts;
 
@@ -196,6 +198,10 @@ public abstract partial class JewelInfo
     }
 
     internal virtual void PostAddStatTooltips(List<TooltipLine> tooltips, JewelInfo info, ModItem modItem) { }
+
+    /// <summary>
+    /// Overrides the default plier chance. Returning true will succeed the plier attempt.
+    /// </summary>
     internal virtual bool OverridePlierAttempt(Plier plier) => false;
     internal virtual int ModifyCoinPrice(int price) => price;
     internal virtual int ModifyDustPrice(int price) => price;

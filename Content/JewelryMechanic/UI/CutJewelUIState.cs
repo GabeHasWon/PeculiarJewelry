@@ -61,9 +61,10 @@ internal class CutJewelUIState : UIState, IClosableUIState
         int endCoins = Utils.CoinsSplit((long)price)[2];
         string coinPrice = !_hasJewel ? noJewel : HighlightStat(goldCoins, endCoins) + "/" + endCoins + $" {Localize("Gold")} [i:{ItemID.GoldCoin}]";
 
+        int dustId = JewelItem is null ? ModContent.ItemType<SparklyDust>() : JewelItem.info.CutDustType;
         int dustPriceNum = _hasJewel ? JewelCutDustPrice(JewelItem.info) : 0;
-        string dustPriceText = HighlightStat(Main.LocalPlayer.CountItem(ModContent.ItemType<SparklyDust>(), dustPriceNum), dustPriceNum);
-        string dustPrice = !_hasJewel ? "" : dustPriceText + "/" + dustPriceNum.ToString() + $" {Localize("Dust")} [i:{ModContent.ItemType<SparklyDust>()}]";
+        string dustPriceText = HighlightStat(Main.LocalPlayer.CountItem(dustId, dustPriceNum), dustPriceNum);
+        string dustPrice = !_hasJewel ? "" : dustPriceText + "/" + dustPriceNum.ToString() + $" {Lang.GetItemName(dustId)} [i:{dustId}]";
 
         float delta = -1;
         float chance = _hasJewel ? JewelCutChance(JewelItem.info, _supportItems, out delta) : -1;
@@ -535,9 +536,10 @@ internal class CutJewelUIState : UIState, IClosableUIState
             }
 
             int dustPrice = JewelCutDustPrice(info);
-            if (Main.LocalPlayer.CountItem(ModContent.ItemType<SparklyDust>(), dustPrice) < dustPrice)
+            int dustType = info.CutDustType;
+            if (Main.LocalPlayer.CountItem(dustType, dustPrice) < dustPrice)
             {
-                UpdateInfo(Language.GetText("Mods.PeculiarJewelry.UI.CutMenu.NoDust").WithFormatArgs(ModContent.ItemType<SparklyDust>()).Value);
+                UpdateInfo(Language.GetText("Mods.PeculiarJewelry.UI.CutMenu.NoDust").WithFormatArgs(dustType).Value);
                 return;
             }
 
@@ -554,7 +556,7 @@ internal class CutJewelUIState : UIState, IClosableUIState
             }
 
             for (int i = 0; i < dustPrice; ++i) // Consume dust
-                Main.LocalPlayer.ConsumeItem(ModContent.ItemType<SparklyDust>(), true);
+                Main.LocalPlayer.ConsumeItem(dustType, true);
             
             Main.LocalPlayer.BuyItem(coinPrice); // Consume coins
         }

@@ -1,4 +1,5 @@
 ﻿using PeculiarJewelry.Content.Items.Jewels.Rares.Amber;
+using PeculiarJewelry.Content.Items.Jewels.Rares.Gelid;
 using PeculiarJewelry.Content.Items.Jewels.Rares.Lucky;
 using System;
 using System.Collections.Generic;
@@ -107,6 +108,9 @@ internal class JewelRarePool
 
         if (rareTypes.HasFlag(OpenRareTypes.Amber))
             types.Add(JewelryCommon.MajorMinorType<PureAmber, FullAmber>());
+
+        if (rareTypes.HasFlag(OpenRareTypes.Gelid))
+            types.Add(JewelryCommon.MajorMinorType<MajorGelid, MinorGelid>());
 
         return types.Count == 0 ? -1 : Main.rand.Next(types);
     }

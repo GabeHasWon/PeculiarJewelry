@@ -2980,3 +2980,13 @@ PureAmber: {
 	DisplayName: Pure Amber
 	Tooltip: ""
 }
+
+MajorGelid: {
+	DisplayName: Major Gelid
+	Tooltip: ""
+}
+
+MinorGelid: {
+	DisplayName: Minor Gelid
+	Tooltip: ""
+}
