@@ -27,9 +27,7 @@ internal class ExaminationUIState : UIState, IClosableUIState
         if (_slot.HasItem)
         {
             _idleChatId = Main.rand.Next(3);
-
-            if (!_lastHasItem)
-                _dialogue.SetText((_slot.Item.ModItem as Jewel).ExaminationLocalization.Value);
+            _dialogue.SetText((_slot.Item.ModItem as Jewel).ExaminationLocalization.Value);
         }
         else if (_lastHasItem)
             _dialogue.SetText(Localize("Idle." + _idleChatId));

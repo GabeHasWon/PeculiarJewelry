@@ -4,6 +4,7 @@ using PeculiarJewelry.Content.JewelryMechanic.UI;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Drawing2D;
+using Terraria.ModLoader.IO;
 using tModPorter;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats;
@@ -19,7 +20,7 @@ public abstract partial class JewelInfo
 
     public int RemainingCuts => MaxCuts - cuts;
 
-    public string Name
+    public virtual string Name
     {
         get
         {
@@ -199,6 +200,8 @@ public abstract partial class JewelInfo
     internal virtual int ModifyCoinPrice(int price) => price;
     internal virtual int ModifyDustPrice(int price) => price;
     internal virtual float BaseJewelCutChance() => 1f - successfulCuts * 0.05f;
+    internal virtual void SaveData(TagCompound tag) { }
+    internal virtual void LoadData(TagCompound tag) { }
 
     internal virtual bool OverrideDisplayColor(out Color color)
     {

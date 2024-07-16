@@ -1,4 +1,3 @@
-using Microsoft.Build.Tasks.Hosting;
 using PeculiarJewelry.Content.Items.Jewels.Rares.Impure;
 using PeculiarJewelry.Content.Items.JewelSupport;
 using PeculiarJewelry.Content.Items.Tiles;
@@ -29,11 +28,15 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
     public abstract LocalizedText ExaminationLocalization { get; }
     protected abstract Type InfoType { get; }
 
+    protected virtual GrindInfo GrindInfo => new()
+    {
+        DropSubstats = true,
+    };
+
     protected virtual byte MaxVariations => 1;
 
     public JewelInfo info;
     public byte variant;
-
 
     public override sealed void SetStaticDefaults()
     {
@@ -51,6 +54,8 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
             InstancedTypeLookup = true;
         }
     }
+
+    protected virtual void StaticDefaults() { }
 
     public sealed override void SetDefaults()
     {
@@ -199,8 +204,12 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
         if (dustPayout < 1)
             dustPayout = 1;
 
+        dustPayout = (int)(dustPayout * GrindInfo.DustMultiplier);
+
         NewItem.SpawnSynced(source, Main.MouseWorld, ModContent.ItemType<SparklyDust>(), dustPayout, noGrabDelay: true);
-        ExtractSubStats(1f, source);
+
+        if (GrindInfo.DropSubstats)
+            ExtractSubStats(GrindInfo.SubstatRatio, source);
 
         if (info.cuts > 10)
             ExtractSupportItems(source);
@@ -221,8 +230,11 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
     private void ExtractSupportItems(IEntitySource source)
     {
         float chance = (info.cuts - 9f) / 100f;
+        float threshold = Main.rand.NextFloat();
 
-        if (Main.rand.NextFloat() < chance)
+        GrindInfo.ModifySupportChance(ref chance, ref threshold);
+
+        if (threshold < chance)
         {
             var pool = new WeightedRandom<int>();
             pool.Add(ModContent.ItemType<CursedDollar>(), 1);
@@ -239,7 +251,7 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
     {
         foreach (var stat in info.SubStats)
         {
-            if (Main.rand.NextFloat() * ratio > 0.025f * stat.Strength)
+            if (Main.rand.NextFloat() * ratio < 1 - 0.025f * stat.Strength)
                 continue;
 
             Item item = new(ModContent.ItemType<SubShard>());

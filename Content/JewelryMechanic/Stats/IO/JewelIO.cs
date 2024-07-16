@@ -24,12 +24,7 @@ internal static class JewelIO
             { "infoMajor", info.Major.SaveAs() }
         };
 
-        if (info is MajorJewelInfo)
-        {
-            TriggerEffect effect = (info as MajorJewelInfo).effect;
-            tag.Add("infoTriggerType", effect.GetType().AssemblyQualifiedName);
-            tag.Add("infoTriggerContext", (byte)effect.Context);
-        }
+        info.SaveData(tag);
 
         for (int i = 0; i < info.SubStats.Count; i++)
             tag.Add("infoSub" + i, info.SubStats[i].SaveAs());
@@ -40,20 +35,14 @@ internal static class JewelIO
     public static JewelInfo LoadInfo(TagCompound tag)
     {
         string type = tag.GetString("infoType");
-        JewelInfo info = Activator.CreateInstance(Type.GetType(type)) as JewelInfo;
+        var info = Activator.CreateInstance(Type.GetType(type)) as JewelInfo;
 
         info.tier = (JewelTier)tag.GetByte("infoTier");
         info.exclusivity = (StatExclusivity)tag.GetByte("infoExclusivity");
         info.cuts = tag.GetByte("infoCuts");
         info.successfulCuts = tag.GetByte("infoSuccessfulCuts");
         info.SetupFromIO(LoadStat(tag.GetCompound("infoMajor")));
-
-        if (info is MajorJewelInfo major && tag.ContainsKey("infoTriggerType"))
-        {
-            major.effect = Activator.CreateInstance(Type.GetType(tag.GetString("infoTriggerType"))) as TriggerEffect;
-            byte context = tag.GetByte("infoTriggerContext");
-            major.effect.ForceSetContext((TriggerContext)context);
-        }
+        info.LoadData(tag);
 
         for (int i = 0; i < info.SubStats.Capacity; i++)
         {
@@ -62,6 +51,7 @@ internal static class JewelIO
             else
                 break;
         }
+
         return info;
     }
 

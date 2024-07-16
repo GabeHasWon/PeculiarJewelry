@@ -9,6 +9,19 @@ public class MajorLucky : Jewel
     protected override Type InfoType => typeof(MajorLuckyJewelInfo);
     protected override byte MaxVariations => 3;
 
+    protected override GrindInfo GrindInfo => new()
+    {
+        DustMultiplier = 1.1f,
+        ModifySupportChance = RerollFailedSupportItem,
+        SubstatRatio = 0.95f,
+    };
+
+    internal static void RerollFailedSupportItem(ref float chance, ref float threshold)
+    {
+        if (chance < threshold)
+            threshold = Main.rand.NextFloat();
+    }
+
     public override void Defaults()
     {
         Item.width = 42;

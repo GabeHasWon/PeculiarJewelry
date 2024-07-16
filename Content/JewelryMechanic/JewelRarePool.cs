@@ -1,10 +1,7 @@
-﻿using FullSerializer;
+﻿using PeculiarJewelry.Content.Items.Jewels.Rares.Amber;
 using PeculiarJewelry.Content.Items.Jewels.Rares.Lucky;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PeculiarJewelry.Content.JewelryMechanic;
 
@@ -107,6 +104,9 @@ internal class JewelRarePool
 
         if (rareTypes.HasFlag(OpenRareTypes.Lucky))
             types.Add(JewelryCommon.MajorMinorType<MajorLucky, MinorLucky>());
+
+        if (rareTypes.HasFlag(OpenRareTypes.Amber))
+            types.Add(JewelryCommon.MajorMinorType<PureAmber, FullAmber>());
 
         return types.Count == 0 ? -1 : Main.rand.Next(types);
     }
