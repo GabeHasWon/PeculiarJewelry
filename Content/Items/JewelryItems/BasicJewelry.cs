@@ -295,7 +295,7 @@ public abstract class BasicJewelry : ModItem, IStorableItem
     {
         var info = Info.FirstOrDefault(x => x.CountsAsMajor);
 
-        if (info is null && Info.Count <= 0)
+        if (info is null || Info.Count <= 0)
             return Color.White;
 
         if (info.OverrideDisplayColor(out Color color))

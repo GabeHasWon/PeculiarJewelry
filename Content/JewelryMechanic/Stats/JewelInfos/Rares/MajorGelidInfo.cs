@@ -6,8 +6,6 @@ namespace PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos;
 
 internal class MajorGelidInfo : JewelInfo
 {
-    public static JewelryStatConfig Config => ModContent.GetInstance<JewelryStatConfig>();
-
     public override string Prefix => "Major";
     public override string JewelTitle => "Gelid";
     public override bool CountsAsMajor => true;

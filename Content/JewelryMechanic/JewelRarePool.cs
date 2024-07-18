@@ -112,6 +112,9 @@ internal class JewelRarePool
         if (rareTypes.HasFlag(OpenRareTypes.Gelid))
             types.Add(JewelryCommon.MajorMinorType<MajorGelid, MinorGelid>());
 
+        //if (rareTypes.HasFlag(OpenRareTypes.Ancient))
+        //    types.Add();
+
         return types.Count == 0 ? -1 : Main.rand.Next(types);
     }
 }

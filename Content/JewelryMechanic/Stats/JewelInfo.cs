@@ -152,7 +152,7 @@ public abstract partial class JewelInfo
         return false;
     }
 
-    internal void SuccessfulCut()
+    internal virtual void SuccessfulCut()
     {
         successfulCuts++;
         Major.Strength += JewelryCommon.StatStrengthRange(this);
