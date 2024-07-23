@@ -2990,3 +2990,13 @@ MinorGelid: {
 	DisplayName: Minor Gelid
 	Tooltip: ""
 }
+
+AncientMajor: {
+	DisplayName: Ancient Major
+	Tooltip: ""
+}
+
+AncientMinor: {
+	DisplayName: Ancient Minor
+	Tooltip: ""
+}

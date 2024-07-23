@@ -4,9 +4,7 @@ using PeculiarJewelry.Content.Items.Pliers;
 using PeculiarJewelry.Content.JewelryMechanic.UI;
 using System;
 using System.Collections.Generic;
-using System.Drawing.Drawing2D;
 using Terraria.ModLoader.IO;
-using tModPorter;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats;
 
@@ -17,7 +15,12 @@ public abstract partial class JewelInfo
     public virtual string JewelTitle => "Jewel";
     public virtual int MaxCuts => 20 + (int)tier;
     public virtual bool HasExclusivity => true;
+
+    /// <summary>
+    /// Whether the jewel counts as a major jewel or not. Defaults to false.
+    /// </summary>
     public virtual bool CountsAsMajor => false;
+
     public virtual int CutDustType => ModContent.ItemType<SparklyDust>();
 
     public int RemainingCuts => MaxCuts - cuts;

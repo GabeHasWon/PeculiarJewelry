@@ -9,6 +9,8 @@ Help: {
 	// PureAmber: Lucky you. A Pure Amber is such a precious stone. Don't ask how - I don't know why - but you can set in accessories into this gem. No matter the size, they'll fit. And once you set them into a nice piece of jewelry, you'll reap the benefits of that accessory. No polishing needed! These are such treats. Only one can be set in per jewelry, though.
 	// FullAmber: A not-so-pure Amber, the Full Amber. While its beauty is still near-unmatched, it does come in with the essence of an accessory already imbued within. From what I can tell, the world influences these - you can get some nice stuff in these. Otherwise, same as Pure Amber - no cuts, one per jewel.
 	// MajorGelid: The Major Gelid jewel, yes. These are peculiar, to be certain. MUCH, MUCH easier to cut, upgrade, all that. Simply molds to your liking in your hands. That being said, its effects are much, much weaker. They also take gel to improve. How does this work? I don't know. I just like how they look.
+	// MinorGelid: A demure Minor Gelid jewel. Precious, subtle, but what a joy. As with their Major sisters, they are significantly easier to cut, upgrade and move around. They also just don't hold as much oomph as a normal Jewel. Building a jewel with Gel simply doesn't make as robust of a stone, hm?
+	// AncientMajor: Oh, my. An Ancient Major Jewel? How lovely. I hesitate to even risk it...but alas, 'tis not mine. These treasures don't upgrade as much, and are MUCH harder to cut, but they improve so much on every success. The main stat goes up twice, AND upgrade a random sub stat. Every time. Worth the risk, I reckon.
 }
 
 Idle: {

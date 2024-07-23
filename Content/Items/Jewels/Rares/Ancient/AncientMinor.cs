@@ -1,23 +1,21 @@
 using PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos;
 using System;
 
-namespace PeculiarJewelry.Content.Items.Jewels.Rares.Gelid;
+namespace PeculiarJewelry.Content.Items.Jewels.Rares.Ancient;
 
-public class MajorGelid : Jewel
+public class AncientMinor : Jewel
 {
-    public override LocalizedText ExaminationLocalization => Language.GetText("Mods.PeculiarJewelry.UI.Exam.Help.MajorGelid");
-    protected override Type InfoType => typeof(MajorGelidInfo);
-    protected override byte MaxVariations => 3;
+    public override LocalizedText ExaminationLocalization => Language.GetText("Mods.PeculiarJewelry.UI.Exam.Help.MinorAncient");
+    protected override Type InfoType => typeof(MinorAncientInfo);
+    protected override byte MaxVariations => 5;
 
     public override void Defaults()
     {
-        Item.width = 42;
-        Item.height = 40;
+        Item.width = 24;
+        Item.height = 22;
         Item.rare = ItemRarityID.Green;
-        Item.value = Item.buyPrice(0, 40, 0, 0);
+        Item.value = Item.buyPrice(0, 15, 0, 0);
     }
-
-    public override bool CanRightClick() => true;
 
     public override bool PreDrawJewel(Texture2D texture, Vector2 position, Rectangle frame, Color color, float rotation, Vector2 origin, float scale, bool inInventory)
     {

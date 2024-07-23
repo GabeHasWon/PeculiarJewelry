@@ -1,6 +1,4 @@
-﻿using PeculiarJewelry.Content.Items.Pliers;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos;
 
