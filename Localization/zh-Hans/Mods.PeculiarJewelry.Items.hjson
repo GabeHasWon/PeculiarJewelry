@@ -2995,3 +2995,8 @@ AncientMinor: {
 	// DisplayName: Ancient Minor
 	// Tooltip: ""
 }
+
+MajorPearl: {
+	// DisplayName: Major Pearl
+	// Tooltip: ""
+}

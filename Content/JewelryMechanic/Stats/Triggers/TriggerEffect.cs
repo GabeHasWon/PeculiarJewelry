@@ -35,6 +35,9 @@ internal abstract class TriggerEffect : ModType
     public abstract TriggerType Type { get; }
     public virtual bool NeedsCooldown => false;
 
+    public virtual LocalizedText DisplayName => Language.GetText("Mods.PeculiarJewelry.Jewelry.TriggerEffects." + GetType().Name + ".Name");
+    public virtual LocalizedText Description => Language.GetText("Mods.PeculiarJewelry.Jewelry.TriggerEffects." + GetType().Name + ".Description");
+
     public int CooldownBuffType => !NeedsCooldown ? throw new FieldAccessException($"{GetType().Name} has no buff!")
         : ModLoader.GetMod("PeculiarJewelry").Find<ModBuff>(GetType().Name + "Buff").Type;
 
@@ -143,7 +146,7 @@ internal abstract class TriggerEffect : ModType
         const string Prefix = "Mods.PeculiarJewelry.Jewelry.";
         string condition = Language.GetText(Prefix + "TriggerContexts." + Context).Value;
         string chance = Language.GetText(Prefix + "ChanceTo").WithFormatArgs((ReportInstantChance(tier, player) * 100).ToString("#0.##")).Value;
-        string effect = Language.GetText(Prefix + "TriggerEffects." + GetType().Name).WithFormatArgs($"{TotalTriggerPower(player, ConditionCoefficients[Context], tier):#0.##}").Value;
+        string effect = Description.WithFormatArgs($"{TotalTriggerPower(player, ConditionCoefficients[Context], tier):#0.##}").Value;
 
         return condition + " " + (Type == TriggerType.Conditional ? "" : chance) + effect;
     }
@@ -157,7 +160,7 @@ internal abstract class TriggerEffect : ModType
 
         int tier = (int)jewelTier;
         float chance = (tier + 1f) / (tier + 3f);
-        chance += (100 - (chance * 100)) / 100 * (meteoriteCount / (meteoriteCount + 3f));
+        chance += (100 - chance * 100) / 100 * (meteoriteCount / (meteoriteCount + 3f));
 
         return chance;
     }

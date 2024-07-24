@@ -29,7 +29,8 @@ public abstract partial class JewelInfo
     {
         get
         {
-            string text = $"{Jewel.Localize("Jewels.Prefixes." + Prefix)} {tier.Localize()} {Jewel.Localize("Jewels.Titles." + JewelTitle)} of {Major.GetName().Value}";
+            string of = Language.GetTextValue("Mods.PeculiarJewelry.Jewels.Of");
+            string text = $"{Jewel.Localize("Jewels.Prefixes." + Prefix)} {tier.Localize()} {Jewel.Localize("Jewels.Titles." + JewelTitle)}{of}{Major.GetName().Value}";
 
             if (Major.Strength > 1)
                 text += $" +{successfulCuts}";
@@ -200,7 +201,16 @@ public abstract partial class JewelInfo
         return config.GlobalPowerScaleMinimum == 1 || config.PowerScaleStepCount == 1 ? (1, 1) : ((float, float))(config.GlobalPowerScaleMinimum, 1);
     }
 
-    internal virtual void PostAddStatTooltips(List<TooltipLine> tooltips, JewelInfo info, ModItem modItem) { }
+    internal virtual void PostAddStatTooltips(List<TooltipLine> tooltips, ModItem modItem, bool displayAsJewel) { }
+
+    /// <summary>
+    /// Runs before stats are added to the tooltip. Return true to skip adding stat tooltips; returns false by default.
+    /// </summary>
+    /// <param name="tooltips"></param>
+    /// <param name="modItem"></param>
+    /// <param name="displayAsJewel"></param>
+    /// <returns></returns>
+    internal virtual bool PreAddStatTooltips(List<TooltipLine> tooltips, ModItem modItem, bool displayAsJewel) => false;
 
     /// <summary>
     /// Overrides the default plier chance. Returning true will succeed the plier attempt.

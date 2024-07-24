@@ -19,7 +19,7 @@ public class AncientMajor : Jewel
 
     public override bool PreDrawJewel(Texture2D texture, Vector2 position, Rectangle frame, Color color, float rotation, Vector2 origin, float scale, bool inInventory)
     {
-        var col = inInventory ? Color.White : Lighting.GetColor((position + Main.screenPosition).ToTileCoordinates());
+        var col = inInventory ? Color.White * (color.A / 255f) : Lighting.GetColor((position + Main.screenPosition).ToTileCoordinates());
         Main.spriteBatch.Draw(texture, position, frame, col, rotation, origin, scale, SpriteEffects.None, 0);
         return false;
     }

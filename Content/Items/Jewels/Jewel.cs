@@ -122,27 +122,30 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
             tooltips.Add(new TooltipLine(modItem.Mod, "JewelName", info.Name) { OverrideColor = info.Major.Get().Color });
         }
 
-        if (info is MajorJewelInfo majorJewelInfo)
-            tooltips.Add(new TooltipLine(modItem.Mod, "TriggerEffect", majorJewelInfo.TriggerTooltip(Main.LocalPlayer)));
-
-        if (displayAsJewel || PeculiarJewelry.ShiftDown)
+        if (!info.PreAddStatTooltips(tooltips, modItem, displayAsJewel))
         {
-            tooltips.Add(new TooltipLine(modItem.Mod, "MajorStat", info.Major.GetDescription(Main.LocalPlayer, false)) { OverrideColor = info.Major.Get().Color });
+            if (info is MajorJewelInfo majorJewelInfo)
+                tooltips.Add(new TooltipLine(modItem.Mod, "TriggerEffect", majorJewelInfo.TriggerTooltip(Main.LocalPlayer)));
 
-            var subStatTooltips = info.SubStatTooltips(Main.LocalPlayer);
-
-            for (int i = 0; i < subStatTooltips.Length; ++i)
+            if ((displayAsJewel || PeculiarJewelry.ShiftDown))
             {
-                if (!displayAsJewel && subStatTooltips[i] == "-")
-                    continue;
+                tooltips.Add(new TooltipLine(modItem.Mod, "MajorStat", info.Major.GetDescription(Main.LocalPlayer, false)) { OverrideColor = info.Major.Get().Color });
 
-                Color color = i < info.SubStats.Count ? info.SubStats[i].Get().Color : Color.White;
-                string text = i < info.SubStats.Count ? "   " + subStatTooltips[i] : "   " + subStatTooltips[i];
-                tooltips.Add(new TooltipLine(modItem.Mod, "SubStat" + i, text) { OverrideColor = color });
+                var subStatTooltips = info.SubStatTooltips(Main.LocalPlayer);
+
+                for (int i = 0; i < subStatTooltips.Length; ++i)
+                {
+                    if (!displayAsJewel && subStatTooltips[i] == "-")
+                        continue;
+
+                    Color color = i < info.SubStats.Count ? info.SubStats[i].Get().Color : Color.White;
+                    string text = i < info.SubStats.Count ? "   " + subStatTooltips[i] : "   " + subStatTooltips[i];
+                    tooltips.Add(new TooltipLine(modItem.Mod, "SubStat" + i, text) { OverrideColor = color });
+                }
             }
-
-            info.PostAddStatTooltips(tooltips, info, modItem);
         }
+
+        info.PostAddStatTooltips(tooltips, modItem, displayAsJewel);
 
         if (displayAsJewel)
         {

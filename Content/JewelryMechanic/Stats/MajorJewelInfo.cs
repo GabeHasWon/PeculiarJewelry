@@ -1,5 +1,6 @@
 ﻿using PeculiarJewelry.Content.JewelryMechanic.Stats.Triggers;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Terraria.ModLoader.IO;
 
@@ -21,6 +22,12 @@ internal class MajorJewelInfo : JewelInfo
     public void InstantTrigger(TriggerContext context, Player player) => effect.InstantTrigger(context, player, tier);
     public void ConstantTrigger(Player player, float bonus) => effect.ConstantTrigger(player, tier, bonus);
     public string TriggerTooltip(Player player) => effect.Tooltip(tier, player);
+
+    internal override bool PreAddStatTooltips(List<TooltipLine> tooltips, ModItem modItem, bool displayAsJewel)
+    {
+        tooltips.Add(new TooltipLine(modItem.Mod, "TriggerEffect", TriggerTooltip(Main.LocalPlayer)));
+        return false;
+    }
 
     internal override void SaveData(TagCompound tag)
     {

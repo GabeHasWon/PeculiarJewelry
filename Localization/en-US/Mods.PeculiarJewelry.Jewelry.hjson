@@ -56,21 +56,88 @@ TriggerContexts: {
 }
 
 TriggerEffects: {
-	HealTrigger: heal {0} health.
-	ManaTrigger: heal {0} mana.
-	ImmuneFrameTrigger: gain {0} immune frames.
-	DamageTriggerConditional: Gain {0}% damage
-	DamageTriggerInstant: gain {0}% damage
-	DefenseTriggerConditional: Gain {0} defense
-	DefenseTriggerInstant: gain {0} defense
-	RegenTriggerConditional: Gain {0} life regen
-	RegenTriggerInstant: gain {0} life regen
-	CritTriggerConditional: Gain {0}% critical strike chance
-	CritTriggerInstant: gain {0}% critical strike chance
-	SpeedTriggerConditional: Gain {0}% movement speed
-	SpeedTriggerInstant: gain {0}% movement speed
-	DodgeTrigger: gain {0}% chance to dodge
-	SpawnProjTrigger: spawn a projectile that deals {0} damage
-	KBAndClearTrigger: push back enemies and clear projectiles in a {0} tile radius
-	DebuffWaveTrigger: inflict debuffs to enemies in a {0} half tile range for {0} seconds
+	HealTrigger: {
+		Name: Healing
+		Description: heal {0} health.
+	}
+
+	ManaTrigger: {
+		Name: Blessing
+		Description: heal {0} mana.
+	}
+
+	ImmuneFrameTrigger: {
+		Name: Immunity
+		Description: gain {0} immune frames.
+	}
+
+	DamageTriggerConditional: {
+		Name: Strength
+		Description: Gain {0}% damage
+	}
+
+	DamageTriggerInstant: {
+		Name: Uproar
+		Description: gain {0}% damage
+	}
+
+	DefenseTriggerConditional: {
+		Name: Bulk
+		Description: Gain {0} defense
+	}
+
+	DefenseTriggerInstant: {
+		Name: Tenacity
+		Description: gain {0} defense
+	}
+
+	RegenTriggerConditional: {
+		Name: Regrowth
+		Description: Gain {0} life regen
+	}
+
+	RegenTriggerInstant: {
+		Name: Blood
+		Description: gain {0} life regen
+	}
+
+	CritTriggerConditional: {
+		Name: Precision
+		Description: Gain {0}% critical strike chance
+	}
+
+	CritTriggerInstant: {
+		Name: Revenge
+		Description: gain {0}% critical strike chance
+	}
+
+	SpeedTriggerConditional: {
+		Name: Swiftness
+		Description: Gain {0}% movement speed
+	}
+
+	SpeedTriggerInstant: {
+		Name: Reaction
+		Description: gain {0}% movement speed
+	}
+
+	DodgeTrigger: {
+		Name: Agility
+		Description: gain {0}% chance to dodge
+	}
+
+	SpawnProjTrigger: {
+		Name: Range
+		Description: spawn a projectile that deals {0} damage
+	}
+
+	KBAndClearTrigger: {
+		Name: Force
+		Description: push back enemies and clear projectiles in a {0} tile radius
+	}
+
+	DebuffWaveTrigger: {
+		Name: Malady
+		Description: inflict debuffs to enemies in a {0} half tile range for {0} seconds
+	}
 }

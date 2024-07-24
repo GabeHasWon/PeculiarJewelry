@@ -16,7 +16,7 @@ internal class MinorLuckyJewelInfo : JewelInfo
     internal override void InternalSetup() => SubStats = new List<JewelStat>(2);
 
     protected override void PostApplyTo(Player player, float add, float multiplier) => player.luck += 0.1f;
-    internal override void PostAddStatTooltips(List<TooltipLine> tooltips, JewelInfo info, ModItem modItem)
+    internal override void PostAddStatTooltips(List<TooltipLine> tooltips, ModItem modItem, bool displayAsJewel)
         => tooltips.Add(new TooltipLine(ModContent.GetInstance<PeculiarJewelry>(), "LuckBonus", Language.GetTextValue("Mods.PeculiarJewelry.Jewels.Misc.MinorLuckBonus")));
     internal override bool OverridePlierAttempt(Plier plier) => true;
     internal override int ModifyCoinPrice(int price) => (int)MathF.Ceiling(price * 0.8f);

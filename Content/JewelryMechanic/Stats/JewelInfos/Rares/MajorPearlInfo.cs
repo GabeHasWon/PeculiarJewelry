@@ -1,8 +1,10 @@
-﻿using PeculiarJewelry.Content.Items.Jewels;
-using PeculiarJewelry.Content.JewelryMechanic.Stats.Stats;
+﻿using Microsoft.Xna.Framework.Graphics;
+using PeculiarJewelry.Content.Items.JewelryItems.Rings;
+using PeculiarJewelry.Content.Items.Jewels;
 using PeculiarJewelry.Content.JewelryMechanic.Stats.Triggers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria.ModLoader.IO;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos;
@@ -23,13 +25,48 @@ internal class MajorPearlInfo : JewelInfo
     {
         get
         {
-            string text = $"{Jewel.Localize("Jewels.Prefixes." + Prefix)} {tier.Localize()} {Jewel.Localize("Jewels.Titles." + JewelTitle)} of {effects[0].Name}";
+            string of = Language.GetTextValue("Mods.PeculiarJewelry.Jewels.Of");
+            string text = $"{Jewel.Localize("Jewels.Prefixes." + Prefix)} {tier.Localize()} {Jewel.Localize("Jewels.Titles." + JewelTitle)}{of}{effects[0].DisplayName}";
 
             if (Major.Strength > 1)
                 text += $" +{successfulCuts}";
-
             return text;
         }
+    }
+
+    public void InstantTrigger(TriggerContext context, Player player)
+    {
+        foreach (var effect in effects)
+            effect.InstantTrigger(context, player, tier);
+    }
+
+    public void ConstantTrigger(Player player, float bonus)
+    {
+        foreach (var effect in effects)
+            effect.ConstantTrigger(player, tier, bonus);
+    }
+
+    public string TriggerTooltip(Player player)
+    {
+        string tooltip = "";
+
+        for (int i = 0; i < effects.Length; i++)
+        {
+            TriggerEffect effect = effects[i];
+            tooltip += effect.Tooltip(tier, player) + (i < effects.Length - 1 ? "\n" : "");
+        }
+
+        return tooltip;
+    }
+
+    internal override bool PreAddStatTooltips(List<TooltipLine> tooltips, ModItem modItem, bool displayAsJewel)
+    {
+        string[] tips = TriggerTooltip(Main.LocalPlayer).Split('\n');
+
+        foreach (string tip in tips)
+            tooltips.Add(new TooltipLine(modItem.Mod, "PearlTriggerEffects", tip));
+
+        return true;
     }
 
     public override void RollSubstats() { }
@@ -38,6 +75,11 @@ internal class MajorPearlInfo : JewelInfo
     {
         SubStats = new List<JewelStat>(0);
         Major = new(StatType.None);
+
+        var triggers = ModContent.GetContent<TriggerEffect>().ToList();
+
+        for (int i = 0; i < effects.Length; i++)
+            effects[i] = Activator.CreateInstance(Main.rand.Next(triggers).GetType()) as TriggerEffect;
     }
 
     internal override bool OverrideDisplayColor(out Color color)

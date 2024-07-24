@@ -1,3 +1,5 @@
+// Of: " of "
+
 Prefixes: {
 	// Major: Major
 	// Minor: Minor
@@ -13,6 +15,7 @@ Titles: {
 	// Amber: Amber
 	// Gelid: Gelid Jewel
 	// Ancient: Ancient Jewel
+	// Pearl: Pearl
 }
 
 Misc: {

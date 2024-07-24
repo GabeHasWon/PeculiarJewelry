@@ -185,7 +185,9 @@ internal class SetJewelUIState : UIState, IClosableUIState
 
             foreach (var item in lines)
             {
-                if (!originalLines.Any(x => x.Name == item.Name) || originalLines.First(x => x.Name == item.Name).Text != item.Text)
+                bool isNewLine = !originalLines.Any(x => x.Name == item.Name) || originalLines.First(x => x.Name == item.Name).Text != item.Text;
+
+                if (isNewLine && !item.Name.Contains("_NoHex"))
                     allStats += $"{Hex}{item.Text}]\n";
                 else
                     allStats += item.Text + "\n";

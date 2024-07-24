@@ -56,21 +56,88 @@ TriggerContexts: {
 }
 
 TriggerEffects: {
-	HealTrigger: 恢复{0}点生命值。
-	ManaTrigger: 恢复{0}点魔力值。
-	ImmuneFrameTrigger: 获得{0}个无敌帧。
-	DamageTriggerConditional: 增加{0}%的伤害
-	DamageTriggerInstant: 立即增加{0}%的伤害
-	DefenseTriggerConditional: 增加{0}点防御力
-	DefenseTriggerInstant: 立即增加{0}点防御力
-	RegenTriggerConditional: 增加{0}点生命再生
-	RegenTriggerInstant: 立即增加{0}点生命再生
-	CritTriggerConditional: 增加{0}%的暴击几率
-	CritTriggerInstant: 立即增加{0}%的暴击几率
-	SpeedTriggerConditional: 增加{0}%的移动速度
-	SpeedTriggerInstant: 立即增加{0}%的移动速度
-	DodgeTrigger: 增加{0}%的闪避几率
-	SpawnProjTrigger: 生成一个造成{0}点伤害的投射物
-	KBAndClearTrigger: 将敌人击退并清除半径为{0}格的投射物
-	DebuffWaveTrigger: 对半径为{0}/2格的敌人施加持续{0}秒的减益效果
+	HealTrigger: {
+		// Name: Healing
+		// Description: heal {0} health.
+	}
+
+	ManaTrigger: {
+		// Name: Blessing
+		// Description: heal {0} mana.
+	}
+
+	ImmuneFrameTrigger: {
+		// Name: Immunity
+		// Description: gain {0} immune frames.
+	}
+
+	DamageTriggerConditional: {
+		// Name: Strength
+		// Description: Gain {0}% damage
+	}
+
+	DamageTriggerInstant: {
+		// Name: Uproar
+		// Description: gain {0}% damage
+	}
+
+	DefenseTriggerConditional: {
+		// Name: Bulk
+		// Description: Gain {0} defense
+	}
+
+	DefenseTriggerInstant: {
+		// Name: Tenacity
+		// Description: gain {0} defense
+	}
+
+	RegenTriggerConditional: {
+		// Name: Regrowth
+		// Description: Gain {0} life regen
+	}
+
+	RegenTriggerInstant: {
+		// Name: Blood
+		// Description: gain {0} life regen
+	}
+
+	CritTriggerConditional: {
+		// Name: Precision
+		// Description: Gain {0}% critical strike chance
+	}
+
+	CritTriggerInstant: {
+		// Name: Revenge
+		// Description: gain {0}% critical strike chance
+	}
+
+	SpeedTriggerConditional: {
+		// Name: Swiftness
+		// Description: Gain {0}% movement speed
+	}
+
+	SpeedTriggerInstant: {
+		// Name: Reaction
+		// Description: gain {0}% movement speed
+	}
+
+	DodgeTrigger: {
+		// Name: Agility
+		// Description: gain {0}% chance to dodge
+	}
+
+	SpawnProjTrigger: {
+		// Name: Range
+		// Description: spawn a projectile that deals {0} damage
+	}
+
+	KBAndClearTrigger: {
+		// Name: Force
+		// Description: push back enemies and clear projectiles in a {0} tile radius
+	}
+
+	DebuffWaveTrigger: {
+		// Name: Malady
+		// Description: inflict debuffs to enemies in a {0} half tile range for {0} seconds
+	}
 }

@@ -1,16 +1,21 @@
 ﻿using PeculiarJewelry.Content.Items.Jewels;
+using PeculiarJewelry.Content.Items.Jewels.Rares.Pearl;
 using PeculiarJewelry.Content.JewelryMechanic.Globals;
 using PeculiarJewelry.Content.JewelryMechanic.MaterialBonuses;
 using PeculiarJewelry.Content.JewelryMechanic.MaterialBonuses.Bonuses;
 using PeculiarJewelry.Content.JewelryMechanic.Misc;
 using PeculiarJewelry.Content.JewelryMechanic.Stats;
+using PeculiarJewelry.Content.JewelryMechanic.Stats.Effects;
 using PeculiarJewelry.Content.JewelryMechanic.Stats.IO;
+using PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos;
 using PeculiarJewelry.Content.JewelryMechanic.Stats.Stats;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using Terraria.DataStructures;
+using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace PeculiarJewelry.Content.Items.JewelryItems;
@@ -66,7 +71,8 @@ public abstract class BasicJewelry : ModItem, IStorableItem
         if (Info.Count != 0)
         {
             var stat = DetermineHighestStat(Info);
-            name.Text = $"{JewelryPrefix(tier)} {name.Text} of {stat.Localize()}";
+            string of = Language.GetTextValue("Mods.PeculiarJewelry.Jewels.Of");
+            name.Text = $"{JewelryPrefix(tier)} {name.Text}{of}{stat.Localize()}";
         }
         else
             name.Text = $"{JewelryPrefix(tier)} {name.Text}";
@@ -142,6 +148,9 @@ public abstract class BasicJewelry : ModItem, IStorableItem
         {
             List<JewelStat> stats = [item.Major, .. item.SubStats];
 
+            if (item.PreAddStatTooltips(tooltips, jewelry, false))
+                continue;
+
             foreach (var stat in stats)
             {
                 if (stat is AmberStatContainer amber)
@@ -149,6 +158,8 @@ public abstract class BasicJewelry : ModItem, IStorableItem
                     tooltips.Add(new TooltipLine(mod, "AmberLine" + miscIndex++, amber.GetDescription(player, false)) { OverrideColor = stat.Get().Color });
                     continue;
                 }
+                else if (stat.Type == StatType.None)
+                    continue;
 
                 if (strengthsByType.ContainsKey(stat.Type))
                     strengthsByType[stat.Type] += stat.GetEffectValue(player) * player.GetModPlayer<HallowedBonus.HallowedBonusPlayer>().fiveSetPower;
@@ -158,9 +169,6 @@ public abstract class BasicJewelry : ModItem, IStorableItem
                     colorsByType.Add(stat.Type, stat.Get().Color);
                 }
             }
-
-            if (item is MajorJewelInfo major)
-                tooltips.Add(new(mod, "TriggerEffect" + triggerIndex++, major.TriggerTooltip(player)));
         }
 
         foreach (var (type, strength) in strengthsByType)
