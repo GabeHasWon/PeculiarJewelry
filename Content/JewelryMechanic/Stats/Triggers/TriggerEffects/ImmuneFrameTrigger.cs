@@ -16,5 +16,5 @@ internal class ImmuneFrameTrigger : TriggerEffect
         player.AddBuff(CooldownBuffType, CooldownTime(tier));
     }
 
-    public override float TriggerPower() => 60;
+    protected override float InternalTriggerPower() => 60;
 }

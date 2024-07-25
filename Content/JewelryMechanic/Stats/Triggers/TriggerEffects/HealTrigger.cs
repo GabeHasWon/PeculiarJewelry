@@ -16,5 +16,5 @@ internal class HealTrigger : TriggerEffect
         player.AddBuff(CooldownBuffType, CooldownTime(tier));
     }
 
-    public override float TriggerPower() => 20;
+    protected override float InternalTriggerPower() => 20;
 }

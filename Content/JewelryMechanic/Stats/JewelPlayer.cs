@@ -14,7 +14,7 @@ namespace PeculiarJewelry.Content.JewelryMechanic.Stats;
 /// </summary>
 internal class JewelPlayer : ModPlayer
 {
-    public List<MajorJewelInfo> MajorJewelInfos
+    public List<MajorJewelInfo> TriggerJewelInfos
     {
         get
         {
@@ -22,8 +22,8 @@ internal class JewelPlayer : ModPlayer
 
             foreach (var item in jewelry)
                 foreach (var info in item.Info)
-                    if (info is MajorJewelInfo major)
-                        infos.Add(major);
+                    if (info is MajorJewelInfo)
+                        infos.Add(info as MajorJewelInfo);
 
             return infos;
         }
@@ -50,7 +50,7 @@ internal class JewelPlayer : ModPlayer
 
         if (self.GetModPlayer<JewelPlayer>().landCooldown <= 0 && velY != self.velocity.Y && self.velocity.Y == 0 && velY > 0.6f)
         {
-            foreach (var item in self.GetModPlayer<JewelPlayer>().MajorJewelInfos)
+            foreach (var item in self.GetModPlayer<JewelPlayer>().TriggerJewelInfos)
                 item.InstantTrigger(TriggerContext.OnLand, self);
 
             self.GetModPlayer<JewelPlayer>().landCooldown = 60;
@@ -78,7 +78,7 @@ internal class JewelPlayer : ModPlayer
         if (healAmount <= 0)
             return;
 
-        foreach (var item in player.GetModPlayer<JewelPlayer>().MajorJewelInfos)
+        foreach (var item in player.GetModPlayer<JewelPlayer>().TriggerJewelInfos)
             item.InstantTrigger(TriggerContext.OnHeal, player);
     }
 
@@ -116,7 +116,7 @@ internal class JewelPlayer : ModPlayer
         if (Player.jump > 0)
         {
             if (!_jumpFlag)
-                foreach (var item in MajorJewelInfos)
+                foreach (var item in TriggerJewelInfos)
                     item.InstantTrigger(TriggerContext.OnJump, Player);
 
             _jumpFlag = true;
@@ -127,7 +127,7 @@ internal class JewelPlayer : ModPlayer
 
     public override void OnHurt(Player.HurtInfo info)
     {
-        foreach (var item in MajorJewelInfos)
+        foreach (var item in TriggerJewelInfos)
             item.InstantTrigger(TriggerContext.OnTakeDamage, Player);
 
         timeSinceLastHit = 0;
@@ -138,7 +138,7 @@ internal class JewelPlayer : ModPlayer
         if (npc.immortal)
             return;
 
-        foreach (var item in MajorJewelInfos)
+        foreach (var item in TriggerJewelInfos)
             item.InstantTrigger(TriggerContext.OnHitEnemy, Player);
     }
 
@@ -156,11 +156,11 @@ internal class JewelPlayer : ModPlayer
     {
         public override void OnConsumeMana(Item item, Player player, int manaConsumed)
         {
-            foreach (var trigger in player.GetModPlayer<JewelPlayer>().MajorJewelInfos)
+            foreach (var trigger in player.GetModPlayer<JewelPlayer>().TriggerJewelInfos)
                 trigger.InstantTrigger(TriggerContext.OnUseMana, player);
 
             if (player.statMana - manaConsumed <= 0)
-                foreach (var trigger in player.GetModPlayer<JewelPlayer>().MajorJewelInfos)
+                foreach (var trigger in player.GetModPlayer<JewelPlayer>().TriggerJewelInfos)
                     trigger.InstantTrigger(TriggerContext.OnRunOutOfMana, player);
         }
     }

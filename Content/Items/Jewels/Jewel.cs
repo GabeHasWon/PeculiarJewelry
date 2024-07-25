@@ -79,7 +79,7 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
     {
         if (this is MajorJewel or MinorJewel && JewelRarePool.CheckForBiomes(Main.LocalPlayer, out var flags, out int count))
         {
-            bool isRare = Main.rand.NextBool(10);
+            bool isRare = Main.rand.NextBool(1);
             int rareType = JewelRarePool.GetRareJewelType(flags);
 
             if (isRare && rareType != -1)
@@ -89,9 +89,9 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
         }
 
         if (source is EntitySource_Loot loot && loot.Entity is NPC npc && npc.boss)
-            info.Setup(BossLootGlobal.GetBossTier(npc));
+            (Item.ModItem as Jewel).info.Setup(BossLootGlobal.GetBossTier(npc));
         else if (source is EntitySource_ItemOpen open && (open.ItemType == ModContent.ItemType<BagOfShinies>() || open.ItemType == ModContent.ItemType<AncientCoffer>()))
-            info.Setup(open.Player.GetModPlayer<StupidIdiotItemLootWorkaroundPlayer>().storedTier);
+            (Item.ModItem as Jewel).info.Setup(open.Player.GetModPlayer<StupidIdiotItemLootWorkaroundPlayer>().storedTier);
     }
 
     public sealed override void ModifyTooltips(List<TooltipLine> tooltips) => PlainJewelTooltips(tooltips, info, this);

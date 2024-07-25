@@ -20,7 +20,7 @@ internal class DebuffWaveTrigger : TriggerEffect
         }
     }
 
-    public override float TriggerPower() => 100;
+    protected override float InternalTriggerPower() => 100;
 
     class AoEProjectile : ModProjectile
     {

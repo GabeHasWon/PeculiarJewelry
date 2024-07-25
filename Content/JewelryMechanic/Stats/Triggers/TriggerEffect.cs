@@ -1,8 +1,11 @@
-﻿using PeculiarJewelry.Content.Buffs;
+﻿using Microsoft.Xna.Framework.Graphics;
+using PeculiarJewelry.Content.Buffs;
 using PeculiarJewelry.Content.JewelryMechanic.MaterialBonuses;
+using PeculiarJewelry.Content.JewelryMechanic.Stats.Triggers.TriggerEffects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Terraria.ModLoader.IO;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats.Triggers;
 
@@ -42,6 +45,8 @@ internal abstract class TriggerEffect : ModType
         : ModLoader.GetMod("PeculiarJewelry").Find<ModBuff>(GetType().Name + "Buff").Type;
 
     public TriggerContext Context { get; protected set; }
+
+    public float multiplier = 1f;
 
     private int _lingerTime = 0;
 
@@ -166,7 +171,10 @@ internal abstract class TriggerEffect : ModType
     }
 
     public virtual string TooltipArgumentFormat(float coefficient, JewelTier tier) => (TriggerPower() * coefficient).ToString("#0.##");
-    public abstract float TriggerPower();
+
+    public float TriggerPower() => InternalTriggerPower() * multiplier;
+
+    protected abstract float InternalTriggerPower();
 
     public float TotalTriggerPower(Player player, float coefficient, JewelTier tier)
     {
@@ -176,4 +184,25 @@ internal abstract class TriggerEffect : ModType
         float hellstoneMultiplier = player.GetModPlayer<MaterialPlayer>().MaterialCount("Hellstone") * 0.5f;
         return coefficient * TriggerPower() * (hellstoneMultiplier + 1);
     } 
+
+    public TagCompound Save()
+    {
+        TagCompound tag = [];
+        tag.Add("type", GetType().AssemblyQualifiedName);
+        tag.Add("context", (byte)Context);
+        tag.Add("multiplier", multiplier);
+        return tag;
+    }
+
+    internal static TriggerEffect Load(TagCompound tag)
+    {
+        if (tag.Count == 0)
+            return new DefenseTriggerConditional() { Context = TriggerContext.OnJump, multiplier = 1f };
+
+        var effect = Activator.CreateInstance(System.Type.GetType(tag.GetString("type"))) as TriggerEffect;
+        byte context = tag.GetByte("context");
+        effect.ForceSetContext((TriggerContext)context);
+        effect.multiplier = tag.GetFloat("multiplier");
+        return effect;
+    }
 }

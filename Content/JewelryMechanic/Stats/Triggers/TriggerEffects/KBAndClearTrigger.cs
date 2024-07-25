@@ -33,5 +33,5 @@ internal class KBAndClearTrigger : TriggerEffect
         }
     }
 
-    public override float TriggerPower() => 50;
+    protected override float InternalTriggerPower() => 50;
 }

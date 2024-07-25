@@ -8,10 +8,10 @@ internal class SpeedTriggerConditional : TriggerEffect
 
     protected override void InternalConditionalEffect(TriggerContext context, Player player, float coefficient, JewelTier tier)
     {
-        player.GetModPlayer<StackableBuffTracker>().StackableBuff<SpeedTriggerBuff>("Speed", new(2, TotalConditionalStrength(coefficient, tier)));
+        player.GetModPlayer<StackableBuffTracker>().StackableBuff<SpeedTriggerBuff>("Speed", new(2, TotalTriggerPower(player, coefficient, tier)));
     }
 
-    public override float TriggerPower() => 150;
+    protected override float InternalTriggerPower() => 150;
 }
 
 
@@ -21,8 +21,8 @@ internal class SpeedTriggerInstant : TriggerEffect
 
     protected override void InternalInstantEffect(TriggerContext context, Player player, float coefficient, JewelTier tier)
     {
-        player.GetModPlayer<StackableBuffTracker>().StackableBuff<SpeedTriggerBuff>("Speed", new((int)(coefficient * 5 * 60), TriggerPower()));
+        player.GetModPlayer<StackableBuffTracker>().StackableBuff<SpeedTriggerBuff>("Speed", new((int)(coefficient * 5 * 60), TotalTriggerPower(player, coefficient, tier)));
     }
 
-    public override float TriggerPower() => 225;
+    protected override float InternalTriggerPower() => 225;
 }

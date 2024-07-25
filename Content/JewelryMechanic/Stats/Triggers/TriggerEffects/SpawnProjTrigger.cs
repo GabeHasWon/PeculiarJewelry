@@ -20,7 +20,7 @@ internal class SpawnProjTrigger : TriggerEffect
 
             Color color = Color.White;
 
-            var majorJewels = player.GetModPlayer<JewelPlayer>().MajorJewelInfos.Where(i => i.effect is SpawnProjTrigger).ToList();
+            var majorJewels = player.GetModPlayer<JewelPlayer>().TriggerJewelInfos.Where(i => i.effect is SpawnProjTrigger).ToList();
             var jewel = Main.rand.Next(majorJewels);
             color = jewel.Major.Get().Color;
 
@@ -32,7 +32,7 @@ internal class SpawnProjTrigger : TriggerEffect
         }
     }
 
-    public override float TriggerPower() => 140;
+    protected override float InternalTriggerPower() => 140;
 
     private class TriggerProj : ModProjectile
     {

@@ -14,7 +14,7 @@ public class SyncLandModule(int playerWhoLanded) : Module
     {
         Player self = Main.player[playerWhoLanded];
 
-        foreach (var item in self.GetModPlayer<JewelPlayer>().MajorJewelInfos)
+        foreach (var item in self.GetModPlayer<JewelPlayer>().TriggerJewelInfos)
             item.InstantTrigger(TriggerContext.OnLand, self);
 
         self.GetModPlayer<JewelPlayer>().landCooldown = 60;

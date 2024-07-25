@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using PeculiarJewelry.Content.Items.JewelryItems.Rings;
-using PeculiarJewelry.Content.Items.Jewels;
+﻿using PeculiarJewelry.Content.Items.Jewels;
 using PeculiarJewelry.Content.JewelryMechanic.Stats.Triggers;
 using System;
 using System.Collections.Generic;
@@ -9,7 +7,7 @@ using Terraria.ModLoader.IO;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos;
 
-internal class MajorPearlInfo : JewelInfo
+internal class MajorPearlInfo : MajorJewelInfo
 {
     public static JewelryStatConfig Config => ModContent.GetInstance<JewelryStatConfig>();
 
@@ -17,7 +15,6 @@ internal class MajorPearlInfo : JewelInfo
     public override string JewelTitle => "Pearl";
     public override bool HasExclusivity => false;
     public override bool CountsAsMajor => true;
-    public override int MaxCuts => 0;
 
     public TriggerEffect[] effects = new TriggerEffect[3];
 
@@ -34,19 +31,19 @@ internal class MajorPearlInfo : JewelInfo
         }
     }
 
-    public void InstantTrigger(TriggerContext context, Player player)
+    public override void InstantTrigger(TriggerContext context, Player player)
     {
         foreach (var effect in effects)
             effect.InstantTrigger(context, player, tier);
     }
 
-    public void ConstantTrigger(Player player, float bonus)
+    public override void ConstantTrigger(Player player, float bonus)
     {
         foreach (var effect in effects)
             effect.ConstantTrigger(player, tier, bonus);
     }
 
-    public string TriggerTooltip(Player player)
+    public override string TriggerTooltip(Player player)
     {
         string tooltip = "";
 
@@ -88,22 +85,21 @@ internal class MajorPearlInfo : JewelInfo
         return true;
     }
 
+    internal override void SuccessfulCut()
+    {
+        for (int i = 0; i < effects.Length; ++i)
+            effects[i].multiplier += 0.1f * JewelryCommon.DefaultStatRangeFunction();
+    }
+
     internal override void SaveData(TagCompound tag)
     {
         for (int i = 0; i < effects.Length; ++i)
-        {
-            tag.Add("infoTriggerType" + i, effects[i].GetType().AssemblyQualifiedName);
-            tag.Add("infoTriggerContext" + i, (byte)effects[i].Context);
-        }
+            tag.Add("effect" + i, effects[i].Save());
     }
 
     internal override void LoadData(TagCompound tag)
     {
         for (int i = 0; i < effects.Length; ++i)
-        {
-            effects[i] = Activator.CreateInstance(Type.GetType(tag.GetString("infoTriggerType" + i))) as TriggerEffect;
-            byte context = tag.GetByte("infoTriggerContext" + i);
-            effects[i].ForceSetContext((TriggerContext)context);
-        }
+            effects[i] = TriggerEffect.Load(tag.GetCompound("effect" + i));
     }
 }

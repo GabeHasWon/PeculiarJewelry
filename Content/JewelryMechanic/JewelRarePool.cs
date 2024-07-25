@@ -2,6 +2,7 @@
 using PeculiarJewelry.Content.Items.Jewels.Rares.Ancient;
 using PeculiarJewelry.Content.Items.Jewels.Rares.Gelid;
 using PeculiarJewelry.Content.Items.Jewels.Rares.Lucky;
+using PeculiarJewelry.Content.Items.Jewels.Rares.Pearl;
 using System;
 using System.Collections.Generic;
 
@@ -115,6 +116,9 @@ internal class JewelRarePool
 
         if (rareTypes.HasFlag(OpenRareTypes.Ancient))
             types.Add(JewelryCommon.MajorMinorType<AncientMajor, AncientMinor>());
+
+        if (rareTypes.HasFlag(OpenRareTypes.Pearl))
+            types.Add(ModContent.ItemType<MajorPearl>());
 
         return types.Count == 0 ? -1 : Main.rand.Next(types);
     }

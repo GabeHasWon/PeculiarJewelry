@@ -11,7 +11,7 @@ internal class DefenseTriggerConditional : TriggerEffect
         player.GetModPlayer<StackableBuffTracker>().StackableBuff<DefenseTriggerBuff>("Defense", new(2, TotalConditionalStrength(coefficient, tier)));
     }
 
-    public override float TriggerPower() => 2;
+    protected override float InternalTriggerPower() => 2;
 }
 
 
@@ -21,8 +21,8 @@ internal class DefenseTriggerInstant : TriggerEffect
 
     protected override void InternalInstantEffect(TriggerContext context, Player player, float coefficient, JewelTier tier)
     {
-        player.GetModPlayer<StackableBuffTracker>().StackableBuff<DefenseTriggerBuff>("Defense", new((int)(coefficient * 5 * 60), TriggerPower() / 10f));
+        player.GetModPlayer<StackableBuffTracker>().StackableBuff<DefenseTriggerBuff>("Defense", new((int)(coefficient * 5 * 60), TotalTriggerPower(player, coefficient, tier) / 10f));
     }
 
-    public override float TriggerPower() => 3f;
+    protected override float InternalTriggerPower() => 3f;
 }

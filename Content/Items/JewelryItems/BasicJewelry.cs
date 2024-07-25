@@ -138,7 +138,6 @@ public abstract class BasicJewelry : ModItem, IStorableItem
         List<JewelInfo> info = overrideInfo ?? jewelry.Info;
         Dictionary<StatType, float> strengthsByType = [];
         Dictionary<StatType, Color> colorsByType = [];
-        int triggerIndex = 0;
         int miscIndex = 0;
 
         player ??= Main.LocalPlayer;

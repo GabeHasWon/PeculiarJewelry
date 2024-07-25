@@ -15,5 +15,5 @@ internal class ManaTrigger : TriggerEffect
         player.statMana += mana;
     }
 
-    public override float TriggerPower() => 20;
+    protected override float InternalTriggerPower() => 20;
 }

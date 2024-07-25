@@ -15,13 +15,13 @@ internal class MajorJewelInfo : JewelInfo
 
     internal override void InternalSetup()
     {
-        SubStats = new System.Collections.Generic.List<JewelStat>(4);
+        SubStats = new List<JewelStat>(4);
         effect = Activator.CreateInstance(Main.rand.Next(ModContent.GetContent<TriggerEffect>().ToList()).GetType()) as TriggerEffect;
     }
 
-    public void InstantTrigger(TriggerContext context, Player player) => effect.InstantTrigger(context, player, tier);
-    public void ConstantTrigger(Player player, float bonus) => effect.ConstantTrigger(player, tier, bonus);
-    public string TriggerTooltip(Player player) => effect.Tooltip(tier, player);
+    public virtual void InstantTrigger(TriggerContext context, Player player) => effect.InstantTrigger(context, player, tier);
+    public virtual void ConstantTrigger(Player player, float bonus) => effect.ConstantTrigger(player, tier, bonus);
+    public virtual string TriggerTooltip(Player player) => effect.Tooltip(tier, player);
 
     internal override bool PreAddStatTooltips(List<TooltipLine> tooltips, ModItem modItem, bool displayAsJewel)
     {
@@ -29,16 +29,18 @@ internal class MajorJewelInfo : JewelInfo
         return false;
     }
 
-    internal override void SaveData(TagCompound tag)
-    {
-        tag.Add("infoTriggerType", effect.GetType().AssemblyQualifiedName);
-        tag.Add("infoTriggerContext", (byte)effect.Context);
-    }
+    internal override void SaveData(TagCompound tag) => tag.Add("effect", effect.Save());
 
     internal override void LoadData(TagCompound tag)
     {
-        effect = Activator.CreateInstance(Type.GetType(tag.GetString("infoTriggerType"))) as TriggerEffect;
-        byte context = tag.GetByte("infoTriggerContext");
-        effect.ForceSetContext((TriggerContext)context);
+        if (tag.TryGet("effect", out TagCompound effectTag))
+            effect = TriggerEffect.Load(effectTag);
+        else
+        {
+            effect = Activator.CreateInstance(Type.GetType(tag.GetString("infoTriggerType"))) as TriggerEffect;
+            byte context = tag.GetByte("infoTriggerContext");
+            effect.ForceSetContext((TriggerContext)context);
+            effect.multiplier = 1f;
+        }
     }
 }
