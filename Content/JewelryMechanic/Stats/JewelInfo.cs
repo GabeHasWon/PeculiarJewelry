@@ -15,6 +15,7 @@ public abstract partial class JewelInfo
     public virtual string JewelTitle => "Jewel";
     public virtual int MaxCuts => 20 + (int)tier;
     public virtual bool HasExclusivity => true;
+    public virtual bool IsRare => true;
 
     /// <summary>
     /// Whether the jewel counts as a major jewel or not. Defaults to false.
@@ -30,7 +31,7 @@ public abstract partial class JewelInfo
         get
         {
             string of = Language.GetTextValue("Mods.PeculiarJewelry.Jewels.Of");
-            string text = $"{Jewel.Localize("Jewels.Prefixes." + Prefix)} {tier.Localize()} {Jewel.Localize("Jewels.Titles." + JewelTitle)}{of}{Major.GetName().Value}";
+            string text = $"{Jewel.Localize("Jewels.Prefixes." + Prefix)} {tier.Localize()} {Jewel.Localize("Jewels.Titles." + JewelTitle)}{of}{Title}";
 
             if (Major.Strength > 1)
                 text += $" +{successfulCuts}";
@@ -38,6 +39,8 @@ public abstract partial class JewelInfo
             return text;
         }
     }
+
+    public virtual string Title => Major.GetName().Value;
 
     public JewelStat Major { get; internal set; }
     public List<JewelStat> SubStats { get; protected set; } = null;

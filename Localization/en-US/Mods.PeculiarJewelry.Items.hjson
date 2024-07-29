@@ -2214,7 +2214,7 @@ TranscendantEcho: {
 
 LuckyCoin: {
 	DisplayName: Lucky Penny
-	Tooltip: Stops anything but itself from being consumed when setting or cutting jewels
+	Tooltip: Stops anything but itself from being consumed when cutting jewels
 }
 
 SubShard: {
@@ -3003,5 +3003,10 @@ AncientMinor: {
 
 MajorPearl: {
 	DisplayName: Major Pearl
+	Tooltip: ""
+}
+
+MinorPearl: {
+	DisplayName: Minor Pearl
 	Tooltip: ""
 }

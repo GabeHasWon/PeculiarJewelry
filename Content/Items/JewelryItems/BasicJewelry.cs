@@ -1,21 +1,15 @@
 ﻿using PeculiarJewelry.Content.Items.Jewels;
-using PeculiarJewelry.Content.Items.Jewels.Rares.Pearl;
-using PeculiarJewelry.Content.JewelryMechanic.Globals;
 using PeculiarJewelry.Content.JewelryMechanic.MaterialBonuses;
 using PeculiarJewelry.Content.JewelryMechanic.MaterialBonuses.Bonuses;
 using PeculiarJewelry.Content.JewelryMechanic.Misc;
 using PeculiarJewelry.Content.JewelryMechanic.Stats;
-using PeculiarJewelry.Content.JewelryMechanic.Stats.Effects;
 using PeculiarJewelry.Content.JewelryMechanic.Stats.IO;
-using PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos;
 using PeculiarJewelry.Content.JewelryMechanic.Stats.Stats;
 using System;
 using System.Collections.Generic;
-using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using Terraria.DataStructures;
-using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace PeculiarJewelry.Content.Items.JewelryItems;
@@ -70,9 +64,9 @@ public abstract class BasicJewelry : ModItem, IStorableItem
 
         if (Info.Count != 0)
         {
-            var stat = DetermineHighestStat(Info);
+            string title = GetBestTitleInfo(Info);
             string of = Language.GetTextValue("Mods.PeculiarJewelry.Jewels.Of");
-            name.Text = $"{JewelryPrefix(tier)} {name.Text}{of}{stat.Localize()}";
+            name.Text = $"{JewelryPrefix(tier)} {name.Text}{of}{title}";
         }
         else
             name.Text = $"{JewelryPrefix(tier)} {name.Text}";
@@ -97,22 +91,48 @@ public abstract class BasicJewelry : ModItem, IStorableItem
                 Jewel.PlainJewelTooltips(tooltips, item, this, false);
     }
 
+    private string GetBestTitleInfo(List<JewelInfo> info)
+    {
+        if (GetSpecialTitle(info, out JewelInfo newInfo))
+            return newInfo.Title;
+
+        return DetermineHighestStat(info).Localize();
+    }
+
+    private bool GetSpecialTitle(List<JewelInfo> info, out JewelInfo newInfo)
+    {
+        newInfo = null;
+
+        if (info.Any(x => x.IsRare))
+        {
+            newInfo = info.Where(x => x.IsRare).First();
+            return true;
+        }
+
+        if (info.Any(x => x.CountsAsMajor))
+        {
+            newInfo = info.Where(x => x.CountsAsMajor).OrderBy(x => x.Major.Strength).First();
+            return true;
+        }
+
+        return false;
+    }
+
     private static StatType DetermineHighestStat(List<JewelInfo> info)
     {
-        Dictionary<StatType, int> typesByUpgrades = new();
+        Dictionary<StatType, int> typesByUpgrades = [];
 
         if (info.Count == 0)
             return StatType.Potency;
 
         foreach (var jewel in info)
         {
-            List<JewelStat> stats = new() { jewel.Major };
-            stats.AddRange(jewel.SubStats);
+            List<JewelStat> stats = [jewel.Major, .. jewel.SubStats];
 
             foreach (var stat in stats)
             {
-                if (typesByUpgrades.ContainsKey(stat.Get().Type))
-                    typesByUpgrades[stat.Get().Type]++;
+                if (typesByUpgrades.TryGetValue(stat.Get().Type, out int value))
+                    typesByUpgrades[stat.Get().Type] = ++value;
                 else
                     typesByUpgrades.Add(stat.Get().Type, 1);
             }

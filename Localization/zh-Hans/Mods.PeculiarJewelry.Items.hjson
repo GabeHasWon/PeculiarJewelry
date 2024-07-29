@@ -3000,3 +3000,8 @@ MajorPearl: {
 	// DisplayName: Major Pearl
 	// Tooltip: ""
 }
+
+MinorPearl: {
+	// DisplayName: Minor Pearl
+	// Tooltip: ""
+}

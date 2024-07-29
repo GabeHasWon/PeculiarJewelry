@@ -15,21 +15,10 @@ internal class MajorPearlInfo : MajorJewelInfo
     public override string JewelTitle => "Pearl";
     public override bool HasExclusivity => false;
     public override bool CountsAsMajor => true;
+    public override string Title => effects[0].DisplayName.Value;
 
     public TriggerEffect[] effects = new TriggerEffect[3];
 
-    public override string Name
-    {
-        get
-        {
-            string of = Language.GetTextValue("Mods.PeculiarJewelry.Jewels.Of");
-            string text = $"{Jewel.Localize("Jewels.Prefixes." + Prefix)} {tier.Localize()} {Jewel.Localize("Jewels.Titles." + JewelTitle)}{of}{effects[0].DisplayName}";
-
-            if (Major.Strength > 1)
-                text += $" +{successfulCuts}";
-            return text;
-        }
-    }
 
     public override void InstantTrigger(TriggerContext context, Player player)
     {
@@ -87,6 +76,8 @@ internal class MajorPearlInfo : MajorJewelInfo
 
     internal override void SuccessfulCut()
     {
+        successfulCuts++;
+
         for (int i = 0; i < effects.Length; ++i)
             effects[i].multiplier += 0.1f * JewelryCommon.DefaultStatRangeFunction();
     }

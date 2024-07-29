@@ -12,6 +12,7 @@ internal class MajorJewelInfo : JewelInfo
 
     public override string Prefix => "Major";
     public override bool CountsAsMajor => true;
+    public override bool IsRare => false;
 
     internal override void InternalSetup()
     {
