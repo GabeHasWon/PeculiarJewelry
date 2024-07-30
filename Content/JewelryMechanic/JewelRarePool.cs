@@ -118,7 +118,7 @@ internal class JewelRarePool
             types.Add(JewelryCommon.MajorMinorType<AncientMajor, AncientMinor>());
 
         if (rareTypes.HasFlag(OpenRareTypes.Pearl))
-            types.Add(ModContent.ItemType<MajorPearl>());
+            types.Add(JewelryCommon.MajorMinorType<MajorPearl, MinorPearl>());
 
         return types.Count == 0 ? -1 : Main.rand.Next(types);
     }

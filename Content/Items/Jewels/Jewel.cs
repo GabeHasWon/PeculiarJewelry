@@ -129,7 +129,8 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
 
             if ((displayAsJewel || PeculiarJewelry.ShiftDown))
             {
-                tooltips.Add(new TooltipLine(modItem.Mod, "MajorStat", info.Major.GetDescription(Main.LocalPlayer, false)) { OverrideColor = info.Major.Get().Color });
+                if (info.Major.Type != StatType.None)
+                    tooltips.Add(new TooltipLine(modItem.Mod, "MajorStat", info.Major.GetDescription(Main.LocalPlayer, false)) { OverrideColor = info.Major.Get().Color });
 
                 var subStatTooltips = info.SubStatTooltips(Main.LocalPlayer);
 

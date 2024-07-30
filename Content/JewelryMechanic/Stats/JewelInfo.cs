@@ -16,6 +16,7 @@ public abstract partial class JewelInfo
     public virtual int MaxCuts => 20 + (int)tier;
     public virtual bool HasExclusivity => true;
     public virtual bool IsRare => true;
+    public virtual bool IgnoreSubstatUpgrade => false;
 
     /// <summary>
     /// Whether the jewel counts as a major jewel or not. Defaults to false.
@@ -128,6 +129,7 @@ public abstract partial class JewelInfo
 
     protected virtual void PreApplyTo(Player player, float add, float multiplier) { }
     protected virtual void PostApplyTo(Player player, float add, float multiplier) { }
+    public virtual void AddCutLines(List<TooltipLine> lines, bool hoveringAnvil) { }
 
     public string[] SubStatTooltips(Player player)
     {

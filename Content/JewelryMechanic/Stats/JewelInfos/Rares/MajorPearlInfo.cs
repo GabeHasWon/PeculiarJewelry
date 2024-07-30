@@ -19,7 +19,6 @@ internal class MajorPearlInfo : MajorJewelInfo
 
     public TriggerEffect[] effects = new TriggerEffect[3];
 
-
     public override void InstantTrigger(TriggerContext context, Player player)
     {
         foreach (var effect in effects)

@@ -3010,3 +3010,9 @@ MinorPearl: {
 	DisplayName: Minor Pearl
 	Tooltip: ""
 }
+
+MajorOpal: {
+	DisplayName: Major Opal
+	Tooltip: ""
+	SubstatOverrideLine: "Two substats will be "
+}

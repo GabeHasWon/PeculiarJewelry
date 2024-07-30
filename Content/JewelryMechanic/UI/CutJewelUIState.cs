@@ -224,13 +224,18 @@ internal class CutJewelUIState : UIState, IClosableUIState
             _statPanel.Append(new UIText(Localize("NoJewel")));
         else
         {
-            var subStats = (item.ModItem as Jewel).info.SubStats;
+            JewelInfo info = (item.ModItem as Jewel).info;
+            var subStats = info.SubStats;
             var tooltips = new List<TooltipLine>() { new TooltipLine(ModLoader.GetMod("PeculiarJewelry"), "ItemName", "Item") };
             item.ModItem.ModifyTooltips(tooltips);
 
-            if (_hoveringAnvil && (item.ModItem as Jewel).info.successfulCuts % 4 == 3)
-                tooltips.Add(new TooltipLine(ModLoader.GetMod("PeculiarJewelry"), "SubstatUpgrade", Localize("SubstatUpgrade") + 
-                    (subStats.Count == subStats.Capacity ? Localize("Upgraded") : Localize("Added"))));
+            info.AddCutLines(tooltips, _hoveringAnvil);
+
+            if (!info.IgnoreSubstatUpgrade && _hoveringAnvil && (item.ModItem as Jewel).info.successfulCuts % 4 == 3)
+            {
+                string upgradeText = Localize("SubstatUpgrade") + (subStats.Count == subStats.Capacity ? Localize("Upgraded") : Localize("Added"));
+                tooltips.Add(new TooltipLine(ModLoader.GetMod("PeculiarJewelry"), "SubstatUpgrade", upgradeText));
+            }
 
             for (int i = 0; i < tooltips.Count; i++)
             {
