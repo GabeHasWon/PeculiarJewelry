@@ -3016,3 +3016,8 @@ MajorOpal: {
 	Tooltip: ""
 	SubstatOverrideLine: "Two substats will be "
 }
+
+MinorOpal: {
+	DisplayName: Minor Opal
+	Tooltip: ""
+}

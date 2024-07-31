@@ -1,5 +1,4 @@
 ﻿using PeculiarJewelry.Content.JewelryMechanic.UI;
-using rail;
 using System.Collections.Generic;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos;
