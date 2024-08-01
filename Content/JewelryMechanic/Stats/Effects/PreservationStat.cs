@@ -14,6 +14,6 @@ internal class PreservationStat : JewelStatEffect
         public float bonus = 0f;
 
         public override void ResetEffects() => bonus = 0f;
-        public override bool CanConsumeAmmo(Item weapon, Item ammo) => Main.rand.NextFloat() < bonus / 100f;
+        public override bool CanConsumeAmmo(Item weapon, Item ammo) => Main.rand.NextFloat() > bonus / 100f;
     }
 }
