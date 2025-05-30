@@ -1,5 +1,4 @@
 ﻿using PeculiarJewelry.Content.JewelryMechanic.MaterialBonuses.Bonuses;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,26 +12,26 @@ internal class MaterialPlayer : ModPlayer
         public readonly Texture2D Texture = texture;
     }
 
-    internal readonly Dictionary<EquipType, EquipLayerInfo?> jewelryEquips = new();
+    internal readonly Dictionary<EquipType, EquipLayerInfo?> jewelryEquips = [];
 
-    private Dictionary<string, int> _materialsWornCount = null;
+    private Dictionary<string, float> _materialsWornCount = null;
 
     public override void ResetEffects()
     {
-        _materialsWornCount = new Dictionary<string, int>();
+        _materialsWornCount = [];
 
         foreach (var mat in BaseMaterialBonus.BonusesByKey)
             _materialsWornCount.Add(mat.Key, 0);
 
-        foreach (var item in _materialsWornCount.Keys)
+        foreach (string item in _materialsWornCount.Keys)
             _materialsWornCount[item] = 0;
 
         foreach (var item in jewelryEquips.Keys)
             jewelryEquips[item] = null;
     }
 
-    public void AddMaterial(string name) => _materialsWornCount[name]++;
-    internal int MaterialCount(string materialKey) => _materialsWornCount[materialKey];
+    public void AddMaterial(string name, float amount = 1f) => _materialsWornCount[name] += amount;
+    public float MaterialCount(string materialKey) => _materialsWornCount[materialKey];
 
     internal void SetEquip(EquipType type, EquipLayerInfo info)
     {
@@ -46,11 +45,12 @@ internal class MaterialPlayer : ModPlayer
     {
         info = default;
 
-        if (jewelryEquips.ContainsKey(type) && jewelryEquips[type] is not null)
+        if (jewelryEquips.TryGetValue(type, out EquipLayerInfo? value) && value is not null)
         {
-            info = jewelryEquips[type].Value;
+            info = value.Value;
             return true;
         }
+
         return false;
     }
 

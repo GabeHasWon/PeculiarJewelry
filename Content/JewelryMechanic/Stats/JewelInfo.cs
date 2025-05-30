@@ -14,7 +14,17 @@ public abstract partial class JewelInfo
 
     public virtual string JewelTitle => "Jewel";
     public virtual int MaxCuts => 20 + (int)tier;
+
+    /// <summary>
+    /// Whether the jewel has exclusivity, i.e. two of the same stat cannot be rolled, or not.<br/>
+    /// Used for jewels that can or must repeat stats.<br/>
+    /// Defaults to true.
+    /// </summary>
     public virtual bool HasExclusivity => true;
+
+    /// <summary>
+    /// If the jewel is rare or not. Defaults to true, as more unique infos are rare.
+    /// </summary>
     public virtual bool IsRare => true;
     public virtual bool IgnoreSubstatUpgrade => false;
 

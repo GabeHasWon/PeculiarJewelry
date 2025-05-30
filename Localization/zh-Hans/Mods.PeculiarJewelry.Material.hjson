@@ -5,6 +5,7 @@ JewelStatBonusLine: 珠宝提供的属性加成增加15%
 
 Bonuses: {
 	Copper: {
+		// Name: Copper
 		1Set: "{1Bonus} {JewelStatBonusLine} 最大生命值"
 		3Set: "{3Bonus} 你的防御力会加到你的最大生命值上"
 		5Set:
@@ -15,12 +16,14 @@ Bonuses: {
 	}
 
 	Tin: {
+		// Name: Tin
 		1Set: "{$1Bonus} {$JewelStatBonusLine} 生命再生"
 		3Set: "{$3Bonus} 被击中时，你的当前再生速度会提高到三倍，直到你恢复的生命值超过受到的伤害"
 		5Set: "{$5Bonus} 生命再生速度越快，伤害越高"
 	}
 
 	Iron: {
+		// Name: Iron
 		1Set: "{$1Bonus} {$JewelStatBonusLine} 防御力"
 		3Set: "{$3Bonus} 伤害值等于两倍防御力或更低时，伤害减半"
 		5Set:
@@ -31,24 +34,28 @@ Bonuses: {
 	}
 
 	Lead: {
+		// Name: Lead
 		1Set: "{$1Bonus} {$JewelStatBonusLine} 伤害抗性"
 		3Set: "{$3Bonus} 免疫击退"
 		5Set: "{$5Bonus} 每30秒生成一个灵魂护盾来抵消一次攻击。可以叠加最多3次"
 	}
 
 	Silver: {
+		// Name: Silver
 		1Set: "{$1Bonus} {$JewelStatBonusLine} 移动速度"
 		3Set: "{$3Bonus} 大幅提高跑步速度"
 		5Set: "{$5Bonus} 启用冲刺能力"
 	}
 
 	Tungsten: {
+		// Name: Tungsten
 		1Set: "{$1Bonus} {$JewelStatBonusLine} 移动控制"
 		3Set: "{$3Bonus} 大幅提高跳跃高度"
 		5Set: "{$5Bonus} 按住上键悬浮，按住下键快速下落"
 	}
 
 	Gold: {
+		// Name: Gold
 		1Set: "{$1Bonus} 提高幸运值"
 		3Set:
 			'''
@@ -59,12 +66,14 @@ Bonuses: {
 	}
 
 	Platinum: {
+		// Name: Platinum
 		1Set: "{$1Bonus} 珠宝上的辅助和钓鱼属性提供25%的额外属性加成"
 		3Set: "{$3Bonus} 放置物品的速度大幅提升，永久声呐药水效果"
 		5Set: "{$5Bonus} 永久虫洞和宝箱药水效果，传送塔可在任何地方使用"
 	}
 
 	Meteorite: {
+		// Name: Meteorite
 		1Set: "{$1Bonus} 触发效果持续时间更长，条件效果持续时间更长"
 		3Set: "{$3Bonus} 触发效果必定发生，条件触发效果在不满足条件时以较低的比例生效"
 		5Set:
@@ -75,18 +84,21 @@ Bonuses: {
 	}
 
 	Cobalt: {
+		// Name: Cobalt
 		1Set: "{$1Bonus} {$JewelStatBonusLine} 召唤师属性"
 		3Set: "{$3Bonus} 召唤物获得造成部分伤害的影子分身"
 		5Set: "{$5Bonus} 召唤物的速度现在大幅提高"
 	}
 
 	Palladium: {
+		// Name: Palladium
 		1Set: "{$1Bonus} {$JewelStatBonusLine} 近战属性"
 		3Set: "{$3Bonus} 使用近战武器击中敌人会大幅提高下一次攻击的使用速度"
 		5Set: "{$5Bonus} 近战攻击可以摧毁敌方投射物"
 	}
 
 	Crimtane: {
+		// Name: Crimtane
 		1Set:
 			'''
 			{$1Bonus} 这件珠宝上的珠宝提供25%的额外全伤害加成
@@ -97,36 +109,42 @@ Bonuses: {
 	}
 
 	Mythril: {
+		// Name: Mythril
 		1Set: "{$1Bonus} {$JewelStatBonusLine} 射手属性"
 		3Set: "{$3Bonus} 完全静止时，射速大幅提高"
 		5Set: "{$5Bonus} 每次未射偏都会逐渐增加下一次攻击的伤害"
 	}
 
 	Orichalcum: {
+		// Name: Orichalcum
 		1Set: "{$1Bonus} {$JewelStatBonusLine} 法师属性"
 		3Set: "{$3Bonus} 每第三次施法，你的魔法攻击将变为两倍大小，造成两倍伤害，但此次攻击将消耗两倍的魔力"
 		5Set: "{$5Bonus} 捡起一颗魔力星会添加一个叠加、衰减的伤害加成"
 	}
 
 	Adamantite: {
+		// Name: Adamantite
 		1Set: "{$1Bonus} {$JewelStatBonusLine} 暴击属性"
 		3Set: "{$3Bonus} 暴击时，降低一半几率并提高伤害，直到判定失败"
 		5Set: "{$5Bonus} 暴击判定失败时，再获得一次暴击机会"
 	}
 
 	Titanium: {
+		// Name: Titanium
 		1Set: "{$1Bonus} {$JewelStatBonusLine} 通用属性"
 		3Set: "{$3Bonus} 每次攻击敌人都会减少他们1点防御力，直到击中另一个敌人"
 		5Set: "{$5Bonus} 击中敌人会生成一个造成原始伤害一半的回声投射物，但会无视护甲"
 	}
 
 	Hallowed: {
+		// Name: Hallowed
 		1Set: "{$1Bonus} 这件珠宝上的所有珠宝提供5%的额外属性加成"
 		3Set: "{$3Bonus} 没有活跃的首领或事件时，你将成为不朽的存在"
 		5Set: "{$5Bonus} 你每佩戴一颗珠宝，所有属性都会额外增加1%"
 	}
 
 	Chlorophyte: {
+		// Name: Chlorophyte
 		1Set:
 			'''
 			{$1Bonus} 所有珠宝上的所有属性减少5%
@@ -137,6 +155,7 @@ Bonuses: {
 	}
 
 	Shroomite: {
+		// Name: Shroomite
 		1Set:
 			'''
 			{$1Bonus} 任何珠宝上的所有最大生命值和生命再生属性减少6%
@@ -147,6 +166,7 @@ Bonuses: {
 	}
 
 	Spectre: {
+		// Name: Spectre
 		1Set:
 			'''
 			{$1Bonus} 任何珠宝上的所有防御力和伤害抗性属性减少6%
@@ -162,6 +182,7 @@ Bonuses: {
 	}
 
 	Beetle: {
+		// Name: Beetle
 		1Set:
 			'''
 			{$1Bonus} 任何珠宝上的所有移动速度和移动控制属性减少6%
@@ -172,6 +193,7 @@ Bonuses: {
 	}
 
 	Spooky: {
+		// Name: Spooky
 		1Set:
 			'''
 			{$1Bonus} 任何珠宝上的所有暴击率和暴击伤害属性减少6%
@@ -190,6 +212,7 @@ Bonuses: {
 	}
 
 	Luminite: {
+		// Name: Luminite
 		1Set:
 			'''
 			{$1Bonus} 这件珠宝上的所有属性提供15%的属性加成
@@ -200,12 +223,14 @@ Bonuses: {
 	}
 
 	Demonite: {
+		// Name: Demonite
 		1Set: '''{1Bonus} 这件珠宝上的珠宝提供25%的额外全伤害加成" 所有防御力和伤害抗性加成减少6% '''
 		3Set: "{3Bonus} 获得额外的进攻属性加成，但再生和生命偷取被禁用"
 		5Set: "{$5Bonus} 未击中敌人将禁用防御和伤害抗性，但伤害大幅提高"
 	}
 
 	Hellstone: {
+		// Name: Hellstone
 		1Set: "{1Bonus} 这件珠宝的触发效果更强"
 		3Set: "{3Bonus} 立即触发效果有几率发生两次，条件触发效果强33%"
 		5Set: "{$5Bonus} 攻击和投射物的大小翻倍"

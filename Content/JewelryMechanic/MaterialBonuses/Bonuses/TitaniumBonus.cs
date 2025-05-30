@@ -12,22 +12,19 @@ internal class TitaniumBonus : BaseMaterialBonus
 
     float bonus = 1f;
 
-    public override bool AppliesToStat(Player player, StatType type) => type == StatType.Potency || type == StatType.Absolution;
+    public override bool AppliesToStat(Player player, StatType type) => type is StatType.Potency or StatType.Absolution;
     public override void SingleJewelBonus(Player player, BasicJewelry jewel) => bonus = 1.15f;
     public override void ResetSingleJewelBonus(Player player, BasicJewelry jewel) => bonus = 1f;
 
     public override float EffectBonus(Player player, StatType statType)
     {
-        int count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
-
-        if (count >= 1)
-            return bonus;
-        return 1f;
+        float count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
+        return count >= 1 ? bonus : 1f;
     }
 
     public override void StaticBonus(Player player, bool firstSet)
     {
-        int count = CountMaterial(player);
+        float count = CountMaterial(player);
 
         if (count >= 3)
             player.GetModPlayer<TitaniumBonusPlayer>().threeSet = true;
@@ -221,6 +218,7 @@ internal class TitaniumBonus : BaseMaterialBonus
                 alpha = MathHelper.Lerp(alpha, 0f, 0.25f);
                 Main.spriteBatch.Draw(TextureAssets.Projectile[Type].Value, pos, null, lightColor * alpha, 0f, Projectile.Size / 2f, Projectile.scale, SpriteEffects.None, 0);
             }
+
             return false;
         }
     }

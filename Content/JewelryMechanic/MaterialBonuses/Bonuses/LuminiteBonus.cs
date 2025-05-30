@@ -13,7 +13,7 @@ internal class LuminiteBonus : BaseMaterialBonus
 
     public override void StaticBonus(Player player, bool firstSet)
     {
-        int count = CountMaterial(player);
+        float count = CountMaterial(player);
 
         if (firstSet && count >= 3)
             AddCosmicBonus(player);
@@ -45,7 +45,7 @@ internal class LuminiteBonus : BaseMaterialBonus
         double minute = time - hour;
         minute = (int)(minute * 60.0);
 
-        bool Within(int startHour, int endHour) => (hour == startHour && minute >= 30) || (hour == endHour && minute < 30);
+        bool Within(int startHour, int endHour) => hour == startHour && minute >= 30 || hour == endHour && minute < 30;
 
         const float Bonus = 0.2f;
 
@@ -118,6 +118,7 @@ internal class LuminiteBonus : BaseMaterialBonus
                 if (reverse > 0)
                     projectile.position -= projectile.velocity * reverse;
             }
+
             return true;
         }
     }

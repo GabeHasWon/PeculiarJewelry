@@ -9,22 +9,19 @@ internal class PalladiumBonus : BaseMaterialBonus
 
     float bonus = 1f;
 
-    public override bool AppliesToStat(Player player, StatType type) => type == StatType.Frenzy || type == StatType.Gigantism || type == StatType.Might;
+    public override bool AppliesToStat(Player player, StatType type) => type is StatType.Frenzy or StatType.Gigantism or StatType.Might;
     public override void SingleJewelBonus(Player player, BasicJewelry jewel) => bonus = 1.15f;
     public override void ResetSingleJewelBonus(Player player, BasicJewelry jewel) => bonus = 1f;
 
     public override float EffectBonus(Player player, StatType statType)
     {
-        int count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
-
-        if (count >= 1)
-            return bonus;
-        return 1f;
+        float count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
+        return count >= 1 ? bonus : 1f;
     }
 
     public override void StaticBonus(Player player, bool firstSet)
     {
-        int count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
+        float count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
 
         if (count >= 3)
             player.GetModPlayer<PalladiumBonusPlayer>().threeSet = true;
@@ -49,6 +46,7 @@ internal class PalladiumBonus : BaseMaterialBonus
                 _speedUpNextSwing = false;
                 return 2.6f;
             }
+
             return 1f;
         }
 

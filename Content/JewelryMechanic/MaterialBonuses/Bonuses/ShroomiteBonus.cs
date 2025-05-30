@@ -10,24 +10,21 @@ internal class ShroomiteBonus : BaseMaterialBonus
 
     float bonus = 1f;
 
-    public override bool AppliesToStat(Player player, StatType type) 
-        => type == StatType.Exactitude || type == StatType.Exploitation || type == StatType.Vigor || type == StatType.Renewal;
+    public override bool AppliesToStat(Player player, StatType type) => type is StatType.Exactitude or StatType.Exploitation or StatType.Vigor or StatType.Renewal;
     public override void SingleJewelBonus(Player player, BasicJewelry jewel) => bonus = 1.25f;
     public override void ResetSingleJewelBonus(Player player, BasicJewelry jewel) => bonus = 1f;
 
     public override float EffectBonus(Player player, StatType type)
     {
-        int count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
+        float count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
         bool defensive = type == StatType.Renewal || type == StatType.Vigor;
 
-        if (count >= 1)
-            return defensive ? bonus : 0.94f;
-        return 1f;
+        return count >= 1 ? defensive ? bonus : 0.94f : 1f;
     }
 
     public override void StaticBonus(Player player, bool firstSet)
     {
-        int count = CountMaterial(player);
+        float count = CountMaterial(player);
 
         if (count >= 3)
             player.GetModPlayer<ShroomiteBonusPlayer>().threeSet = true;
@@ -35,8 +32,6 @@ internal class ShroomiteBonus : BaseMaterialBonus
         if (count >= 5)
             player.GetModPlayer<ShroomiteBonusPlayer>().fiveSet = true;
     }
-
-    // Needs 5-Set
 
     class ShroomiteBonusPlayer : ModPlayer
     {
@@ -82,7 +77,7 @@ internal class ShroomiteBonus : BaseMaterialBonus
         private static void DuplicateProjectile(Projectile proj, NPC target)
         {
             var owner = Main.player[proj.owner];
-            var magnitude = proj.velocity.Length();
+            float magnitude = proj.velocity.Length();
             Vector2 vel = owner.DirectionTo(target.Center + (target.velocity * magnitude)) * magnitude;
             Projectile.NewProjectile(proj.GetSource_OnHit(target), owner.Center, vel, proj.type, proj.damage, proj.knockBack);
         }

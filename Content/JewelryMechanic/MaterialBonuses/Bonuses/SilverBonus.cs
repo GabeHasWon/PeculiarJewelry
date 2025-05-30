@@ -16,16 +16,13 @@ internal class SilverBonus : BaseMaterialBonus
 
     public override float EffectBonus(Player player, StatType statType)
     {
-        int count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
-
-        if (count >= 1)
-            return bonus;
-        return 1f;
+        float count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
+        return count >= 1 ? bonus : 1f;
     }
 
     public override void StaticBonus(Player player, bool firstSet)
     {
-        int count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
+        float count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
 
         if (count >= 3)
             player.GetModPlayer<SilverBonusPlayer>().threeSet = true;

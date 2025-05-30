@@ -71,7 +71,7 @@ public abstract class BasicJewelry : ModItem, IStorableItem
         else
             name.Text = $"{JewelryPrefix(tier)} {name.Text}";
 
-        int count = Main.LocalPlayer.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialCategory);
+        float count = Main.LocalPlayer.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialCategory);
 
         if (count >= 3)
             tooltips.Add(new TooltipLine(Mod, "3Set", Language.GetTextValue("Mods.PeculiarJewelry.Material.Bonuses." + MaterialCategory + ".3Set")));
@@ -202,23 +202,6 @@ public abstract class BasicJewelry : ModItem, IStorableItem
     public override void OnSpawn(IEntitySource source)
     {
         if (source is not EntitySource_Loot { Context: "JewelCrafting" })
-            return;
-
-        if (Main.LocalPlayer.GetModPlayer<RevelationPlayer>().hasReveled)
-        {
-            Main.LocalPlayer.GetModPlayer<RevelationPlayer>().hasReveled = false;
-            SetTier(JewelryTier.Extravagant);
-            return;
-        }
-
-        if (Main.LocalPlayer.GetModPlayer<RichPlayer>().isRich)
-            SetTier((JewelryTier)Main.rand.Next((int)JewelryTier.Extravagant + 1));
-    }
-
-    [Obsolete]
-    public override void OnCreated(ItemCreationContext context)
-    {
-        if (context is not RecipeItemCreationContext)
             return;
 
         if (Main.LocalPlayer.GetModPlayer<RevelationPlayer>().hasReveled)

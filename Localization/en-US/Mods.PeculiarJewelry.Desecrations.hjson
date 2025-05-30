@@ -67,5 +67,5 @@ BossEnragementDesecration: {
 
 EliteNPCDesecration: {
 	Name: Elite enemies
-	Description: Enemies have a chance to have +33% damage, defense, max life and behaviour speed per stack
+	Description: Enemies have a chance to have +33% damage, defense, max life and behaviour speed per stack, and occasionally shoot additional projectiles
 }

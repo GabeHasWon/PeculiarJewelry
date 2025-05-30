@@ -3021,3 +3021,8 @@ MinorOpal: {
 	DisplayName: Minor Opal
 	Tooltip: ""
 }
+
+MinorCatEye: {
+	DisplayName: Minor Cat Eye
+	Tooltip: ""
+}

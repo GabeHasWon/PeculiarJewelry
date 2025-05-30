@@ -15,24 +15,20 @@ internal class SpectreBonus : BaseMaterialBonus
 
     float bonus = 1f;
 
-    public override bool AppliesToStat(Player player, StatType type) 
-        => type == StatType.Celerity || type == StatType.Dexterity || type == StatType.Permenance || type == StatType.Tenacity;
+    public override bool AppliesToStat(Player player, StatType type) => type is StatType.Celerity or StatType.Dexterity or StatType.Permenance or StatType.Tenacity;
     public override void SingleJewelBonus(Player player, BasicJewelry jewel) => bonus = 1.25f;
     public override void ResetSingleJewelBonus(Player player, BasicJewelry jewel) => bonus = 1f;
 
     public override float EffectBonus(Player player, StatType type)
     {
-        int count = CountMaterial(player);
+        float count = CountMaterial(player);
         bool defensive = type == StatType.Permenance || type == StatType.Tenacity;
-
-        if (count >= 1)
-            return defensive ? bonus : 0.94f;
-        return 1f;
+        return count >= 1 ? defensive ? bonus : 0.94f : 1f;
     }
 
     public override void StaticBonus(Player player, bool firstSet)
     {
-        int count = CountMaterial(player);
+        float count = CountMaterial(player);
 
         if (count >= 3)
         {

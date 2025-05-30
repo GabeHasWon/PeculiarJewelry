@@ -1,7 +1,6 @@
 ﻿using PeculiarJewelry.Content.Items.JewelryItems;
 using PeculiarJewelry.Content.JewelryMechanic.Stats;
 using ReLogic.Content;
-using System;
 using Terraria.Audio;
 using Terraria.DataStructures;
 
@@ -19,16 +18,13 @@ internal class LeadBonus : BaseMaterialBonus
 
     public override float EffectBonus(Player player, StatType statType)
     {
-        int count = CountMaterial(player);
-
-        if (count >= 1)
-            return bonus;
-        return 1f;
+        float count = CountMaterial(player);
+        return count >= 1 ? bonus : 1f;
     }
 
     public override void StaticBonus(Player player, bool firstSet)
     {
-        int count = CountMaterial(player);
+        float count = CountMaterial(player);
 
         if (count >= 3)
             player.noKnockback = true;
@@ -82,6 +78,7 @@ internal class LeadBonus : BaseMaterialBonus
                 BreakShield();
                 return true;
             }
+
             return false;
         }
 

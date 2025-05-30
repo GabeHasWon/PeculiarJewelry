@@ -28,7 +28,7 @@ internal class SpookyBonus : BaseMaterialBonus
 
     public override void StaticBonus(Player player, bool firstSet)
     {
-        int count = CountMaterial(player);
+        float count = CountMaterial(player);
 
         if (count >= 3)
             player.GetModPlayer<SpookyBonusPlayer>().threeSet = true;

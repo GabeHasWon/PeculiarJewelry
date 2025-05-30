@@ -29,14 +29,14 @@ internal class ChlorophyteBonus : BaseMaterialBonus
 
     public override float EffectBonus(Player player, StatType type)
     {
-        int count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
+        float count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
         bool defensive = type is StatType.Permenance or StatType.Tenacity or StatType.Vigor or StatType.Renewal;
         return count >= 1 ? defensive ? _bonus : 0.95f : 1f;
     }
 
     public override void StaticBonus(Player player, bool firstSet)
     {
-        int count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
+        float count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
 
         if (count >= 3)
         {

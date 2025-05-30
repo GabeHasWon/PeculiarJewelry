@@ -16,16 +16,13 @@ internal class CopperBonus : BaseMaterialBonus
 
     public override float EffectBonus(Player player, StatType statType)
     {
-        int copperCount = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
-
-        if (copperCount >= 1)
-            return bonus;
-        return 1f;
+        float copperCount = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
+        return copperCount >= 1 ? bonus : 1f;
     }
 
     public override void StaticBonus(Player player, bool firstSet)
     {
-        int copperCount = CountMaterial(player);
+        float copperCount = CountMaterial(player);
 
         if (copperCount >= 3 && firstSet)
             player.statLifeMax2 += player.statDefense;

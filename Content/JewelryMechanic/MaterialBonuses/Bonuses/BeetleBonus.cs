@@ -9,23 +9,23 @@ internal class BeetleBonus : BaseMaterialBonus
 
     float bonus = 1f;
 
-    public override bool AppliesToStat(Player player, StatType type) 
-        => type == StatType.Tenacity || type == StatType.Permenance || type == StatType.Celerity || type == StatType.Dexterity;
+    public override bool AppliesToStat(Player player, StatType type) => type is StatType.Tenacity or StatType.Permenance or StatType.Celerity or StatType.Dexterity;
     public override void SingleJewelBonus(Player player, BasicJewelry jewel) => bonus = 1.25f;
     public override void ResetSingleJewelBonus(Player player, BasicJewelry jewel) => bonus = 1f;
 
     public override float EffectBonus(Player player, StatType type)
     {
-        bool movement = type == StatType.Celerity || type == StatType.Dexterity;
+        bool movement = type is StatType.Celerity or StatType.Dexterity;
 
         if (CountMaterial(player) >= 1)
             return movement ? bonus : 0.94f;
+
         return 1f;
     }
 
     public override void StaticBonus(Player player, bool firstSet)
     {
-        int count = CountMaterial(player);
+        float count = CountMaterial(player);
 
         if (count >= 3 && player.velocity.LengthSquared() < 0.01f)
             player.GetDamage(DamageClass.Generic) += 1;

@@ -16,18 +16,15 @@ internal class GoldBonus : BaseMaterialBonus
 
     public override float EffectBonus(Player player, StatType statType)
     {
-        int count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
-
-        if (count >= 1)
-            return 1.15f;
-        return 1f;
+        float count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
+        return count >= 1 ? 1.15f : 1f;
     }
 
     public override void StaticBonus(Player player, bool firstSet)
     {
         player.luck += 0.5f;
 
-        int count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
+        float count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
 
         if (count >= 3)
             player.GetModPlayer<GoldBonusPlayer>().threeSet = true;
@@ -203,6 +200,7 @@ internal class GoldBonus : BaseMaterialBonus
 
                 return survive;
             }
+
             return true;
         }
 

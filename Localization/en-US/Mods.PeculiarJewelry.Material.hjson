@@ -5,6 +5,7 @@ JewelStatBonusLine: Jewels on this jewelry give 15% more
 
 Bonuses: {
 	Copper: {
+		Name: Copper
 		1Set: "{$1Bonus} {$JewelStatBonusLine} max health"
 		3Set: "{$3Bonus} Your defense is added to your max health"
 		5Set:
@@ -16,12 +17,14 @@ Bonuses: {
 	}
 
 	Tin: {
+		Name: Tin
 		1Set: "{$1Bonus} {$JewelStatBonusLine} health regeneration"
 		3Set: "{$3Bonus} Getting hit triples your current regeneration until you've healed more than you were hit for"
 		5Set: "{$5Bonus} Damage increases with increased life regeneration"
 	}
 
 	Iron: {
+		Name: Iron
 		1Set: "{$1Bonus} {$JewelStatBonusLine} defense"
 		3Set: "{$3Bonus} Damage equal to twice your defense or lower is halved"
 		5Set:
@@ -32,24 +35,28 @@ Bonuses: {
 	}
 
 	Lead: {
+		Name: Lead
 		1Set: "{$1Bonus} {$JewelStatBonusLine} damage resistance"
 		3Set: "{$3Bonus} Immunity to knockback"
 		5Set: "{$5Bonus} Every 30 seconds, generate a spirit shield that negates one attack. Can stack up to 3 times"
 	}
 
 	Silver: {
+		Name: Silver
 		1Set: "{$1Bonus} {$JewelStatBonusLine} velocity"
 		3Set: "{$3Bonus} Massively increased run speed"
 		5Set: "{$5Bonus} Enables a dash"
 	}
 
 	Tungsten: {
+		Name: Tungsten
 		1Set: "{$1Bonus} {$JewelStatBonusLine} movement control"
 		3Set: "{$3Bonus} Significantly increased jump height"
 		5Set: "{$5Bonus} Hold UP to hover, hold DOWN to fall down way faster"
 	}
 
 	Gold: {
+		Name: Gold
 		1Set: "{$1Bonus} Increased luck"
 		3Set:
 			'''
@@ -60,12 +67,14 @@ Bonuses: {
 	}
 
 	Platinum: {
+		Name: Platinum
 		1Set: "{$1Bonus} Utility and fishing stats on jewels give 25% more stats"
 		3Set: "{$3Bonus} Place stuff a lot faster, permanent sonar potion"
 		5Set: "{$5Bonus} Permanent wormhole and crate potion effect and pylons are usable anywhere"
 	}
 
 	Meteorite: {
+		Name: Meteorite
 		1Set: "{$1Bonus} Trigger effects last longer and conditional effects linger"
 		3Set: "{$3Bonus} Trigger effects are guaranteed and conditional trigger effects apply at a reduced ratio when false"
 		5Set:
@@ -76,18 +85,21 @@ Bonuses: {
 	}
 
 	Cobalt: {
+		Name: Cobalt
 		1Set: "{$1Bonus} {$JewelStatBonusLine} summoner stats"
 		3Set: "{$3Bonus} Summons gain shadow clones that do a fraction of the damage"
 		5Set: "{$5Bonus} Summons are now significantly faster"
 	}
 
 	Palladium: {
+		Name: Palladium
 		1Set: "{$1Bonus} {$JewelStatBonusLine} melee stats"
 		3Set: "{$3Bonus} Hitting an attack with a true melee swing increases the use speed of the next attack significantly"
 		5Set: "{$5Bonus} True melee swings can destroy hostile projectiles"
 	}
 
 	Crimtane: {
+		Name: Crimtane
 		1Set:
 			'''
 			{$1Bonus} Jewels on this jewelry give 25% additional all damage buffs
@@ -98,12 +110,14 @@ Bonuses: {
 	}
 
 	Mythril: {
+		Name: Mythril
 		1Set: "{$1Bonus} {$JewelStatBonusLine} ranger stats"
 		3Set: "{$3Bonus} Fire rate increased greatly when completely still"
 		5Set: "{$5Bonus} Each unmissed shot gradually increases the damage of the next attack"
 	}
 
 	Orichalcum: {
+		Name: Orichalcum
 		1Set: "{$1Bonus} {$JewelStatBonusLine} mage stats"
 		3Set:
 			'''
@@ -114,24 +128,28 @@ Bonuses: {
 	}
 
 	Adamantite: {
+		Name: Adamantite
 		1Set: "{$1Bonus} {$JewelStatBonusLine} critical strike stats"
 		3Set: "{$3Bonus} When doing a critical hit, half the chance and increase the damage done until the roll fails"
 		5Set: "{$5Bonus} When failing a critical hit opportunity, get one more chance to get a crit"
 	}
 
 	Titanium: {
+		Name: Titanium
 		1Set: "{$1Bonus} {$JewelStatBonusLine} generic stats"
 		3Set: "{$3Bonus} Each attack on an enemy reduces their defense by 1 until another enemy is hit"
 		5Set: "{$5Bonus} Hitting an enemy spawns an echo projectile that does half of the original damage but ignores armor"
 	}
 
 	Hallowed: {
+		Name: Hallowed
 		1Set: "{$1Bonus} All jewels on this jewelry give 5% more stats"
 		3Set: "{$3Bonus} When there are no bosses or events active, you are immortal"
 		5Set: "{$5Bonus} You get an additional +1% to every stat for each jewel you are wearing"
 	}
 
 	Chlorophyte: {
+		Name: Chlorophyte
 		1Set:
 			'''
 			{$1Bonus} All stats on on all jewelry -5%,
@@ -142,6 +160,7 @@ Bonuses: {
 	}
 
 	Shroomite: {
+		Name: Shroomite
 		1Set:
 			'''
 			{$1Bonus} All max health and health regeneration stats on any jewelry -6%,
@@ -152,6 +171,7 @@ Bonuses: {
 	}
 
 	Spectre: {
+		Name: Spectre
 		1Set:
 			'''
 			{$1Bonus} All defense and damage resistance stats on any jewelry -6%,
@@ -167,6 +187,7 @@ Bonuses: {
 	}
 
 	Beetle: {
+		Name: Beetle
 		1Set:
 			'''
 			{$1Bonus} All velocity and movement control stats on any jewelry -6%,
@@ -177,6 +198,7 @@ Bonuses: {
 	}
 
 	Spooky: {
+		Name: Spooky
 		1Set:
 			'''
 			{$1Bonus} All critical chance and critical damage stats on any jewelry -6%, 
@@ -195,6 +217,7 @@ Bonuses: {
 	}
 
 	Luminite: {
+		Name: Luminite
 		1Set:
 			'''
 			{$1Bonus} All stats on this jewelry gives 15% less stats
@@ -205,6 +228,7 @@ Bonuses: {
 	}
 
 	Demonite: {
+		Name: Demonite
 		1Set:
 			'''
 			{$1Bonus} Jewels on this jewelry give 25% additional all damage buffs"
@@ -215,8 +239,9 @@ Bonuses: {
 	}
 
 	Hellstone: {
+		Name: Hellstone
 		1Set: "{$1Bonus} Trigger effects on this jewel are stronger"
 		3Set: "{$3Bonus} Instant trigger effects have a chance to happen twice and conditional trigger effects are 33% stronger"
-		5Set: "{$5Bonus} Size of attacks and projectiles doubled"
+		5Set: "{$5Bonus} The size of attacks and projectiles doubled"
 	}
 }

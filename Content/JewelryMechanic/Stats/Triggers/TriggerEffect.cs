@@ -100,13 +100,13 @@ internal abstract class TriggerEffect : ModType
         _lingerTime--;
 
         bool condition = ConstantConditionMet(Context, player, tier);
-        int meteoriteCount = player.GetModPlayer<MaterialPlayer>().MaterialCount("Meteorite");
+        float meteoriteCount = player.GetModPlayer<MaterialPlayer>().MaterialCount("Meteorite");
         bool canRun = meteoriteCount >= 3 ? (condition || Main.rand.NextBool(4)) : condition;
 
         if (canRun || _lingerTime > 0)
         {
             float coefficient = ConditionCoefficients[Context] + bonus;
-            int hellCount = player.GetModPlayer<MaterialPlayer>().MaterialCount("Hellstone");
+            float hellCount = player.GetModPlayer<MaterialPlayer>().MaterialCount("Hellstone");
 
             if (hellCount >= 3)
                 coefficient *= 1.33f;
@@ -158,7 +158,7 @@ internal abstract class TriggerEffect : ModType
 
     private static float ReportInstantChance(JewelTier jewelTier, Player player)
     {
-        int meteoriteCount = player.GetModPlayer<MaterialPlayer>().MaterialCount("Meteorite");
+        float meteoriteCount = player.GetModPlayer<MaterialPlayer>().MaterialCount("Meteorite");
 
         if (meteoriteCount >= 3)
             return 1f;

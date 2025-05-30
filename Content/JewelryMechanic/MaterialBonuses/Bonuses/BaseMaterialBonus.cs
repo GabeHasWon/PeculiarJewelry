@@ -18,7 +18,7 @@ internal abstract class BaseMaterialBonus : ModType
         BonusesByKey.Add(MaterialKey, this);
     }
 
-    public int CountMaterial(Player player) => player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
+    public float CountMaterial(Player player) => player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
 
     /// <summary>
     /// Whether this material bonus applies to the given stat on the given player.

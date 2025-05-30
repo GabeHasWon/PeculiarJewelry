@@ -20,16 +20,17 @@ internal class DemoniteBonus : BaseMaterialBonus
 
     public override float EffectBonus(Player player, StatType statType)
     {
-        int count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
+        float count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
         
         if (count >= 1)
-            return statType == StatType.Permenance || statType == StatType.Tenacity ? 0.94f : damageBonus;
+            return statType is StatType.Permenance or StatType.Tenacity ? 0.94f : damageBonus;
+
         return 1f;
     }
 
     public override void StaticBonus(Player player, bool firstSet)
     {
-        int count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
+        float count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
         bonusStrength = 1.25f;
 
         if (count >= 3)
