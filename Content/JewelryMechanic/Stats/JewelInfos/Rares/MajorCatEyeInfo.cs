@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos.Rares;
 
-internal class MinorCatEyeInfo : JewelInfo
+internal class MajorCatEyeInfo : JewelInfo
 {
-    public override string Prefix => "Minor";
+    public override string Prefix => "Major";
     public override string JewelTitle => "CatEye";
 
     public override string Name
@@ -33,14 +33,14 @@ internal class MinorCatEyeInfo : JewelInfo
     internal override void InternalSetup()
     {
         SubStats = [];
-        MaterialBonus = Main.rand.Next(JewelryCommon.GetAllUnlockedMaterials());
+        MaterialBonus = "Luminite";// Main.rand.Next(JewelryCommon.GetAllUnlockedMaterials());
     }
 
-    protected override void PreApplyTo(Player player, float add, float multiplier) => player.GetModPlayer<MaterialPlayer>().AddMaterial(MaterialBonus, 0.5f);
+    protected override void PreApplyTo(Player player, float add, float multiplier) => player.GetModPlayer<MaterialPlayer>().AddMaterial(MaterialBonus, 1f);
 
     internal override bool PreAddStatTooltips(List<TooltipLine> tooltips, ModItem modItem, bool displayAsJewel)
     {
-        tooltips.Add(new TooltipLine(modItem.Mod, "CatMaterialBonus", Language.GetTextValue("Mods.PeculiarJewelry.Jewelry.CatEyeHalf", MaterialBonus)));
+        tooltips.Add(new TooltipLine(modItem.Mod, "CatMaterialBonus", Language.GetTextValue("Mods.PeculiarJewelry.Jewelry.CatEyeMaterial", MaterialBonus)));
         return false;
     }
 }

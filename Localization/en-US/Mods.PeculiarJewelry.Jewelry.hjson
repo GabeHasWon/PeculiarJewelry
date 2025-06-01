@@ -6,6 +6,9 @@ TierTooltip: Tier {0} Jewel
 CutsRemaining: " cuts remaining"
 HoldShift: Hold shift to see stats
 ChanceTo: "{0}% chance to "
+// Custom tooltips
+CatEyeMaterial: Grants 100% of a {0} bonus.
+CatEyeHalf: Grants 50% of a {0} bonus.
 
 TierPrefixes: {
 	Natural: Natural

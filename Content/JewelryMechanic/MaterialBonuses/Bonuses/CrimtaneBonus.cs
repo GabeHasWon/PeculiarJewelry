@@ -1,4 +1,5 @@
 ﻿using PeculiarJewelry.Content.Items.JewelryItems;
+using PeculiarJewelry.Content.JewelryMechanic.Misc;
 using PeculiarJewelry.Content.JewelryMechanic.Stats;
 using Terraria.DataStructures;
 
@@ -15,7 +16,7 @@ internal class CrimtaneBonus : BaseMaterialBonus
         type == StatType.Potency || type == StatType.Might || type == StatType.Order || type == StatType.Precision || type == StatType.Willpower || // Benefits
         type == StatType.Vigor || type == StatType.Renewal; // Reduces
 
-    public override void SingleJewelBonus(Player player, BasicJewelry jewel) => damageBonus = bonusStrength;
+    public override void SingleJewelBonus(Player player, BasicJewelry jewel) => damageBonus = player.GetModPlayer<CatEyePlayer>().GetBonus(MaterialKey, bonusStrength);
     public override void ResetSingleJewelBonus(Player player, BasicJewelry jewel) => damageBonus = 1f;
 
     public override float EffectBonus(Player player, StatType statType)
@@ -23,7 +24,7 @@ internal class CrimtaneBonus : BaseMaterialBonus
         float count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
         
         if (count >= 1)
-            return statType is StatType.Vigor or StatType.Renewal ? 0.94f : damageBonus;
+            return statType is StatType.Vigor or StatType.Renewal ? 1f - player.GetModPlayer<CatEyePlayer>().GetBonus(MaterialKey, 0.06f) : damageBonus;
 
         return 1f;
     }

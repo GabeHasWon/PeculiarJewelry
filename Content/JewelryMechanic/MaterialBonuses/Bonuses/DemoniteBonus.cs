@@ -1,6 +1,6 @@
 ﻿using PeculiarJewelry.Content.Items.JewelryItems;
+using PeculiarJewelry.Content.JewelryMechanic.Misc;
 using PeculiarJewelry.Content.JewelryMechanic.Stats;
-using System;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.MaterialBonuses.Bonuses;
 
@@ -12,10 +12,10 @@ internal class DemoniteBonus : BaseMaterialBonus
     private float bonusStrength = 1.25f;
 
     public override bool AppliesToStat(Player player, StatType type) => 
-        type == StatType.Potency || type == StatType.Might || type == StatType.Order || type == StatType.Precision || type == StatType.Willpower || // Benefits
-        type == StatType.Permenance || type == StatType.Tenacity; // Reduces
+        type is StatType.Potency or StatType.Might or StatType.Order or StatType.Precision or StatType.Willpower or // Benefits
+        StatType.Permenance or StatType.Tenacity; // Reduces
 
-    public override void SingleJewelBonus(Player player, BasicJewelry jewel) => damageBonus = bonusStrength;
+    public override void SingleJewelBonus(Player player, BasicJewelry jewel) => damageBonus = player.GetModPlayer<CatEyePlayer>().GetBonus(MaterialKey, bonusStrength);
     public override void ResetSingleJewelBonus(Player player, BasicJewelry jewel) => damageBonus = 1f;
 
     public override float EffectBonus(Player player, StatType statType)
@@ -23,7 +23,7 @@ internal class DemoniteBonus : BaseMaterialBonus
         float count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
         
         if (count >= 1)
-            return statType is StatType.Permenance or StatType.Tenacity ? 0.94f : damageBonus;
+            return statType is StatType.Permenance or StatType.Tenacity ? 1f - player.GetModPlayer<CatEyePlayer>().GetBonus(MaterialKey, 0.06f) : damageBonus;
 
         return 1f;
     }

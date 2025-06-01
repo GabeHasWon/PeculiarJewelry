@@ -532,7 +532,7 @@ internal class SetJewelUIState : UIState, IClosableUIState
 
             if (jewel.info.CountsAsMajor)
             {
-                if (majorCount >= Jewelry.MaxMajorCount())
+                if (majorCount >= Jewelry.MaxMajorCount(Main.LocalPlayer))
                     continue;
                 else
                     majorCount++;

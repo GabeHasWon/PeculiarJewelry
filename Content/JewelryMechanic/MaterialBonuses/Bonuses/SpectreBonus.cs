@@ -1,11 +1,9 @@
 ﻿using PeculiarJewelry.Content.Items.JewelryItems;
+using PeculiarJewelry.Content.JewelryMechanic.Misc;
 using PeculiarJewelry.Content.JewelryMechanic.Stats;
 using ReLogic.Content;
 using System;
-using System.Collections.Generic;
 using Terraria.DataStructures;
-using Terraria.GameContent;
-using Terraria.Initializers;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.MaterialBonuses.Bonuses;
 
@@ -16,14 +14,14 @@ internal class SpectreBonus : BaseMaterialBonus
     float bonus = 1f;
 
     public override bool AppliesToStat(Player player, StatType type) => type is StatType.Celerity or StatType.Dexterity or StatType.Permenance or StatType.Tenacity;
-    public override void SingleJewelBonus(Player player, BasicJewelry jewel) => bonus = 1.25f;
+    public override void SingleJewelBonus(Player player, BasicJewelry jewel) => bonus = 1 + player.GetModPlayer<CatEyePlayer>().GetBonus(MaterialKey, 0.25f);
     public override void ResetSingleJewelBonus(Player player, BasicJewelry jewel) => bonus = 1f;
 
     public override float EffectBonus(Player player, StatType type)
     {
         float count = CountMaterial(player);
         bool defensive = type == StatType.Permenance || type == StatType.Tenacity;
-        return count >= 1 ? defensive ? bonus : 0.94f : 1f;
+        return count >= 1 ? defensive ? bonus : 1f - player.GetModPlayer<CatEyePlayer>().GetBonus(MaterialKey, 0.06f) : 1f;
     }
 
     public override void StaticBonus(Player player, bool firstSet)

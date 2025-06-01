@@ -1,4 +1,5 @@
 ﻿using PeculiarJewelry.Content.Items.JewelryItems;
+using PeculiarJewelry.Content.JewelryMechanic.Misc;
 using PeculiarJewelry.Content.JewelryMechanic.Stats;
 using System;
 using Terraria.GameContent;
@@ -17,7 +18,7 @@ internal class ChlorophyteBonus : BaseMaterialBonus
 
     public override void SingleJewelBonus(Player player, BasicJewelry jewel)
     {
-        _bonus = 1.15f;
+        _bonus = 1f + player.GetModPlayer<CatEyePlayer>().GetBonus(MaterialKey, 0.15f);
         _acc = jewel.Item;
     }
 
@@ -31,7 +32,7 @@ internal class ChlorophyteBonus : BaseMaterialBonus
     {
         float count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
         bool defensive = type is StatType.Permenance or StatType.Tenacity or StatType.Vigor or StatType.Renewal;
-        return count >= 1 ? defensive ? _bonus : 0.95f : 1f;
+        return count >= 1 ? defensive ? _bonus : 1f - player.GetModPlayer<CatEyePlayer>().GetBonus(MaterialKey, 0.05f) : 1f;
     }
 
     public override void StaticBonus(Player player, bool firstSet)

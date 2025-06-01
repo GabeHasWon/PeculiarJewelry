@@ -299,7 +299,17 @@ public abstract class BasicJewelry : ModItem, IStorableItem
 
     internal void ApplySingleJewelBonus(Player player) => player.SingleBonus(MaterialCategory, this);
     internal void ResetSingleJewelBonus(Player player) => player.UndoSingle(MaterialCategory, this);
-    internal int MaxMajorCount() => BaseMaterialBonus.BonusesByKey[MaterialCategory].GetMajorJewelCount;
+
+    /// <summary>
+    /// Gets how many major jewels can be applied to this jewelry.
+    /// </summary>
+    /// <returns></returns>
+    internal int MaxMajorCount(Player player)
+    {
+        int count = BaseMaterialBonus.BonusesByKey[MaterialCategory].GetMajorJewelCount;
+        count += (int)MathF.Floor(player.GetModPlayer<CatEyePlayer>().StackBonusesByMaterial["Luminite"]); // Apply luminite stack bonus
+        return count;
+    }
 
     public Color GetDisplayColor()
     {

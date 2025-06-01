@@ -7,7 +7,7 @@ namespace PeculiarJewelry.Content.JewelryMechanic.MaterialBonuses.Bonuses;
 
 internal abstract class BaseMaterialBonus : ModType
 {
-    public static readonly Dictionary<string, BaseMaterialBonus> BonusesByKey = new();
+    public static readonly Dictionary<string, BaseMaterialBonus> BonusesByKey = [];
 
     public abstract string MaterialKey { get; }
     public virtual int GetMajorJewelCount => 1;

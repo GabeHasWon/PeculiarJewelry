@@ -1,4 +1,5 @@
-﻿using PeculiarJewelry.Content.JewelryMechanic.Stats;
+﻿using PeculiarJewelry.Content.JewelryMechanic.Misc;
+using PeculiarJewelry.Content.JewelryMechanic.Stats;
 using System;
 using System.Linq;
 using Terraria.Audio;
@@ -22,7 +23,7 @@ internal class GoldBonus : BaseMaterialBonus
 
     public override void StaticBonus(Player player, bool firstSet)
     {
-        player.luck += 0.5f;
+        player.luck += player.GetModPlayer<CatEyePlayer>().GetBonus(MaterialKey, 0.5f);
 
         float count = player.GetModPlayer<MaterialPlayer>().MaterialCount(MaterialKey);
 

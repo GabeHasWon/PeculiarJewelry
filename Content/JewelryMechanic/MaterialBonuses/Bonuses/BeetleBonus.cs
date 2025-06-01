@@ -1,4 +1,5 @@
 ﻿using PeculiarJewelry.Content.Items.JewelryItems;
+using PeculiarJewelry.Content.JewelryMechanic.Misc;
 using PeculiarJewelry.Content.JewelryMechanic.Stats;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.MaterialBonuses.Bonuses;
@@ -10,7 +11,7 @@ internal class BeetleBonus : BaseMaterialBonus
     float bonus = 1f;
 
     public override bool AppliesToStat(Player player, StatType type) => type is StatType.Tenacity or StatType.Permenance or StatType.Celerity or StatType.Dexterity;
-    public override void SingleJewelBonus(Player player, BasicJewelry jewel) => bonus = 1.25f;
+    public override void SingleJewelBonus(Player player, BasicJewelry jewel) => bonus = 1f + player.GetModPlayer<CatEyePlayer>().GetBonus(MaterialKey, 0.25f);
     public override void ResetSingleJewelBonus(Player player, BasicJewelry jewel) => bonus = 1f;
 
     public override float EffectBonus(Player player, StatType type)
@@ -18,7 +19,7 @@ internal class BeetleBonus : BaseMaterialBonus
         bool movement = type is StatType.Celerity or StatType.Dexterity;
 
         if (CountMaterial(player) >= 1)
-            return movement ? bonus : 0.94f;
+            return movement ? bonus : 1f - player.GetModPlayer<CatEyePlayer>().GetBonus(MaterialKey, 0.06f);
 
         return 1f;
     }

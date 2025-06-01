@@ -6,6 +6,9 @@ TierTooltip: 第{0}级宝石
 CutsRemaining: 剩余{0}次切割
 HoldShift: 按住Shift键查看属性
 ChanceTo: 有{0}%的几率
+// Custom tooltips
+// CatEyeMaterial: Grants 100% of a {0} bonus.
+// CatEyeHalf: Grants 50% of a {0} bonus.
 
 TierPrefixes: {
 	Natural: 自然

@@ -3021,3 +3021,8 @@ MinorCatEye: {
 	// DisplayName: Minor Cat Eye
 	// Tooltip: ""
 }
+
+MajorCatEye: {
+	// DisplayName: Major Cat Eye
+	// Tooltip: ""
+}

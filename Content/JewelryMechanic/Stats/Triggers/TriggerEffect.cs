@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using PeculiarJewelry.Content.Buffs;
 using PeculiarJewelry.Content.JewelryMechanic.MaterialBonuses;
+using PeculiarJewelry.Content.JewelryMechanic.Misc;
 using PeculiarJewelry.Content.JewelryMechanic.Stats.Triggers.TriggerEffects;
 using System;
 using System.Collections.Generic;
@@ -71,7 +72,7 @@ internal abstract class TriggerEffect : ModType
 
     internal void ForceSetContext(TriggerContext context) => Context = context;
 
-    public static int CooldownTime(JewelTier tier) => (int)MathHelper.Lerp(5 * 60 * (1 / (float)tier), 5 * 60, 0.1f);
+    public static int CooldownTime(JewelTier tier) => (int)MathHelper.Lerp(5 * 60 * (1 / (float)tier), 5 * 60, 0.1f) * (1 - MathF.Pow(0.9f, meteoriteCount));
 
     public void InstantTrigger(TriggerContext context, Player player, JewelTier tier)
     {
@@ -109,12 +110,12 @@ internal abstract class TriggerEffect : ModType
             float hellCount = player.GetModPlayer<MaterialPlayer>().MaterialCount("Hellstone");
 
             if (hellCount >= 3)
-                coefficient *= 1.33f;
+                coefficient *= 1 + player.GetModPlayer<CatEyePlayer>().GetBonus("Hellstone", 0.33f);
 
             InternalConditionalEffect(Context, player, coefficient, tier);
 
             if (meteoriteCount >= 1)
-                _lingerTime = 180;
+                _lingerTime = (int)player.GetModPlayer<CatEyePlayer>().GetBonus("Hellstone", 180);
         }
     }
 
@@ -165,7 +166,7 @@ internal abstract class TriggerEffect : ModType
 
         int tier = (int)jewelTier;
         float chance = (tier + 1f) / (tier + 3f);
-        chance += (100 - chance * 100) / 100 * (meteoriteCount / (meteoriteCount + 3f));
+        chance += (100 - chance * 100) / 100;
 
         return chance;
     }

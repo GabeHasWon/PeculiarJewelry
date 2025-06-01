@@ -1,4 +1,5 @@
 ﻿using PeculiarJewelry.Content.Items.JewelryItems;
+using PeculiarJewelry.Content.JewelryMechanic.Misc;
 using PeculiarJewelry.Content.JewelryMechanic.Stats;
 using Terraria.DataStructures;
 
@@ -11,7 +12,7 @@ internal class HallowedBonus : BaseMaterialBonus
     float bonus = 1f;
 
     public override bool AppliesToStat(Player player, StatType type) => true;
-    public override void SingleJewelBonus(Player player, BasicJewelry jewel) => bonus = 1.05f;
+    public override void SingleJewelBonus(Player player, BasicJewelry jewel) => bonus = 1f + player.GetModPlayer<CatEyePlayer>().GetBonus(MaterialKey, 0.05f);
     public override void ResetSingleJewelBonus(Player player, BasicJewelry jewel) => bonus = 1f;
 
     public override float EffectBonus(Player player, StatType statType)
