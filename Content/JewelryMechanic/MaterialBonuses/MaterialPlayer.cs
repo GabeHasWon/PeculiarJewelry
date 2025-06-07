@@ -31,7 +31,14 @@ internal class MaterialPlayer : ModPlayer
     }
 
     public void AddMaterial(string name, float amount = 1f) => _materialsWornCount[name] += amount;
-    public float MaterialCount(string materialKey) => _materialsWornCount[materialKey];
+
+    public float MaterialCount(string materialKey)
+    {
+        if (!_materialsWornCount.TryGetValue(materialKey, out float result))
+            result = 0f;
+
+        return result;
+    }
 
     internal void SetEquip(EquipType type, EquipLayerInfo info)
     {

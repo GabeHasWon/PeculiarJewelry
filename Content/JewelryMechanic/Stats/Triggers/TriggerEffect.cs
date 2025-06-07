@@ -72,7 +72,11 @@ internal abstract class TriggerEffect : ModType
 
     internal void ForceSetContext(TriggerContext context) => Context = context;
 
-    public static int CooldownTime(JewelTier tier) => (int)MathHelper.Lerp(5 * 60 * (1 / (float)tier), 5 * 60, 0.1f) * (1 - MathF.Pow(0.9f, meteoriteCount));
+    public static int CooldownTime(JewelTier tier, Player player)
+    {
+        float meteoriteCount = player.GetModPlayer<MaterialPlayer>().MaterialCount("Meteorite");
+        return (int)(MathHelper.Lerp(5 * 60 * (1 / (float)tier), 5 * 60, 0.1f) * (1 - MathF.Pow(0.9f, meteoriteCount)));
+    }
 
     public void InstantTrigger(TriggerContext context, Player player, JewelTier tier)
     {
@@ -119,26 +123,23 @@ internal abstract class TriggerEffect : ModType
         }
     }
 
-    protected static bool ConstantConditionMet(TriggerContext context, Player player, JewelTier tier)
+    protected static bool ConstantConditionMet(TriggerContext context, Player player, JewelTier tier) => context switch
     {
-        return context switch 
-        {
-            TriggerContext.WhenBelowHalfHealth => player.statLife < player.statLifeMax2 / 2,
-            TriggerContext.WhenAboveHalfHealth => player.statLife >= player.statLifeMax2 / 2,
-            TriggerContext.WhenFullHealth => player.statLife == player.statLifeMax2,
-            TriggerContext.WhenBelowHalfMana => player.statMana < player.statManaMax2 / 2,
-            TriggerContext.WhenAboveHalfMana => player.statMana >= player.statManaMax2 / 2,
-            TriggerContext.WhenFullMana => player.statMana == player.statManaMax2,
-            TriggerContext.WhenHaveDebuff => player.buffType.Any(x => x != 0 && Main.debuff[x] && BuffID.Sets.LongerExpertDebuff[x]),
-            TriggerContext.WhenOver10Buffs => player.buffType.Count(x => x != 0) > 10,
-            TriggerContext.WhenPotionSick => player.HasBuff(BuffID.PotionSickness),
-            TriggerContext.WhenNoBuffs => !player.buffType.Any(x => x != 0 && !BuffSet.TriggerBuffs.Contains(x)),
-            TriggerContext.WhenIdle => player.velocity.LengthSquared() <= 0.1f,
-            TriggerContext.WhenNotHitFor15Seconds => player.GetModPlayer<JewelPlayer>().timeSinceLastHit >= 15 * 60,
-            TriggerContext.WhenHitWithinPast5Seconds => player.GetModPlayer<JewelPlayer>().timeSinceLastHit <= 5 * 60,
-            _ => false,
-        };
-    }
+        TriggerContext.WhenBelowHalfHealth => player.statLife < player.statLifeMax2 / 2,
+        TriggerContext.WhenAboveHalfHealth => player.statLife >= player.statLifeMax2 / 2,
+        TriggerContext.WhenFullHealth => player.statLife == player.statLifeMax2,
+        TriggerContext.WhenBelowHalfMana => player.statMana < player.statManaMax2 / 2,
+        TriggerContext.WhenAboveHalfMana => player.statMana >= player.statManaMax2 / 2,
+        TriggerContext.WhenFullMana => player.statMana == player.statManaMax2,
+        TriggerContext.WhenHaveDebuff => player.buffType.Any(x => x != 0 && Main.debuff[x] && BuffID.Sets.LongerExpertDebuff[x]),
+        TriggerContext.WhenOver10Buffs => player.buffType.Count(x => x != 0) > 10,
+        TriggerContext.WhenPotionSick => player.HasBuff(BuffID.PotionSickness),
+        TriggerContext.WhenNoBuffs => !player.buffType.Any(x => x != 0 && !BuffSet.TriggerBuffs.Contains(x)),
+        TriggerContext.WhenIdle => player.velocity.LengthSquared() <= 0.1f,
+        TriggerContext.WhenNotHitFor15Seconds => player.GetModPlayer<JewelPlayer>().timeSinceLastHit >= 15 * 60,
+        TriggerContext.WhenHitWithinPast5Seconds => player.GetModPlayer<JewelPlayer>().timeSinceLastHit <= 5 * 60,
+        _ => false,
+    };
 
     /// <summary>
     /// How strong conditionals are using the formula (T/10)*C*E*0.1.

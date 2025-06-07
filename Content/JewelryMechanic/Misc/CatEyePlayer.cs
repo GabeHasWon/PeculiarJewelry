@@ -16,8 +16,13 @@ internal class CatEyePlayer : ModPlayer
             StackBonusesByMaterial[key] = 0f;
     }
 
-    public int Repeats(string material) => (int)Math.Floor(StackBonusesByMaterial[material]);
+    public int Repeats(string material)
+    {
+        if (!StackBonusesByMaterial.TryGetValue(material, out float value))
+            value = 0;
 
+        return (int)Math.Floor(value);
+    }
     /// <summary>
     /// Accumulates the stacked 1-set bonuses for a given material. Returns minimum <paramref name="baseBonus"/>, 
     /// maximum <c><paramref name="baseBonus"/> + <paramref name="baseBonus"/></c> repeated stack times.

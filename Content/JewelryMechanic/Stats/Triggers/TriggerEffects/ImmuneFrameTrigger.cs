@@ -13,7 +13,7 @@ internal class ImmuneFrameTrigger : TriggerEffect
         player.immuneNoBlink = false;
         player.immune = true;
         player.immuneTime = time;
-        player.AddBuff(CooldownBuffType, CooldownTime(tier));
+        player.AddBuff(CooldownBuffType, CooldownTime(tier, player));
     }
 
     protected override float InternalTriggerPower() => 60;

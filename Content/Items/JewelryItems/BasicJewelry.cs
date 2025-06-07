@@ -29,6 +29,20 @@ public abstract class BasicJewelry : ModItem, IStorableItem
 
     public List<JewelInfo> Info { get; protected set; }
     public JewelryTier tier = JewelryTier.Ordinary;
+    
+    public int MajorCount
+    {
+        get
+        {
+            int count = 0;
+
+            foreach (var info in Info)
+                if (info.CountsAsMajor)
+                    count++;
+
+            return count;
+        }
+    } 
 
     public sealed override void SetDefaults()
     {
@@ -51,6 +65,7 @@ public abstract class BasicJewelry : ModItem, IStorableItem
         EquipEffect(player);
     }
 
+    public override bool CanEquipAccessory(Player player, int slot, bool modded) => MajorCount >= MaxMajorCount(player);
     public override void UpdateAccessory(Player player, bool hideVisual) => player.GetModPlayer<JewelPlayer>().jewelry.Add(this);
     public override void EquipFrameEffects(Player player, EquipType type) => EquipEffect(player, true);
     public override void UpdateVanity(Player player) => EquipEffect(player, true);
@@ -99,7 +114,7 @@ public abstract class BasicJewelry : ModItem, IStorableItem
         return DetermineHighestStat(info).Localize();
     }
 
-    private bool GetSpecialTitle(List<JewelInfo> info, out JewelInfo newInfo)
+    private static bool GetSpecialTitle(List<JewelInfo> info, out JewelInfo newInfo)
     {
         newInfo = null;
 
@@ -307,7 +322,7 @@ public abstract class BasicJewelry : ModItem, IStorableItem
     internal int MaxMajorCount(Player player)
     {
         int count = BaseMaterialBonus.BonusesByKey[MaterialCategory].GetMajorJewelCount;
-        count += (int)MathF.Floor(player.GetModPlayer<CatEyePlayer>().StackBonusesByMaterial["Luminite"]); // Apply luminite stack bonus
+        count += (int)MathF.Floor(player.GetModPlayer<CatEyePlayer>().Repeats("Luminite")); // Apply luminite stack bonus
         return count;
     }
 

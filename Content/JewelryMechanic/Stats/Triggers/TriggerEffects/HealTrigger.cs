@@ -13,7 +13,7 @@ internal class HealTrigger : TriggerEffect
             hp = player.statLife + hp - player.statLifeMax2;
 
         player.Heal(hp);
-        player.AddBuff(CooldownBuffType, CooldownTime(tier));
+        player.AddBuff(CooldownBuffType, CooldownTime(tier, player));
     }
 
     protected override float InternalTriggerPower() => 20;
