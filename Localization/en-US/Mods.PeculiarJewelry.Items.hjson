@@ -3031,3 +3031,8 @@ MajorCatEye: {
 	DisplayName: Major Cat Eye
 	Tooltip: ""
 }
+
+MinorCursed: {
+	DisplayName: Minor Cursed
+	Tooltip: ""
+}

@@ -1,13 +1,13 @@
 using PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos.Rares;
 using System;
 
-namespace PeculiarJewelry.Content.Items.Jewels.Rares.Gelid;
+namespace PeculiarJewelry.Content.Items.Jewels.Rares.Cursed;
 
-public class MinorGelid : Jewel
+public class MinorCursed : Jewel
 {
-    public override LocalizedText ExaminationLocalization => Language.GetText("Mods.PeculiarJewelry.UI.Exam.Help.MinorGelid");
-    protected override Type InfoType => typeof(MinorGelidInfo);
-    protected override byte MaxVariations => 5;
+    public override LocalizedText ExaminationLocalization => Language.GetText("Mods.PeculiarJewelry.UI.Exam.Help.MinorCursed");
+    protected override Type InfoType => typeof(MinorCursedInfo);
+    protected override byte MaxVariations => 4;
 
     public sealed override void Defaults()
     {
