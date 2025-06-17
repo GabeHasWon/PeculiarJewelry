@@ -8,9 +8,12 @@ public class JewelStat(StatType category)
 
     public readonly StatType Type = category;
 
+    internal bool Negative = false;
+
     public float Strength = category < StatType.BasicMax ? JewelryCommon.StatStrengthRange(null) : 1;
 
-    public virtual void Apply(Player player, float add = 0, float multiplier = 0) => Get().Apply(player, (Strength + add) * multiplier);
+    public virtual void Apply(Player player, float add = 0, float multiplier = 0) => Get().Apply(player, GetStrengthFormula(add, multiplier));
+    private float GetStrengthFormula(float add, float multiplier) => (Strength + add) * multiplier * (Negative ? -1 : 1);
     public float GetEffectValue(Player player, float add = 0f) => Get().GetEffectBonus(player, Strength + add);
 
     public virtual JewelStatEffect Get() => JewelStatEffect.StatsByType[Type];

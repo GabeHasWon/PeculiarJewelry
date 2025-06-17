@@ -36,7 +36,7 @@ internal class MinorCatEyeInfo : JewelInfo
         MaterialBonus = Main.rand.Next(JewelryCommon.GetAllUnlockedMaterials());
     }
 
-    protected override void PreApplyTo(Player player, float add, float multiplier) => player.GetModPlayer<MaterialPlayer>().AddMaterial(MaterialBonus, 0.5f);
+    protected override void PreApplyTo(Player player, float add, ref float multiplier) => player.GetModPlayer<MaterialPlayer>().AddMaterial(MaterialBonus, 0.5f);
 
     internal override bool PreAddStatTooltips(List<TooltipLine> tooltips, ModItem modItem, bool displayAsJewel)
     {

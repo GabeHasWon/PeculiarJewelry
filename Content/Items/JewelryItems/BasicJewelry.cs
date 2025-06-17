@@ -65,7 +65,7 @@ public abstract class BasicJewelry : ModItem, IStorableItem
         EquipEffect(player);
     }
 
-    public override bool CanEquipAccessory(Player player, int slot, bool modded) => MajorCount >= MaxMajorCount(player);
+    public override bool CanEquipAccessory(Player player, int slot, bool modded) => MajorCount <= MaxMajorCount(player);
     public override void UpdateAccessory(Player player, bool hideVisual) => player.GetModPlayer<JewelPlayer>().jewelry.Add(this);
     public override void EquipFrameEffects(Player player, EquipType type) => EquipEffect(player, true);
     public override void UpdateVanity(Player player) => EquipEffect(player, true);

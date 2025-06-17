@@ -33,10 +33,10 @@ internal class MajorCatEyeInfo : JewelInfo
     internal override void InternalSetup()
     {
         SubStats = [];
-        MaterialBonus = "Luminite";// Main.rand.Next(JewelryCommon.GetAllUnlockedMaterials());
+        MaterialBonus = Main.rand.Next(JewelryCommon.GetAllUnlockedMaterials());
     }
 
-    protected override void PreApplyTo(Player player, float add, float multiplier) => player.GetModPlayer<MaterialPlayer>().AddMaterial(MaterialBonus, 1f);
+    protected override void PreApplyTo(Player player, float add, ref float multiplier) => player.GetModPlayer<MaterialPlayer>().AddMaterial(MaterialBonus, 1f);
 
     internal override bool PreAddStatTooltips(List<TooltipLine> tooltips, ModItem modItem, bool displayAsJewel)
     {

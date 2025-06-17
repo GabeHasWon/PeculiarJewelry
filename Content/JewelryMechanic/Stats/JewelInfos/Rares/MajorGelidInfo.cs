@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos;
+namespace PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos.Rares;
 
 internal class MajorGelidInfo : JewelInfo
 {

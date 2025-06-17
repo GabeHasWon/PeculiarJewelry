@@ -47,5 +47,6 @@ public abstract class JewelStatEffect : ModType
     protected abstract float InternalEffectBonus(float multiplier, Player player);
     protected virtual bool SkipStatMods(Player player, float strength) => false;
 
-    internal virtual string GetDescription(Player player, string stars, float str) => "+" + Description.WithFormatArgs(GetEffectBonus(player, str).ToString("#0.##")).Value + stars;
+    internal virtual string GetDescription(Player player, string stars, float str, bool negative = false) => 
+        negative ? "+" : "-" + Description.WithFormatArgs(GetEffectBonus(player, str).ToString("#0.##")).Value + stars;
 }

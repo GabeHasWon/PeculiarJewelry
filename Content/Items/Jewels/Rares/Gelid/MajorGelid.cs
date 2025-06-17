@@ -1,4 +1,4 @@
-using PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos;
+using PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos.Rares;
 using System;
 
 namespace PeculiarJewelry.Content.Items.Jewels.Rares.Gelid;

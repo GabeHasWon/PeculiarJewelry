@@ -51,6 +51,23 @@ public abstract partial class JewelInfo
         }
     }
 
+    private int GetStatCount
+    {
+        get
+        {
+            int spawnStats = tier switch // Different tiers start with different sub stats
+            {
+                JewelTier.Natural => 0,
+                < JewelTier.Mythical0 => 1,
+                < JewelTier.Celestial0 => 2,
+                < JewelTier.Stellar0 => 3,
+                _ => 4
+            };
+
+            return spawnStats;
+        }
+    }
+
     public virtual string Title => Major.GetName().Value;
 
     public JewelStat Major { get; internal set; }
@@ -83,28 +100,28 @@ public abstract partial class JewelInfo
 
     public virtual JewelStat GenStat() => JewelStat.Random;
 
+    /// <summary>
+    /// Determines how many and which substats a jewel starts with.
+    /// </summary>
     public virtual void RollSubstats()
     {
         exclusivity = Major.Get().Exclusivity;
 
         List<StatType> takenTypes = [Major.Get().Type];
-
-        int spawnStats = tier switch
-        {
-            JewelTier.Natural => 0,
-            < JewelTier.Mythical0 => 1,
-            < JewelTier.Celestial0 => 2,
-            < JewelTier.Stellar0 => 3,
-            _ => 4
-        }; //Different tiers start with different sub stats
+        int spawnStats = GetStatCount;
 
         for (int i = 0; i < spawnStats; i++)
             AddSubStat(takenTypes, i);
     }
 
-    protected void AddSubStat(List<StatType> takenTypes, int index)
+    /// <summary>
+    /// Default algorithm for adding a substat. Used by default in <see cref="RollSubstats"/>
+    /// </summary>
+    /// <param name="takenTypes"></param>
+    /// <param name="index"></param>
+    protected virtual void AddSubStat(List<StatType> takenTypes, int index)
     {
-        if (index < SubStats.Capacity) //Fill slots
+        if (index < SubStats.Capacity) // Fill slots
         {
             SubStats.Add(JewelStat.Random);
 
@@ -128,16 +145,16 @@ public abstract partial class JewelInfo
 
     public void ApplyTo(Player player, float add = 0, float multiplier = 1f)
     {
-        PreApplyTo(player, add, multiplier);
-        Major.Apply(player, add, multiplier);
+        PreApplyTo(player, add, ref multiplier);
+        Major.Apply(player, add, Major.Negative ? 1f : multiplier);
 
         foreach (var subStat in SubStats)
-            subStat.Apply(player, add, multiplier);
+            subStat.Apply(player, add, subStat.Negative ? 1f : multiplier);
 
         PostApplyTo(player, add, multiplier);
     }
 
-    protected virtual void PreApplyTo(Player player, float add, float multiplier) { }
+    protected virtual void PreApplyTo(Player player, float add, ref float multiplier) { }
     protected virtual void PostApplyTo(Player player, float add, float multiplier) { }
     public virtual void AddCutLines(List<TooltipLine> lines, bool hoveringAnvil) { }
 
