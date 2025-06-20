@@ -44,7 +44,7 @@ internal class MajorPearlInfo : MajorJewelInfo
         return tooltip;
     }
 
-    internal override bool PreAddStatTooltips(List<TooltipLine> tooltips, ModItem modItem, bool displayAsJewel)
+    internal override bool PreAddStatTooltips(List<TooltipLine> tooltips, ModItem modItem, bool displayAsJewel, ref float modStrength)
     {
         string[] tips = TriggerTooltip(Main.LocalPlayer).Split('\n');
 

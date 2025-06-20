@@ -168,7 +168,7 @@ internal class SetJewelUIState : UIState, IClosableUIState
 
                 allStats += ChangeIfDifferent(inf, inf.Major.GetDescription(player));
 
-                foreach (var item in inf.SubStatTooltips(player))
+                foreach (string item in inf.SubStatTooltips(player))
                     allStats += ChangeIfDifferent(inf, item);
 
                 if (Jewelry.Info.IndexOf(inf) < Jewelry.Info.Count - 1)
@@ -177,8 +177,8 @@ internal class SetJewelUIState : UIState, IClosableUIState
         }
         else
         {
-            List<TooltipLine> lines = new();
-            List<TooltipLine> originalLines = new();
+            List<TooltipLine> lines = [];
+            List<TooltipLine> originalLines = [];
 
             BasicJewelry.SummaryJewelryTooltips(lines, Jewelry, Jewelry.Mod, null, info);
             BasicJewelry.SummaryJewelryTooltips(originalLines, Jewelry, Jewelry.Mod);

@@ -4,13 +4,14 @@ using System.Reflection;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos.Rares;
 
-internal class MinorCursedInfo : JewelInfo
+internal class MajorCursedInfo : JewelInfo
 {
-    public override string Prefix => "Minor";
+    // hey these are unfinished make sure to finish them :)
+    public override string Prefix => "Major";
     public override string JewelTitle => "Cursed";
-    public override bool CountsAsMajor => false;
+    public override bool CountsAsMajor => true;
 
-    internal override void InternalSetup() => SubStats = new List<JewelStat>(2);
+    internal override void InternalSetup() => SubStats = new List<JewelStat>(4);
 
     public override JewelStat GenStat()
     {

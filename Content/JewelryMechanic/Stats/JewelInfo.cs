@@ -98,6 +98,10 @@ public abstract partial class JewelInfo
         InternalSetup();
     }
 
+    /// <summary>
+    /// Used to generate the <see cref="Major"/> stat on jewel creation.
+    /// </summary>
+    /// <returns>The Major stat to use.</returns>
     public virtual JewelStat GenStat() => JewelStat.Random;
 
     /// <summary>
@@ -158,14 +162,14 @@ public abstract partial class JewelInfo
     protected virtual void PostApplyTo(Player player, float add, float multiplier) { }
     public virtual void AddCutLines(List<TooltipLine> lines, bool hoveringAnvil) { }
 
-    public string[] SubStatTooltips(Player player)
+    public string[] SubStatTooltips(Player player, float displayStrength = 1f)
     {
         string[] tooltip = new string[SubStats.Capacity];
 
         for (int i = 0; i < SubStats.Capacity; ++i)
         {
             if (i < SubStats.Count)
-                tooltip[i] = SubStats[i].GetDescription(player);
+                tooltip[i] = SubStats[i].GetDescription(player, true, displayStrength);
             else
                 tooltip[i] = "-";
         }
@@ -242,7 +246,8 @@ public abstract partial class JewelInfo
     /// <param name="modItem"></param>
     /// <param name="displayAsJewel"></param>
     /// <returns></returns>
-    internal virtual bool PreAddStatTooltips(List<TooltipLine> tooltips, ModItem modItem, bool displayAsJewel) => false;
+    /// <param name="modStrength"></param>
+    internal virtual bool PreAddStatTooltips(List<TooltipLine> tooltips, ModItem modItem, bool displayAsJewel, ref float modStrength) => false;
 
     /// <summary>
     /// Overrides the default plier chance. Returning true will succeed the plier attempt.

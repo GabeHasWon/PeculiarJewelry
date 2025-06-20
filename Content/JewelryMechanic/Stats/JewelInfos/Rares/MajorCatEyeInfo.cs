@@ -38,7 +38,7 @@ internal class MajorCatEyeInfo : JewelInfo
 
     protected override void PreApplyTo(Player player, float add, ref float multiplier) => player.GetModPlayer<MaterialPlayer>().AddMaterial(MaterialBonus, 1f);
 
-    internal override bool PreAddStatTooltips(List<TooltipLine> tooltips, ModItem modItem, bool displayAsJewel)
+    internal override bool PreAddStatTooltips(List<TooltipLine> tooltips, ModItem modItem, bool displayAsJewel, ref float modStrength)
     {
         tooltips.Add(new TooltipLine(modItem.Mod, "CatMaterialBonus", Language.GetTextValue("Mods.PeculiarJewelry.Jewelry.CatEyeMaterial", MaterialBonus)));
         return false;

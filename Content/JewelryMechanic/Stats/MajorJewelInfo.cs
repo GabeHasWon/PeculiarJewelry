@@ -24,7 +24,7 @@ internal class MajorJewelInfo : JewelInfo
     public virtual void ConstantTrigger(Player player, float bonus) => effect.ConstantTrigger(player, tier, bonus);
     public virtual string TriggerTooltip(Player player) => effect.Tooltip(tier, player);
 
-    internal override bool PreAddStatTooltips(List<TooltipLine> tooltips, ModItem modItem, bool displayAsJewel)
+    internal override bool PreAddStatTooltips(List<TooltipLine> tooltips, ModItem modItem, bool displayAsJewel, ref float modStrength)
     {
         tooltips.Add(new TooltipLine(modItem.Mod, "TriggerEffect", TriggerTooltip(Main.LocalPlayer)));
         return false;

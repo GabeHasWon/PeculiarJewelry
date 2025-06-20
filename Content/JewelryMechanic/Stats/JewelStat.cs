@@ -14,12 +14,12 @@ public class JewelStat(StatType category)
 
     public virtual void Apply(Player player, float add = 0, float multiplier = 0) => Get().Apply(player, GetStrengthFormula(add, multiplier));
     private float GetStrengthFormula(float add, float multiplier) => (Strength + add) * multiplier * (Negative ? -1 : 1);
-    public float GetEffectValue(Player player, float add = 0f) => Get().GetEffectBonus(player, Strength + add);
+    public float GetEffectValue(Player player, float add = 0f) => Get().GetEffectBonus(player, Strength + add) * (Negative ? -1 : 1);
 
     public virtual JewelStatEffect Get() => JewelStatEffect.StatsByType[Type];
     public LocalizedText GetName() => Get().DisplayName;
 
-    public string GetDescription(Player player, bool showStars = true)
+    public string GetDescription(Player player, bool showStars = true, float displayMultiplier = 1f)
     {
         string stars = " ";
 
@@ -27,8 +27,8 @@ public class JewelStat(StatType category)
             for (int i = 1; i < Strength - 1; ++i)
                 stars += "⋆";
 
-        return GetFinalDescriptionString(player, stars);
+        return GetFinalDescriptionString(player, stars, displayMultiplier);
     }
 
-    private string GetFinalDescriptionString(Player player, string stars) => Get().GetDescription(player, stars, Strength);
+    private string GetFinalDescriptionString(Player player, string stars, float mul) => Get().GetDescription(player, stars, Strength * (Negative ? 1 : mul), Negative);
 }

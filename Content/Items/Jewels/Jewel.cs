@@ -117,22 +117,21 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
             tooltips.Add(new TooltipLine(modItem.Mod, "JewelTier", Language.GetText("Mods.PeculiarJewelry.Jewelry.TierTooltip").WithFormatArgs((int)info.tier).Value));
         }
         else
-        {
-            string major = info is MajorJewelInfo ? nameof(MajorJewel) : nameof(MinorJewel);
             tooltips.Add(new TooltipLine(modItem.Mod, "JewelName", info.Name) { OverrideColor = info.Major.Get().Color });
-        }
 
-        if (!info.PreAddStatTooltips(tooltips, modItem, displayAsJewel))
+        float modStrength = 1f;
+
+        if (!info.PreAddStatTooltips(tooltips, modItem, displayAsJewel, ref modStrength))
         {
             if (info is MajorJewelInfo majorJewelInfo)
                 tooltips.Add(new TooltipLine(modItem.Mod, "TriggerEffect", majorJewelInfo.TriggerTooltip(Main.LocalPlayer)));
 
-            if ((displayAsJewel || PeculiarJewelry.ShiftDown))
+            if (displayAsJewel || PeculiarJewelry.ShiftDown)
             {
                 if (info.Major.Type != StatType.None)
-                    tooltips.Add(new TooltipLine(modItem.Mod, "MajorStat", info.Major.GetDescription(Main.LocalPlayer, false)) { OverrideColor = info.Major.Get().Color });
+                    tooltips.Add(new TooltipLine(modItem.Mod, "MajorStat", info.Major.GetDescription(Main.LocalPlayer, false, modStrength)) { OverrideColor = info.Major.Get().Color });
 
-                var subStatTooltips = info.SubStatTooltips(Main.LocalPlayer);
+                string[] subStatTooltips = info.SubStatTooltips(Main.LocalPlayer, modStrength);
 
                 for (int i = 0; i < subStatTooltips.Length; ++i)
                 {

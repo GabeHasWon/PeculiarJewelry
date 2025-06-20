@@ -62,7 +62,8 @@ internal static class JewelIO
         TagCompound tag = new()
         {
             { "statType", (byte)stat.Type },
-            { "statStrength", stat.Strength }
+            { "statStrength", stat.Strength },
+            { "negative", stat.Negative }
         };
         return tag;
     }
@@ -71,7 +72,8 @@ internal static class JewelIO
     {
         JewelStat stat = new((StatType)tag.GetByte("statType"))
         {
-            Strength = tag.GetFloat("statStrength")
+            Strength = tag.GetFloat("statStrength"),
+            Negative = tag.GetBool("negative")
         };
 
         return stat;

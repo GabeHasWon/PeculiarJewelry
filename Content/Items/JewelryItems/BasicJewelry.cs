@@ -181,8 +181,9 @@ public abstract class BasicJewelry : ModItem, IStorableItem
         foreach (var item in info)
         {
             List<JewelStat> stats = [item.Major, .. item.SubStats];
+            float modStrength = 1f;
 
-            if (item.PreAddStatTooltips(tooltips, jewelry, false))
+            if (item.PreAddStatTooltips(tooltips, jewelry, false, ref modStrength))
                 continue;
 
             foreach (var stat in stats)
@@ -195,11 +196,13 @@ public abstract class BasicJewelry : ModItem, IStorableItem
                 else if (stat.Type == StatType.None)
                     continue;
 
+                float strength = stat.Negative ? 1f : modStrength;
+
                 if (strengthsByType.ContainsKey(stat.Type))
-                    strengthsByType[stat.Type] += stat.GetEffectValue(player) * player.GetModPlayer<HallowedBonus.HallowedBonusPlayer>().fiveSetPower;
+                    strengthsByType[stat.Type] += stat.GetEffectValue(player) * player.GetModPlayer<HallowedBonus.HallowedBonusPlayer>().fiveSetPower * strength;
                 else
                 {
-                    strengthsByType.Add(stat.Type, stat.GetEffectValue(player) * player.GetModPlayer<HallowedBonus.HallowedBonusPlayer>().fiveSetPower);
+                    strengthsByType.Add(stat.Type, stat.GetEffectValue(player) * player.GetModPlayer<HallowedBonus.HallowedBonusPlayer>().fiveSetPower * strength);
                     colorsByType.Add(stat.Type, stat.Get().Color);
                 }
             }
