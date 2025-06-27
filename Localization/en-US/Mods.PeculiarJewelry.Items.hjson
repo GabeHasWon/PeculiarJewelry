@@ -3036,3 +3036,8 @@ MinorCursed: {
 	DisplayName: Minor Cursed
 	Tooltip: ""
 }
+
+MajorCursed: {
+	DisplayName: Major Cursed
+	Tooltip: ""
+}

@@ -278,25 +278,26 @@ internal class CutJewelUIState : UIState, IClosableUIState
         if (!_hoveringAnvil)
             return text.Text;
 
-        static string Replacement(string text, out bool invalidText)
+        static string Replacement(string text, out bool invalidText, bool isNegative = false)
         {
+            char matchChar = isNegative ? '-' : '+';
             invalidText = false;
 
-            if (!text.Contains('+'))
+            if (!text.Contains(matchChar))
             {
                 invalidText = true;
                 return text;
             }
 
-            int plus = text.IndexOf('+') + 1;
+            int plus = text.IndexOf(matchChar) + 1;
             int percent = text.IndexOf('%', plus);
             int space = text.IndexOf(' ', plus);
             int end = percent;
 
-            if ((space < percent && space != 0) || percent < 0)
+            if (space < percent && space != 0 || percent < 0)
                 end = space;
 
-            if ((percent < 0 && space < 0) || plus - end > 0)
+            if (percent < 0 && space < 0 || plus - end > 0)
             {
                 invalidText = true;
                 return text;
@@ -307,7 +308,7 @@ internal class CutJewelUIState : UIState, IClosableUIState
 
         if (text.Name == "JewelCuts")
         {
-            string replacement = text.Text[..(text.Text.IndexOf("/") + 1)];
+            string replacement = text.Text[..(text.Text.IndexOf('/') + 1)];
             return text.Text.Replace(replacement, "[c/ffff00:" + (float.Parse(replacement.Replace("/", "")) - 1).ToString() + "]/");
         }
 
@@ -321,7 +322,7 @@ internal class CutJewelUIState : UIState, IClosableUIState
         {
             overrideColor = Color.Yellow;
 
-            string replacement = Replacement(text.Text, out bool _);
+            string replacement = Replacement(text.Text, out bool _, info.Major.Negative);
             (float min, float max) = info.BuffStatRange();
             float current = info.Major.GetEffectValue(Main.LocalPlayer, min);
             float maxValue = info.Major.GetEffectValue(Main.LocalPlayer, max);
@@ -332,8 +333,11 @@ internal class CutJewelUIState : UIState, IClosableUIState
         {
             overrideColor = Color.LightBlue;
 
+            if (text.Text == "   -")
+                return text.Text;
+
             int statID = int.Parse(text.Name[^1].ToString());
-            string replacement = Replacement(text.Text, out bool invalidText);
+            string replacement = Replacement(text.Text, out bool invalidText, info.SubStats[statID].Negative);
 
             if (invalidText)
                 return text.Text;

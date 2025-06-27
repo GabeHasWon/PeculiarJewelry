@@ -37,7 +37,14 @@ internal class LegionStat : JewelStatEffect
             float speed = owner.GetModPlayer<LegionPlayer>().bonus;
             totalSpeed += speed;
 
-            if (totalSpeed > 1f)
+            if (totalSpeed < 0)
+            {
+                totalSpeed++;
+                projectile.timeLeft++;
+                return false;
+            }
+
+            while (totalSpeed > 1f)
             {
                 CobaltBonus.CobaltBonusProjectile.RepeatAI(projectile, (int)totalSpeed);
                 totalSpeed -= (int)totalSpeed;

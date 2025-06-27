@@ -30,5 +30,6 @@ public class JewelStat(StatType category)
         return GetFinalDescriptionString(player, stars, displayMultiplier);
     }
 
-    private string GetFinalDescriptionString(Player player, string stars, float mul) => Get().GetDescription(player, stars, Strength * (Negative ? 1 : mul), Negative);
+    private string GetFinalDescriptionString(Player player, string stars, float mul) 
+        => Get().GetDescription(player, stars, Strength * (Negative ? 1 : mul), Negative);
 }

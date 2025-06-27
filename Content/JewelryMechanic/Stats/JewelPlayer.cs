@@ -6,6 +6,7 @@ using PeculiarJewelry.Content.JewelryMechanic.MaterialBonuses.Bonuses;
 using PeculiarJewelry.Content.JewelryMechanic.Stats.Triggers;
 using PeculiarJewelry.Content.JewelryMechanic.Syncing;
 using System.Collections.Generic;
+using Terraria;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats;
 
@@ -109,7 +110,7 @@ internal class JewelPlayer : ModPlayer
         foreach (var item in jewelry)
         {
             item.ApplySingleJewelBonus(Player);
-            item.ApplyTo(Player, -(1f - ((float)item.tier + 1f) / 5f), hallowedPlayer.fiveSetPower);
+            item.ApplyTo(Player, 0, hallowedPlayer.fiveSetPower * item.PerfectionMultiplier());
             item.ResetSingleJewelBonus(Player);
         }
 

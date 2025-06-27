@@ -106,7 +106,7 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
     /// <param name="modItem">The mod item this is being attached to.</param>
     /// <param name="displayAsJewel">Whether this is being used directly on a Jewel item or as part of a jewelry accessory. 
     /// This ignores the name modification and hides the exclusivity and cuts left.</param>
-    public static void PlainJewelTooltips(List<TooltipLine> tooltips, JewelInfo info, ModItem modItem, bool displayAsJewel = true)
+    public static void PlainJewelTooltips(List<TooltipLine> tooltips, JewelInfo info, ModItem modItem, bool displayAsJewel = true, float defaultModifier = 1f)
     {
         if (displayAsJewel)
         {
@@ -119,7 +119,7 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
         else
             tooltips.Add(new TooltipLine(modItem.Mod, "JewelName", info.Name) { OverrideColor = info.Major.Get().Color });
 
-        float modStrength = 1f;
+        float modStrength = defaultModifier;
 
         if (!info.PreAddStatTooltips(tooltips, modItem, displayAsJewel, ref modStrength))
         {

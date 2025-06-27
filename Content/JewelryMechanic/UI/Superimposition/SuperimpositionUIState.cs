@@ -404,7 +404,7 @@ internal class SuperimpositionUIState : UIState, IClosableUIState
 
     internal static string GetExistingJewelName(Jewel jewel)
     {
-        List<TooltipLine> lines = new() { new TooltipLine(ModLoader.GetMod("PeculiarJewelry"), "ItemName", "") };
+        List<TooltipLine> lines = [new TooltipLine(ModLoader.GetMod("PeculiarJewelry"), "ItemName", "")];
         Jewel.PlainJewelTooltips(lines, jewel.info, jewel, true);
         string jewelName = lines.First(x => x.Name == "ItemName").Text;
         return jewelName;

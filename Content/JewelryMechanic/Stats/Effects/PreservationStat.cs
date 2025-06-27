@@ -11,9 +11,26 @@ internal class PreservationStat : JewelStatEffect
 
     class PreservationPlayer : ModPlayer
     {
+        private static bool Recursing = false;
+
         public float bonus = 0f;
 
         public override void ResetEffects() => bonus = 0f;
         public override bool CanConsumeAmmo(Item weapon, Item ammo) => Main.rand.NextFloat() > bonus / 100f;
+
+        public override void OnConsumeAmmo(Item weapon, Item ammo)
+        {
+            if (bonus < 0 && !Recursing)
+            {
+                while (Main.rand.NextFloat() < -bonus / 100f)
+                {
+                    Recursing = true;
+                    Player.ConsumeItem(ammo.type);
+                    Recursing = false;
+
+                    bonus++;
+                }
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos.Rares;
@@ -10,12 +11,14 @@ internal class MinorCursedInfo : JewelInfo
     public override string JewelTitle => "Cursed";
     public override bool CountsAsMajor => false;
 
+    protected virtual int NegativeDenominator => 2;
+
     internal override void InternalSetup() => SubStats = new List<JewelStat>(2);
 
     public override JewelStat GenStat()
     {
-        JewelStat stat = base.GenStat();
-        stat.Negative = Main.rand.NextBool(5);
+        JewelStat stat = new JewelStat(StatType.Legion);// base.GenStat();
+        stat.Negative = Main.rand.NextBool(3);
         return stat;
     }
 
@@ -36,7 +39,13 @@ internal class MinorCursedInfo : JewelInfo
             if (HasExclusivity && exclusivity == StatExclusivity.None)
                 exclusivity = SubStats[index].Get().Exclusivity;
 
-            SubStats[index].Negative = Main.rand.NextBool(4 - index);
+            bool canBeNegative = true;
+
+            if (index == SubStats.Count - 1)
+                canBeNegative = SubStats.Any(x => !x.Negative);
+
+            if (canBeNegative)
+                SubStats[index].Negative = Main.rand.NextBool(NegativeDenominator - index);
         }
         else
         {

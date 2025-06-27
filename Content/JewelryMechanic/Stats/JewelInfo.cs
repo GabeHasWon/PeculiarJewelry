@@ -153,7 +153,9 @@ public abstract partial class JewelInfo
         Major.Apply(player, add, Major.Negative ? 1f : multiplier);
 
         foreach (var subStat in SubStats)
+        {
             subStat.Apply(player, add, subStat.Negative ? 1f : multiplier);
+        }
 
         PostApplyTo(player, add, multiplier);
     }

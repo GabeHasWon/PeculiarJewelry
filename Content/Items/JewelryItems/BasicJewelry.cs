@@ -103,10 +103,21 @@ public abstract class BasicJewelry : ModItem, IStorableItem
         }
         else
             foreach (var item in Info)
-                Jewel.PlainJewelTooltips(tooltips, item, this, false);
+                Jewel.PlainJewelTooltips(tooltips, item, this, false, PerfectionMultiplier());
     }
 
-    private string GetBestTitleInfo(List<JewelInfo> info)
+    /// <summary>
+    /// The "perfection" multiplier which reduces Jewel effectiveness per:<para/>
+    /// <b><see cref="JewelryTier.Ordinary"/>:</b> 0.2f<br/>
+    /// <b><see cref="JewelryTier.Pretty"/>:</b> 0.4f<br/>
+    /// <b><see cref="JewelryTier.Elegant"/>:</b> 0.6f<br/>
+    /// <b><see cref="JewelryTier.Elaborate"/>:</b> 0.8f<br/>
+    /// <b><see cref="JewelryTier.Extravagant"/>:</b> 1f
+    /// </summary>
+    /// <returns></returns>
+    public float PerfectionMultiplier() => ((float)tier + 1f) / 5f;
+
+    private static string GetBestTitleInfo(List<JewelInfo> info)
     {
         if (GetSpecialTitle(info, out JewelInfo newInfo))
             return newInfo.Title;
@@ -181,7 +192,7 @@ public abstract class BasicJewelry : ModItem, IStorableItem
         foreach (var item in info)
         {
             List<JewelStat> stats = [item.Major, .. item.SubStats];
-            float modStrength = 1f;
+            float modStrength = jewelry.PerfectionMultiplier();
 
             if (item.PreAddStatTooltips(tooltips, jewelry, false, ref modStrength))
                 continue;
