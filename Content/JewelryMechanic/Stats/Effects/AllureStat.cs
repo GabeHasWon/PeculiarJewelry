@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PeculiarJewelry.Content.NPCs;
+using System;
 using System.Collections.Generic;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats.Effects;
@@ -30,19 +31,19 @@ public class AllureGlobalNPC : GlobalNPC
 
         if (skill < -100)
         {
-            pool[NPCID.DukeFishron] = MathHelper.Lerp(0.2f, 2f, Utils.GetLerpValue(-25, -60, skill));
+            pool[NPCID.DukeFishron] = MathHelper.Lerp(0.025f, 0.5f, Utils.GetLerpValue(-25, -60, skill));
         }
         else if (skill < -60)
         {
-            // Sharknado
+            pool[ModContent.NPCType<Earthbubble>()] = MathHelper.Lerp(0.05f, 1f, Utils.GetLerpValue(-25, -60, skill));
         }
         else if (skill < -25)
         {
-            pool[NPCID.Shark] = MathHelper.Lerp(0.2f, 2f, Utils.GetLerpValue(-25, -60, skill));
+            pool[ModContent.NPCType<EarthShark>()] = MathHelper.Lerp(0.2f, 2f, Utils.GetLerpValue(-25, -60, skill));
         }
         else
         {
-            pool[NPCID.CorruptGoldfish] = MathHelper.Lerp(0.2f, 2f, -skill / 25f);
+            pool[ModContent.NPCType<Earthfish>()] = MathHelper.Lerp(0.2f, 2f, -skill / 25f);
         }
     }
 }
