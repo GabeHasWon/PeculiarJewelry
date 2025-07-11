@@ -1,4 +1,4 @@
-using PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos;
+using PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos.Rares;
 using PeculiarJewelry.Content.JewelryMechanic.Stats.Stats;
 using System;
 

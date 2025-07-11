@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos;
+namespace PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos.Rares;
 
 internal static class AmberAccessoryPool
 {
     private static bool Initialized = false;
 
-    private static Dictionary<string, int[]> OptionsPerProgression = [];
+    private static readonly Dictionary<string, int[]> IDsInProgression = [];
 
     internal static int Get()
     {
@@ -17,51 +17,51 @@ internal static class AmberAccessoryPool
         List<int> allIds = [];
 
         if (NPC.downedMoonlord)
-            allIds.AddRange(OptionsPerProgression["Moonlord"]);
+            allIds.AddRange(IDsInProgression["Moonlord"]);
 
         if (NPC.downedAncientCultist)
-            allIds.AddRange(OptionsPerProgression["PostCultist"]);
-        
+            allIds.AddRange(IDsInProgression["PostCultist"]);
+
         if (NPC.downedGolemBoss)
-            allIds.AddRange(OptionsPerProgression["PostGolem"]);
-        
+            allIds.AddRange(IDsInProgression["PostGolem"]);
+
         if (NPC.downedPlantBoss)
-            allIds.AddRange(OptionsPerProgression["PostPlantera"]);
-        
+            allIds.AddRange(IDsInProgression["PostPlantera"]);
+
         if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
-            allIds.AddRange(OptionsPerProgression["PostMechs"]);
-        
+            allIds.AddRange(IDsInProgression["PostMechs"]);
+
         if (Main.hardMode)
-            allIds.AddRange(OptionsPerProgression["FirstHardmode"]);
-        
+            allIds.AddRange(IDsInProgression["FirstHardmode"]);
+
         if (NPC.downedBoss3)
-            allIds.AddRange(OptionsPerProgression["PostSkele"]);
+            allIds.AddRange(IDsInProgression["PostSkele"]);
 
         if (NPC.downedBoss2)
-            allIds.AddRange(OptionsPerProgression["PostEvil"]);
+            allIds.AddRange(IDsInProgression["PostEvil"]);
 
         if (NPC.downedBoss1)
-            allIds.AddRange(OptionsPerProgression["PostEye"]);
+            allIds.AddRange(IDsInProgression["PostEye"]);
 
-        allIds.AddRange(OptionsPerProgression["PreBoss"]);
+        allIds.AddRange(IDsInProgression["PreBoss"]);
         return Main.rand.Next(allIds);
     }
 
     private static void Initialize()
     {
-        OptionsPerProgression.Add("Moonlord", [ItemID.WingsNebula, ItemID.WingsSolar, ItemID.WingsStardust, ItemID.WingsVortex, ItemID.AnkhShield, ItemID.MasterNinjaGear]);
-        OptionsPerProgression.Add("PostCultist", [ItemID.AnkhCharm, ItemID.PDA, ItemID.BetsyWings, ItemID.RainbowWings]);
-        OptionsPerProgression.Add("PostGolem", [ItemID.EyeoftheGolem, ItemID.FrozenShield, ItemID.Hoverboard, ItemID.MothronWings, ItemID.CelestialShell, ItemID.HeroShield]);
-        OptionsPerProgression.Add("PostPlantera", [ItemID.FrozenTurtleShell, ItemID.CelestialEmblem, ItemID.NecromanticScroll, ItemID.ArchitectGizmoPack, ItemID.PapyrusScarab]);
-        OptionsPerProgression.Add("PostMechs", [ItemID.CharmofMyths, ItemID.StarCloak, ItemID.BundleofBalloons, ItemID.FairyWings, ItemID.MoonCharm, ItemID.AvengerEmblem]);
-        OptionsPerProgression.Add("FirstHardmode", [ItemID.PhilosophersStone, ItemID.StarCloak, ItemID.BundleofBalloons, ItemID.FrostsparkBoots, ItemID.ArcticDivingGear,
+        IDsInProgression.Add("Moonlord", [ItemID.WingsNebula, ItemID.WingsSolar, ItemID.WingsStardust, ItemID.WingsVortex, ItemID.AnkhShield, ItemID.MasterNinjaGear]);
+        IDsInProgression.Add("PostCultist", [ItemID.AnkhCharm, ItemID.PDA, ItemID.BetsyWings, ItemID.RainbowWings]);
+        IDsInProgression.Add("PostGolem", [ItemID.EyeoftheGolem, ItemID.FrozenShield, ItemID.Hoverboard, ItemID.MothronWings, ItemID.CelestialShell, ItemID.HeroShield]);
+        IDsInProgression.Add("PostPlantera", [ItemID.FrozenTurtleShell, ItemID.CelestialEmblem, ItemID.NecromanticScroll, ItemID.ArchitectGizmoPack, ItemID.PapyrusScarab]);
+        IDsInProgression.Add("PostMechs", [ItemID.CharmofMyths, ItemID.StarCloak, ItemID.BundleofBalloons, ItemID.FairyWings, ItemID.MoonCharm, ItemID.AvengerEmblem]);
+        IDsInProgression.Add("FirstHardmode", [ItemID.PhilosophersStone, ItemID.StarCloak, ItemID.BundleofBalloons, ItemID.FrostsparkBoots, ItemID.ArcticDivingGear,
             ItemID.Magiluminescence, ItemID.CobaltShield, ItemID.BerserkerGlove]);
-        OptionsPerProgression.Add("PostSkele", [ItemID.SandstorminaBottle, ItemID.CloudinaBalloon, ItemID.RocketBoots, ItemID.LightningBoots, ItemID.BlizzardinaBottle,
+        IDsInProgression.Add("PostSkele", [ItemID.SandstorminaBottle, ItemID.CloudinaBalloon, ItemID.RocketBoots, ItemID.LightningBoots, ItemID.BlizzardinaBottle,
             ItemID.MagmaStone, ItemID.MoltenSkullRose]);
-        OptionsPerProgression.Add("PostEvil", [ItemID.HermesBoots, ItemID.AnkletoftheWind, ItemID.FlyingCarpet, ItemID.CloudinaBottle, ItemID.BlizzardinaBottle,
+        IDsInProgression.Add("PostEvil", [ItemID.HermesBoots, ItemID.AnkletoftheWind, ItemID.FlyingCarpet, ItemID.CloudinaBottle, ItemID.BlizzardinaBottle,
             ItemID.SharkToothNecklace]);
-        OptionsPerProgression.Add("PostEye", [ItemID.BandofRegeneration, ItemID.BandofStarpower, ItemID.NaturesGift, ItemID.Bezoar, ItemID.GuideVoodooDoll, ItemID.AncientChisel]);
-        OptionsPerProgression.Add("PreBoss", [ItemID.Aglet, ItemID.Radar, ItemID.PortableStool, ItemID.Shackle, ItemID.Flipper, ItemID.LuckyHorseshoe, ItemID.FrogLeg, 
+        IDsInProgression.Add("PostEye", [ItemID.BandofRegeneration, ItemID.BandofStarpower, ItemID.NaturesGift, ItemID.Bezoar, ItemID.GuideVoodooDoll, ItemID.AncientChisel]);
+        IDsInProgression.Add("PreBoss", [ItemID.Aglet, ItemID.Radar, ItemID.PortableStool, ItemID.Shackle, ItemID.Flipper, ItemID.LuckyHorseshoe, ItemID.FrogLeg,
             ItemID.CordageGuide, ItemID.JellyfishNecklace, ItemID.RainbowString]);
 
         Initialized = true;

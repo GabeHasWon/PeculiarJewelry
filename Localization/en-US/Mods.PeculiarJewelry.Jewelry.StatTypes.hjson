@@ -132,3 +132,28 @@ MoonstoneSword: {
 	DisplayName: the Ancient Sword
 	Description: Gain {0} sword to fight alongside you
 }
+
+SoulAgony: {
+	DisplayName: Agony
+	Description: Haunted enemies take double damage temporarily
+}
+
+SoulGrief: {
+	DisplayName: Grief
+	Description: Haunted enemies heal players for a short period
+}
+
+SoulSacrifice: {
+	DisplayName: Sacrifice
+	Description: Haunted enemies lose life proportional to max health
+}
+
+SoulBetrayal: {
+	DisplayName: Betrayal
+	Description: Haunted enemies can cause nearby enemies to explode on death
+}
+
+SoulPlague: {
+	DisplayName: Torture
+	Description: Haunted enemies deal significantly less damage
+}

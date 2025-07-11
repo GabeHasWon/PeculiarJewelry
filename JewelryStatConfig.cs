@@ -122,6 +122,31 @@ public class JewelryStatConfig : ModConfig
     [Range(0, 10f)]
     public float ToleranceStrength { get; set; }
 
+    [Header("Mods.PeculiarJewelry.Config.RareStats")]
+    [DefaultValue(1)]
+    [Range(0.25f, 5f)]
+    public float SoulAgonyStrength { get; set; }
+
+    [DefaultValue(1)]
+    [Range(0.25f, 5f)]
+    public float SoulTortureStrength { get; set; }
+
+    [DefaultValue(1)]
+    [Range(0.25f, 5f)]
+    public float SoulGriefStrength { get; set; }
+
+    [DefaultValue(1)]
+    [Range(0.25f, 5f)]
+    public float SoulSacrificeStrength { get; set; }
+
+    [DefaultValue(1)]
+    [Range(0.25f, 5f)]
+    public float SoulPlagueStrength { get; set; }
+
+    [DefaultValue(1)]
+    [Range(0.25f, 5f)]
+    public float SoulBetrayalStrength { get; set; }
+
     [Header("Mods.PeculiarJewelry.Config.DesecrationHeader")]
     [DefaultValue(1)]
     [Range(0.25f, 2f)]

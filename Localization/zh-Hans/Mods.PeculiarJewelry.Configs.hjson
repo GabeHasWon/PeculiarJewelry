@@ -22,6 +22,7 @@ JewelryStatConfig: {
 				Config: {
 					StatConfigHeader: "[i:PeculiarJewelry/MinorJewel] 具体属性配置"
 					DesecrationHeader: "[i:1274] 亵渎之路配置"
+					// RareStats: Mods. Peculiar Jewelry. Config. Rare Stats Header
 				}
 			}
 		}
@@ -170,5 +171,35 @@ JewelryStatConfig: {
 	ToleranceStrength: {
 		Label: 容忍之强
 		Tooltip: ""
+	}
+
+	SoulAgonyStrength: {
+		// Label: Soul Agony Strength
+		// Tooltip: ""
+	}
+
+	SoulTortureStrength: {
+		// Label: Soul Torture Strength
+		// Tooltip: ""
+	}
+
+	SoulGriefStrength: {
+		// Label: Soul Grief Strength
+		// Tooltip: ""
+	}
+
+	SoulSacrificeStrength: {
+		// Label: Soul Sacrifice Strength
+		// Tooltip: ""
+	}
+
+	SoulPlagueStrength: {
+		// Label: Soul Plague Strength
+		// Tooltip: ""
+	}
+
+	SoulBetrayalStrength: {
+		// Label: Soul Betrayal Strength
+		// Tooltip: ""
 	}
 }

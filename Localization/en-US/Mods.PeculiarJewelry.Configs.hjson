@@ -22,6 +22,7 @@ JewelryStatConfig: {
 				Config: {
 					StatConfigHeader: "[i:PeculiarJewelry/MinorJewel] Specific stat configuration"
 					DesecrationHeader: "[i:1274] Path of Desecration configuration"
+					RareStats: Mods. Peculiar Jewelry. Config. Rare Stats Header
 				}
 			}
 		}
@@ -169,6 +170,36 @@ JewelryStatConfig: {
 
 	ToleranceStrength: {
 		Label: Tolerance Strength
+		Tooltip: Controls the increase in buff empowerment, debuff weakening, and maximum breath per upgrade.
+	}
+
+	SoulAgonyStrength: {
+		Label: Soul Agony Strength
+		Tooltip: ""
+	}
+
+	SoulTortureStrength: {
+		Label: Soul Torture Strength
+		Tooltip: ""
+	}
+
+	SoulGriefStrength: {
+		Label: Soul Grief Strength
+		Tooltip: ""
+	}
+
+	SoulSacrificeStrength: {
+		Label: Soul Sacrifice Strength
+		Tooltip: ""
+	}
+
+	SoulPlagueStrength: {
+		Label: Soul Plague Strength
+		Tooltip: ""
+	}
+
+	SoulBetrayalStrength: {
+		Label: Soul Betrayal Strength
 		Tooltip: ""
 	}
 }

@@ -6,6 +6,7 @@ Projectiles: {
 	Smoke.DisplayName: 烟雾
 	SoulProjectile.DisplayName: 灵魂
 	TriggerProj.DisplayName: 触发投射物
+	// SoulstoneWisp.DisplayName: Wisp
 }
 
 TierCutoffCondition: 仅来自{0}级或更高级别的袋子。

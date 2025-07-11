@@ -3036,3 +3036,8 @@ MajorCursed: {
 	// DisplayName: Major Cursed
 	// Tooltip: ""
 }
+
+MajorSoulstone: {
+	// DisplayName: Major Soul Stone
+	// Tooltip: ""
+}

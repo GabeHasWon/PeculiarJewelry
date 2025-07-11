@@ -27,6 +27,6 @@ internal class AmberStat : JewelStatEffect
     protected override float InternalEffectBonus(float multiplier, Player player) => 0;
 
     internal override string GetDescription(Player player, string stars, float str, bool negative = false) => accessory is null || accessory.IsAir
-        ? "Holds one accessory.\nRight click this item while holding an accesory to slot it in."
+        ? Language.GetTextValue("Mods.PeculiarJewelry.AmberCanUse")
         : Description.WithFormatArgs($"{accessory.Name} [i:{accessory.type}]").Value + stars;
 }

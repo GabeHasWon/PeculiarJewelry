@@ -1,10 +1,9 @@
 ﻿using PeculiarJewelry.Content.Items.Jewels;
 using PeculiarJewelry.Content.JewelryMechanic.Stats.Effects.Custom;
 using PeculiarJewelry.Content.JewelryMechanic.Stats.Stats;
-using System.Collections.Generic;
 using Terraria.ModLoader.IO;
 
-namespace PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos;
+namespace PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos.Rares;
 
 internal class PureAmberInfo : JewelInfo
 {
@@ -36,11 +35,11 @@ internal class PureAmberInfo : JewelInfo
 
     internal override void InternalSetup()
     {
-        SubStats = new List<JewelStat>(0);
+        SubStats = [];
         Major = GetContainerForItem(ItemID.None);
     }
 
-    public static AmberStatContainer GetContainerForItem(int id) => new AmberStatContainer()
+    public static AmberStatContainer GetContainerForItem(int id) => new()
     {
         stat = new AmberStat()
         {

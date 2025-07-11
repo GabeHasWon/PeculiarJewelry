@@ -164,6 +164,14 @@ public enum StatType
     /// Holds an Accessory.
     /// </summary>
     Amber,
+
+    SoulAgony,
+    SoulGrief, 
+    SoulSacrifice,
+    SoulBetrayal,
+    SoulPlague,
+    SoulTorture,
+    SoulMax
 }
 
 public static class StatTypeLocalization
