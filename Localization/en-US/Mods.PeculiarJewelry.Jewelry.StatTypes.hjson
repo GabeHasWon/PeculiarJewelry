@@ -154,6 +154,11 @@ SoulBetrayal: {
 }
 
 SoulPlague: {
+	DisplayName: Plague
+	Description: Haunted enemies move significantly slower
+}
+
+SoulTorture: {
 	DisplayName: Torture
 	Description: Haunted enemies deal significantly less damage
 }

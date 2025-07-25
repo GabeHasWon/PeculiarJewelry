@@ -13,3 +13,8 @@ TierCutoffCondition: 仅来自{0}级或更高级别的袋子。
 OnceADay: 每天一次
 # The below is formatted like "30.15s left".
 StackableBuffTimeLeft: 秒剩余
+/* AmberCanUse:
+	'''
+	Holds one accessory.
+	Right click this item while holding an accesory to slot it in.
+	''' */

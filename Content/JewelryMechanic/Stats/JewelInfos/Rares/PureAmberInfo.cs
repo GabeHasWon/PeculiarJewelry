@@ -19,8 +19,7 @@ internal class PureAmberInfo : JewelInfo
     {
         get
         {
-            string of = Language.GetTextValue("Mods.PeculiarJewelry.Jewels.Of");
-            string text = $"{Jewel.Localize("Jewels.Prefixes." + Prefix)} {tier.Localize()} {Jewel.Localize("Jewels.Titles." + JewelTitle)}{of}{GetAmberStatName()}";
+            string text = $"{Jewel.Localize("Jewels.Prefixes." + Prefix)} {tier.Localize()} {Jewel.Localize("Jewels.Titles." + JewelTitle)}";
 
             if (Major.Strength > 1)
                 text += $" +{successfulCuts}";
@@ -28,8 +27,6 @@ internal class PureAmberInfo : JewelInfo
             return text;
         }
     }
-
-    private string GetAmberStatName() => Lang.GetItemNameValue((Major as AmberStatContainer).stat.accessory.type);
 
     public override void RollSubstats() { }
 
