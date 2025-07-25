@@ -1,18 +1,33 @@
-﻿using PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos.Rares;
+﻿using PeculiarJewelry.Content.JewelryMechanic.Stats;
+using PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos.Rares;
+using ReLogic.Content;
 using System;
+using System.Collections.Generic;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Misc;
 
 internal class SoulstoneWisp : ModProjectile
 {
-    public MajorSoulstoneInfo.ClassEnum Class => (MajorSoulstoneInfo.ClassEnum)Projectile.ai[0];
+    public static Dictionary<StatType, Asset<Texture2D>> TexByType = [];
 
-    public override void SetStaticDefaults() => Main.projFrames[Type] = 9;
+    public override string Texture => "Terraria/Images/NPC_0";
+
+    public MajorSoulstoneInfo.ClassEnum Class => (MajorSoulstoneInfo.ClassEnum)Projectile.ai[0];
+    public StatType SoulType => (StatType)Projectile.ai[1];
+
+    public override void SetStaticDefaults()
+    {
+        Main.projFrames[Type] = 8;
+
+        TexByType.Add(StatType.SoulAgony, ModContent.Request<Texture2D>("PeculiarJewelry/Content/JewelryMechanic/Misc/SoulstoneWispAgony"));
+        TexByType.Add(StatType.SoulSacrifice, ModContent.Request<Texture2D>("PeculiarJewelry/Content/JewelryMechanic/Misc/SoulstoneWispSacrifice"));
+    }
 
     public override void SetDefaults()
     {
         Projectile.timeLeft = 2;
-        Projectile.Size = new Vector2(28);
+        Projectile.Size = new Vector2(34, 68);
+        Projectile.tileCollide = false;
     }
 
     public override void AI()
@@ -30,10 +45,10 @@ internal class SoulstoneWisp : ModProjectile
             Projectile.velocity = Projectile.velocity.RotatedBy(0.02f);
         }
 
-        if (Projectile.frameCounter < 25)
-            Projectile.frame = Projectile.frameCounter / 4;
+        if (Projectile.frameCounter < 12)
+            Projectile.frame = Projectile.frameCounter / 4 + 5;
         else
-            Projectile.frame = (int)(Projectile.frameCounter / 4f % 4) + 5;
+            Projectile.frame = (int)(Projectile.frameCounter / 4f % 5);
 
         Player player = Main.player[Projectile.owner];
 
@@ -44,5 +59,24 @@ internal class SoulstoneWisp : ModProjectile
             Projectile.active = false;
     }
 
-    public override Color? GetAlpha(Color lightColor) => MajorSoulstoneInfo.GetClassColor(Class, MathF.Sin(Projectile.frameCounter * 0.2f) * 0.4f + 0.6f);
+    public override Color? GetAlpha(Color lightColor)
+    {
+        float colorSin = MathF.Sin(Projectile.frameCounter * 0.2f);
+        float opacitySin = MathF.Sin(Projectile.frameCounter * 0.05f);
+        return MajorSoulstoneInfo.GetClassColor(Class, colorSin * 0.4f + 0.6f) * (opacitySin * 0.25f + 0.75f);
+    }
+
+    public override bool PreDraw(ref Color lightColor)
+    {
+        if (!TexByType.TryGetValue(SoulType, out var val))
+            val = TexByType[StatType.SoulAgony];
+
+        Texture2D tex = val.Value;
+        int frameHeight = tex.Height / Main.projFrames[Type];
+        Rectangle src = new(0, Projectile.frame * frameHeight, tex.Width, frameHeight - 2);
+        Vector2 position = Projectile.Center - Main.screenPosition - new Vector2(0, 12);
+        Main.EntitySpriteDraw(tex, position, src, Projectile.GetAlpha(lightColor), Projectile.rotation, src.Size() / 2f, 1f, SpriteEffects.None, 0);
+
+        return false;
+    }
 }

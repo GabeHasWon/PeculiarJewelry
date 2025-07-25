@@ -11,13 +11,17 @@ internal class SoulstonePlayer : ModPlayer
         public bool HasProjectile => ProjWho != -1;
 
         public int ProjWho = -1;
+        public MajorSoulstoneInfo.ClassEnum Class = MajorSoulstoneInfo.ClassEnum.Melee;
     }
+
+    // Hey man.
+    // Fix classes to be per ActiveSoulstone, so each wisp uses its own class.
+    // I removed the one from SoulstoneInfo so stuff is broken. Bye bye
 
     public class SoulstoneInfo
     {
         public float TotalStrength = 0;
         public JewelTier MaxTier = JewelTier.Natural;
-        public MajorSoulstoneInfo.ClassEnum Class = MajorSoulstoneInfo.ClassEnum.Melee;
         public List<ActiveSoulstone> Soulstones = [];
         public List<ActiveSoulstone> LastFrameSoulstones = [];
 
@@ -29,8 +33,6 @@ internal class SoulstonePlayer : ModPlayer
 
             foreach (var soulstone in Soulstones)
             {
-                Main.NewText(soulstone.GetHashCode());
-
                 if (!soulstone.HasProjectile)
                     continue;
 
@@ -94,7 +96,7 @@ internal class SoulstonePlayer : ModPlayer
                     } while (Collision.SolidCollision(position, 32, 32));
 
                     int projType = ModContent.ProjectileType<SoulstoneWisp>();
-                    stone.ProjWho = Projectile.NewProjectile(Player.GetSource_FromThis(), position, Vector2.Zero, projType, 0, 0, Player.whoAmI, (float)info.Class);
+                    stone.ProjWho = Projectile.NewProjectile(Player.GetSource_FromThis(), position, Vector2.Zero, projType, 0, 0, Player.whoAmI, (float)info.Class, (float)key);
                 }
             }
         }
