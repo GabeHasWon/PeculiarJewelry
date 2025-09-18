@@ -1,4 +1,5 @@
 ﻿using PeculiarJewelry.Content.JewelryMechanic.Misc;
+using PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos.Rares;
 using System;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats.Effects.Custom.SoulstoneStats;
@@ -7,10 +8,13 @@ internal abstract class SoulstoneStat : JewelStatEffect
 {
     public override Color Color => new(93, 93, 93);
 
-    public SoulstoneStat()
+    public ClassEnum Class = ClassEnum.Generic;
+
+    public SoulstoneStat(ClassEnum classType = ClassEnum.Invalid)
     {
         Description = Language.GetText("Mods.PeculiarJewelry.Jewelry.StatTypes." + Type + ".Description");
         DisplayName = Language.GetText("Mods.PeculiarJewelry.Jewelry.StatTypes." + Type + ".DisplayName");
+        Class = classType == ClassEnum.Invalid ? (ClassEnum)Main.rand.Next(5) : classType;
     }
 
     public override void Apply(Player player, float strength) => player.GetModPlayer<SoulstonePlayer>().InfoByInfo[Type].TotalStrength += GetEffectBonus(player, strength);

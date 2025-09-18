@@ -11,7 +11,7 @@ internal class SoulstonePlayer : ModPlayer
         public bool HasProjectile => ProjWho != -1;
 
         public int ProjWho = -1;
-        public MajorSoulstoneInfo.ClassEnum Class = MajorSoulstoneInfo.ClassEnum.Melee;
+        public ClassEnum Class = ClassEnum.Melee;
     }
 
     // Hey man.
@@ -29,7 +29,6 @@ internal class SoulstonePlayer : ModPlayer
         {
             TotalStrength = 0;
             MaxTier = JewelTier.Natural;
-            Class = MajorSoulstoneInfo.ClassEnum.Melee;
 
             foreach (var soulstone in Soulstones)
             {
@@ -66,7 +65,7 @@ internal class SoulstonePlayer : ModPlayer
             Soulstones.Clear();
         }
 
-        public override string ToString() => $"STR: {TotalStrength} - INST. COUNT: {Soulstones.Count} - TIER: {MaxTier} - CLASS: {Class}";
+        public override string ToString() => $"STR: {TotalStrength} - INST. COUNT: {Soulstones.Count} - TIER: {MaxTier}";
     }
 
     public readonly Dictionary<StatType, SoulstoneInfo> InfoByInfo = new() { { StatType.SoulAgony, new() }, { StatType.SoulGrief, new() }, { StatType.SoulBetrayal, new() },
@@ -96,7 +95,8 @@ internal class SoulstonePlayer : ModPlayer
                     } while (Collision.SolidCollision(position, 32, 32));
 
                     int projType = ModContent.ProjectileType<SoulstoneWisp>();
-                    stone.ProjWho = Projectile.NewProjectile(Player.GetSource_FromThis(), position, Vector2.Zero, projType, 0, 0, Player.whoAmI, (float)info.Class, (float)key);
+                    Terraria.DataStructures.IEntitySource src = Player.GetSource_FromThis();
+                    stone.ProjWho = Projectile.NewProjectile(src, position, Vector2.Zero, projType, 0, 0, Player.whoAmI, (float)stone.Class, (float)key);
                 }
             }
         }

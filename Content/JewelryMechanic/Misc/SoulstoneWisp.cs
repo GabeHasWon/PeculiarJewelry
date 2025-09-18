@@ -12,7 +12,7 @@ internal class SoulstoneWisp : ModProjectile
 
     public override string Texture => "Terraria/Images/NPC_0";
 
-    public MajorSoulstoneInfo.ClassEnum Class => (MajorSoulstoneInfo.ClassEnum)Projectile.ai[0];
+    public ClassEnum Class => (ClassEnum)Projectile.ai[0];
     public StatType SoulType => (StatType)Projectile.ai[1];
 
     public override void SetStaticDefaults()
@@ -21,6 +21,9 @@ internal class SoulstoneWisp : ModProjectile
 
         TexByType.Add(StatType.SoulAgony, ModContent.Request<Texture2D>("PeculiarJewelry/Content/JewelryMechanic/Misc/SoulstoneWispAgony"));
         TexByType.Add(StatType.SoulSacrifice, ModContent.Request<Texture2D>("PeculiarJewelry/Content/JewelryMechanic/Misc/SoulstoneWispSacrifice"));
+        TexByType.Add(StatType.SoulPlague, ModContent.Request<Texture2D>("PeculiarJewelry/Content/JewelryMechanic/Misc/SoulstoneWispPlague"));
+        TexByType.Add(StatType.SoulGrief, ModContent.Request<Texture2D>("PeculiarJewelry/Content/JewelryMechanic/Misc/SoulstoneWispGrief"));
+        TexByType.Add(StatType.SoulTorture, ModContent.Request<Texture2D>("PeculiarJewelry/Content/JewelryMechanic/Misc/SoulstoneWispTorture"));
     }
 
     public override void SetDefaults()

@@ -1,6 +1,8 @@
-﻿namespace PeculiarJewelry.Content.JewelryMechanic.Stats.Effects.Custom.SoulstoneStats;
+﻿using PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos.Rares;
 
-internal class TortureStat : SoulstoneStat
+namespace PeculiarJewelry.Content.JewelryMechanic.Stats.Effects.Custom.SoulstoneStats;
+
+internal class TortureStat(ClassEnum classType = ClassEnum.Invalid) : SoulstoneStat(classType)
 {
     public override StatType Type => StatType.SoulTorture;
 }

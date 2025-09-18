@@ -7,17 +7,18 @@ using Terraria.ModLoader.IO;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos.Rares;
 
+public enum ClassEnum : sbyte
+{
+    Invalid = -1,
+    Melee,
+    Ranged,
+    Magic,
+    Summoner,
+    Generic
+}
+
 internal class MajorSoulstoneInfo : JewelInfo
 {
-    public enum ClassEnum : byte
-    {
-        Melee,
-        Ranged,
-        Magic,
-        Summoner,
-        Generic
-    }
-
     public static JewelryStatConfig Config => ModContent.GetInstance<JewelryStatConfig>();
 
     public override string Prefix => "Major";
@@ -26,7 +27,8 @@ internal class MajorSoulstoneInfo : JewelInfo
     public override bool CountsAsMajor => true;
     public override int MaxCuts => 0;
 
-    public ClassEnum ClassType = ClassEnum.Generic;
+    public ClassEnum ClassType => (Major as SoulstoneContainer).stat.Class;
+
     public float ColorAdjustment = 1;
 
     public override void RollSubstats() { }
@@ -35,7 +37,6 @@ internal class MajorSoulstoneInfo : JewelInfo
     {
         SubStats = [];
         Major = new SoulstoneContainer((StatType)Main.rand.Next((int)StatType.SoulAgony, (int)StatType.SoulMax));
-        ClassType = (ClassEnum)Main.rand.Next(5);
         ColorAdjustment = Main.rand.NextFloat(0.6f, 1);
     }
 
@@ -59,7 +60,6 @@ internal class MajorSoulstoneInfo : JewelInfo
     {
         // Set per-jewel info, no need to unset
         player.GetModPlayer<SoulstonePlayer>().InfoByInfo[Major.Type].MaxTier = tier;
-        player.GetModPlayer<SoulstonePlayer>().InfoByInfo[Major.Type].Class = ClassType;
     }
 
     internal override void PostAddStatTooltips(List<TooltipLine> tooltips, ModItem modItem, bool displayAsJewel)
@@ -70,19 +70,17 @@ internal class MajorSoulstoneInfo : JewelInfo
 
     internal override void SaveData(TagCompound tag)
     {
-        tag.Add("class", (byte)ClassType);
+        tag.Add("class", (short)ClassType);
         tag.Add("color", ColorAdjustment);
         tag.Add("soul", (byte)Major.Get().Type);
     }
 
     internal override void LoadData(TagCompound tag)
     {
-        ClassType = (ClassEnum)tag.GetByte("class");
         ColorAdjustment = tag.GetFloat("color");
-
         byte soul = tag.GetByte("soul");
 
         if (soul != 0)
-            Major = new SoulstoneContainer((StatType)soul);
+            Major = new SoulstoneContainer((StatType)soul, (ClassEnum)tag.GetShort("class"));
     }
 }
