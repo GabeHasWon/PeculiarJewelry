@@ -1,4 +1,4 @@
-﻿using PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos.Rares;
+﻿using PeculiarJewelry.Content.JewelryMechanic.Misc;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats.Effects.Custom.SoulstoneStats;
 

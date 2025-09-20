@@ -15,8 +15,8 @@ internal class BossLootGlobal : GlobalNPC
     public static JewelTier GetBossTier(NPC npc)
     {
         Mod checklist = ModLoader.GetMod("BossChecklist");
-        Dictionary<string, Dictionary<string, object>> dict = (Dictionary<string, Dictionary<string, object>>)checklist.Call("GetBossInfoDictionary", ModLoader.GetMod("PeculiarJewelry"), "0.0.0.0");
-        var index = dict.Keys.FirstOrDefault(x => (dict[x]["npcIDs"] as List<int>).Contains(npc.type));
+        var dict = (Dictionary<string, Dictionary<string, object>>)checklist.Call("GetBossInfoDictionary", ModLoader.GetMod("PeculiarJewelry"), "0.0.0.0");
+        string index = dict.Keys.FirstOrDefault(x => (dict[x]["npcIDs"] as List<int>).Contains(npc.type));
 
         if (index is null)
             return JewelTier.Invalid;

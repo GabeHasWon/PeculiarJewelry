@@ -7,16 +7,6 @@ using Terraria.ModLoader.IO;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos.Rares;
 
-public enum ClassEnum : sbyte
-{
-    Invalid = -1,
-    Melee,
-    Ranged,
-    Magic,
-    Summoner,
-    Generic
-}
-
 internal class MajorSoulstoneInfo : JewelInfo
 {
     public static JewelryStatConfig Config => ModContent.GetInstance<JewelryStatConfig>();
@@ -42,19 +32,9 @@ internal class MajorSoulstoneInfo : JewelInfo
 
     internal override bool OverrideDisplayColor(out Color color)
     {
-        color = GetClassColor(ClassType, ColorAdjustment);
+        color = ClassType.GetColor(ColorAdjustment);
         return true;
     }
-
-    public static Color GetClassColor(ClassEnum classType, float adjustment) => classType switch
-    {
-        ClassEnum.Melee => Color.Lerp(Color.Red, Color.IndianRed, adjustment),
-        ClassEnum.Ranged => Color.Lerp(Color.CadetBlue, Color.DarkSlateBlue, adjustment),
-        ClassEnum.Magic => Color.Lerp(Color.Yellow, Color.DarkOrange, adjustment),
-        ClassEnum.Summoner => Color.Lerp(Color.Green, Color.DarkOliveGreen, adjustment),
-        ClassEnum.Generic => Color.Lerp(Color.White, Color.DarkSlateGray, adjustment),
-        _ => throw new ArgumentException("ClassType exceeds the options for some reason. (MajorSoulstoneInfo OverrideDisplayColor)")
-    };
 
     protected override void PreApplyTo(Player player, float add, ref float mult)
     {
@@ -64,7 +44,7 @@ internal class MajorSoulstoneInfo : JewelInfo
 
     internal override void PostAddStatTooltips(List<TooltipLine> tooltips, ModItem modItem, bool displayAsJewel)
     {
-        string text = $"Ghosts count as [c/{GetClassColor(ClassType, ColorAdjustment).Hex3()}:{ClassType.ToString().ToLower()} damage]";
+        string text = $"Ghosts count as [c/{ClassType.GetColor(ColorAdjustment).Hex3()}:{ClassType.ToString().ToLower()} damage]";
         tooltips.Add(new TooltipLine(ModContent.GetInstance<PeculiarJewelry>(), "ClassType", text) { OverrideColor = new(93, 93, 93) });
     }
 

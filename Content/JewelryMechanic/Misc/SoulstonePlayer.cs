@@ -87,12 +87,21 @@ internal class SoulstonePlayer : ModPlayer
 
                 if (Player.whoAmI == Main.myPlayer)
                 {
+                    const int MaxTries = 150;
+
                     Vector2 position;
+                    int tries = 0;
 
                     do
                     {
                         position = Player.Center + Main.rand.NextVector2CircularEdge(400, 400) * Main.rand.NextFloat(0.75f, 1f);
-                    } while (Collision.SolidCollision(position, 32, 32));
+                        tries++;
+                    } while (Collision.SolidCollision(position, 32, 32) && tries < MaxTries);
+
+                    if (tries >= MaxTries)
+                    {
+                        continue;
+                    }
 
                     int projType = ModContent.ProjectileType<SoulstoneWisp>();
                     Terraria.DataStructures.IEntitySource src = Player.GetSource_FromThis();

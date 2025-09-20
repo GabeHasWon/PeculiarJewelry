@@ -49,14 +49,26 @@ internal class SoulstoneWisp : ModProjectile
         }
 
         if (Projectile.frameCounter < 12)
-            Projectile.frame = Projectile.frameCounter / 4 + 5;
+            Projectile.frame = Projectile.frameCounter / 5 + 5;
         else
-            Projectile.frame = (int)(Projectile.frameCounter / 4f % 5);
+            Projectile.frame = (int)(Projectile.frameCounter / 5f % 5);
 
         Player player = Main.player[Projectile.owner];
 
         if (Projectile.Hitbox.Intersects(player.Hitbox))
+        {
             Projectile.active = false;
+
+            if (Main.myPlayer == player.whoAmI)
+            {
+                int type = ModContent.ProjectileType<SoulstoneProjectile>();
+                int damage = (int)Class.GetDamageClass(player).ApplyTo(20);
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, type, damage, 0, player.whoAmI, (float)Class, (float)SoulType);
+            }
+
+            if (!Main.dedServ)
+                SoulstoneProjectile.SpawnVFX(Projectile.GetSource_Death(), Projectile.position + new Vector2(0, 30), Projectile.velocity, (byte)Projectile.owner);
+        }
 
         if (player.DistanceSQ(Projectile.Center) > 1000 * 1000)
             Projectile.active = false;
@@ -66,7 +78,7 @@ internal class SoulstoneWisp : ModProjectile
     {
         float colorSin = MathF.Sin(Projectile.frameCounter * 0.2f);
         float opacitySin = MathF.Sin(Projectile.frameCounter * 0.05f);
-        return MajorSoulstoneInfo.GetClassColor(Class, colorSin * 0.4f + 0.6f) * (opacitySin * 0.25f + 0.75f);
+        return Class.GetColor(colorSin * 0.4f + 0.6f) * (opacitySin * 0.25f + 0.75f);
     }
 
     public override bool PreDraw(ref Color lightColor)

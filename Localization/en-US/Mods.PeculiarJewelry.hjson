@@ -7,6 +7,7 @@ Projectiles: {
 	SoulProjectile.DisplayName: Soul
 	TriggerProj.DisplayName: Trigger Proj
 	SoulstoneWisp.DisplayName: Wisp
+	SoulstoneProjectile.DisplayName: Soulstone Projectile
 }
 
 TierCutoffCondition: Only from bags of tier {0} or higher.

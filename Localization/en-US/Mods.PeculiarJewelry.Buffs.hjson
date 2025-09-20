@@ -72,3 +72,18 @@ SpeedTriggerBuff: {
 	DisplayName: Speed Boost
 	Description: Increased movement speed
 }
+
+AgonyDebuff: {
+	DisplayName: Agony Debuff
+	Description: Mods.PeculiarJewelry.Buffs.AgonyDebuff.Description
+}
+
+SacrificeDebuff: {
+	DisplayName: Sacrifice Debuff
+	Description: Mods.PeculiarJewelry.Buffs.SacrificeDebuff.Description
+}
+
+TortureDebuff: {
+	DisplayName: Torture Debuff
+	Description: Mods.PeculiarJewelry.Buffs.TortureDebuff.Description
+}
