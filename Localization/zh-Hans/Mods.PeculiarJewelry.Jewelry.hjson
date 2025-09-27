@@ -9,6 +9,8 @@ ChanceTo: 有{0}%的几率
 // Custom tooltips
 // CatEyeMaterial: Grants 100% of a {0} bonus.
 // CatEyeHalf: Grants 50% of a {0} bonus.
+// SoulstoneClass: Ghosts count as [c/{0}:{1} damage]
+// SoulstoneDebuff: Adds {0}% of the [c/888888:{1} haunting] to enemies hit by the ghost
 
 TierPrefixes: {
 	Natural: 自然

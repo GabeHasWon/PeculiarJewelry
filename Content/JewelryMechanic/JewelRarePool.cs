@@ -3,8 +3,10 @@ using PeculiarJewelry.Content.Items.Jewels.Rares.Ancient;
 using PeculiarJewelry.Content.Items.Jewels.Rares.Gelid;
 using PeculiarJewelry.Content.Items.Jewels.Rares.Lucky;
 using PeculiarJewelry.Content.Items.Jewels.Rares.Pearl;
+using PeculiarJewelry.Content.Items.Jewels.Rares.Soulstone;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace PeculiarJewelry.Content.JewelryMechanic;
 
@@ -39,66 +41,36 @@ internal class JewelRarePool
         }
 
         if (player.ZoneBeach) // Pearls
-        {
-            count++;
             flags |= OpenRareTypes.Pearl;
-        }
 
-        if (player.ZoneCorrupt || player.ZoneCrimson) // Cursed
-        {
-            count++;
+        if (player.ZoneCorrupt || player.ZoneCrimson)
             flags |= OpenRareTypes.Cursed;
-        }
 
-        if (player.ZoneDesert) // Amber
-        {
-            count++;
+        if (player.ZoneDesert)
             flags |= OpenRareTypes.Amber;
-        }
 
-        if (player.ZoneDungeon) // Soulstone
-        {
-            count++;
+        if (player.ZoneDungeon)
             flags |= OpenRareTypes.Soulstone;
-        }
 
         if (player.ZoneJungle || player.ZoneGlowshroom)
-        {
-            count++;
             flags |= OpenRareTypes.Opal;
-        }
 
         if (player.ZoneUnderworldHeight)
-        {
-            count++;
             flags |= OpenRareTypes.CatsEye;
-        }
 
         if (player.ZoneSnow)
-        {
-            count++;
             flags |= OpenRareTypes.Spectrolite;
-        }
 
         if (player.ZoneSkyHeight)
-        {
-            count++;
             flags |= OpenRareTypes.Moonstone;
-        }
 
         if (player.ZoneGranite || player.ZoneMarble)
-        {
-            count++;
             flags |= OpenRareTypes.Ancient;
-        }
 
         if (player.ZoneHallow)
-        {
-            count++;
             flags |= OpenRareTypes.Gelid;
-        }
 
-        return count > 0;
+        return BitOperations.PopCount((uint)flags) > 0;
     }
 
     public static int GetRareJewelType(OpenRareTypes rareTypes)
@@ -119,6 +91,9 @@ internal class JewelRarePool
 
         if (rareTypes.HasFlag(OpenRareTypes.Pearl))
             types.Add(JewelryCommon.MajorMinorType<MajorPearl, MinorPearl>());
+
+        if (rareTypes.HasFlag(OpenRareTypes.Soulstone))
+            types.Add(JewelryCommon.MajorMinorType<MajorSoulstone, MinorSoulstone>());
 
         return types.Count == 0 ? -1 : Main.rand.Next(types);
     }

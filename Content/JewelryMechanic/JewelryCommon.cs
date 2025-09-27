@@ -21,10 +21,7 @@ internal class JewelryCommon
         if (Config.GlobalPowerScaleMinimum == 1 || Config.PowerScaleStepCount == 1)
             return 1;
 
-        if (info is not null && info.PreBuffStat(out float overrideResult))
-            return overrideResult;
-
-        return DefaultStatRangeFunction();
+        return info is not null && info.PreBuffStat(out float overrideResult) ? overrideResult : DefaultStatRangeFunction();
     }
 
     public static float DefaultStatRangeFunction() => StatRangeFunction(Main.rand.Next(Config.PowerScaleStepCount) / Config.PowerScaleStepCount - 1);

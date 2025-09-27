@@ -9,6 +9,8 @@ using PeculiarJewelry.Content.JewelryMechanic.Stats;
 using PeculiarJewelry.Content.JewelryMechanic.MaterialBonuses.Bonuses;
 using PeculiarJewelry.Content.Items.JewelryItems;
 using Terraria.DataStructures;
+using Terraria.UI;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace PeculiarJewelry;
 
@@ -17,6 +19,14 @@ public static class Extensions
     public static float MaterialBonus(this Player player, string material, StatType type) => BaseMaterialBonus.BonusesByKey[material].EffectBonus(player, type);
     public static void SingleBonus(this Player player, string mat, BasicJewelry jewel) => BaseMaterialBonus.BonusesByKey[mat].SingleJewelBonus(player, jewel);
     public static void UndoSingle(this Player player, string mat, BasicJewelry jewel) => BaseMaterialBonus.BonusesByKey[mat].ResetSingleJewelBonus(player, jewel);
+
+    public static void ApplyMouseInterfaceBlock(this UIElement element) => element.OnUpdate += AddMouseInterfaceBlock;
+
+    private static void AddMouseInterfaceBlock(UIElement affectedElement)
+    {
+        if (affectedElement.ContainsPoint(Main.MouseScreen))
+            Main.LocalPlayer.mouseInterface = true;
+    }
 }
 
 public static class NewItem

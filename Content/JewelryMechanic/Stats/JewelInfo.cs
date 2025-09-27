@@ -4,6 +4,7 @@ using PeculiarJewelry.Content.Items.Pliers;
 using PeculiarJewelry.Content.JewelryMechanic.UI;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Terraria.ModLoader.IO;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats;
@@ -13,6 +14,10 @@ public abstract partial class JewelInfo
     public abstract string Prefix { get; }
 
     public virtual string JewelTitle => "Jewel";
+
+    /// <summary>
+    /// The max amount of cuts this jewel can have. Defaults to <c>20 + (int)tier</c>.
+    /// </summary>
     public virtual int MaxCuts => 20 + (int)tier;
 
     /// <summary>
@@ -163,6 +168,11 @@ public abstract partial class JewelInfo
     protected virtual void PreApplyTo(Player player, float add, ref float multiplier) { }
     protected virtual void PostApplyTo(Player player, float add, float multiplier) { }
     public virtual void AddCutLines(List<TooltipLine> lines, bool hoveringAnvil) { }
+    
+    /// <summary>
+    /// Allows you to modify a line that's being modified in the Lapidarist's Cut menu. Return false to override the line.
+    /// </summary>
+    public virtual bool ModifyCutLine(TooltipLine line, [NotNullWhen(false)] ref Color? newColor, [NotNullWhen(true)] ref string newText) => true;
 
     public string[] SubStatTooltips(Player player, float displayStrength = 1f)
     {

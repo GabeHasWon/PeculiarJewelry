@@ -11,5 +11,5 @@ internal class FullBoostDesecration : DesecrationModifier
         npc.defense += (int)(2 * strength);
     }
 
-    public override void PreAI(NPC npc) => npc.GetGlobalNPC<NPCBehaviourBoostGlobal>().extraAISpeed += 0.05f * strength;
+    public override void PreAI(NPC npc) => npc.GetGlobalNPC<NPCBehaviourBoostGlobal>().modifiedAISpeed += 0.05f * strength;
 }

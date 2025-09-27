@@ -289,6 +289,7 @@ internal class SetJewelUIState : UIState, IClosableUIState
             Height = StyleDimension.FromPixels(30),
         };
         button.OnLeftClick += SetJewel;
+        button.ApplyMouseInterfaceBlock();
         panel.Append(button);
 
         UIText supportText = new(Localize("SupportItems"), 0.8f)

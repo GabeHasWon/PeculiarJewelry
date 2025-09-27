@@ -1,5 +1,4 @@
 ﻿using PeculiarJewelry.Content.JewelryMechanic.Stats;
-using PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos.Rares;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
@@ -14,6 +13,7 @@ internal class SoulstoneWisp : ModProjectile
 
     public ClassEnum Class => (ClassEnum)Projectile.ai[0];
     public StatType SoulType => (StatType)Projectile.ai[1];
+    public ref float Strength => ref Projectile.ai[2];
 
     public override void SetStaticDefaults()
     {
@@ -24,6 +24,7 @@ internal class SoulstoneWisp : ModProjectile
         TexByType.Add(StatType.SoulPlague, ModContent.Request<Texture2D>("PeculiarJewelry/Content/JewelryMechanic/Misc/SoulstoneWispPlague"));
         TexByType.Add(StatType.SoulGrief, ModContent.Request<Texture2D>("PeculiarJewelry/Content/JewelryMechanic/Misc/SoulstoneWispGrief"));
         TexByType.Add(StatType.SoulTorture, ModContent.Request<Texture2D>("PeculiarJewelry/Content/JewelryMechanic/Misc/SoulstoneWispTorture"));
+        TexByType.Add(StatType.SoulBetrayal, ModContent.Request<Texture2D>("PeculiarJewelry/Content/JewelryMechanic/Misc/SoulstoneWispBetrayal"));
     }
 
     public override void SetDefaults()
@@ -63,7 +64,7 @@ internal class SoulstoneWisp : ModProjectile
             {
                 int type = ModContent.ProjectileType<SoulstoneProjectile>();
                 int damage = (int)Class.GetDamageClass(player).ApplyTo(20);
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, type, damage, 0, player.whoAmI, (float)Class, (float)SoulType);
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, type, damage, 0, player.whoAmI, (float)Class, (float)SoulType, Strength);
             }
 
             if (!Main.dedServ)
@@ -76,7 +77,7 @@ internal class SoulstoneWisp : ModProjectile
 
     public override Color? GetAlpha(Color lightColor)
     {
-        float colorSin = MathF.Sin(Projectile.frameCounter * 0.2f);
+        float colorSin = MathF.Sin(Projectile.frameCounter * 0.14f);
         float opacitySin = MathF.Sin(Projectile.frameCounter * 0.05f);
         return Class.GetColor(colorSin * 0.4f + 0.6f) * (opacitySin * 0.25f + 0.75f);
     }

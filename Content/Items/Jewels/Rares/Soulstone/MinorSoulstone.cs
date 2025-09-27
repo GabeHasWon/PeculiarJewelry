@@ -4,18 +4,18 @@ using System;
 
 namespace PeculiarJewelry.Content.Items.Jewels.Rares.Soulstone;
 
-public class MajorSoulstone : Jewel
+public class MinorSoulstone : Jewel
 {
-    public override LocalizedText ExaminationLocalization => Language.GetText("Mods.PeculiarJewelry.UI.Exam.Help.MajorSoulstone");
-    protected override Type InfoType => typeof(MajorSoulstoneInfo);
+    public override LocalizedText ExaminationLocalization => Language.GetText("Mods.PeculiarJewelry.UI.Exam.Help.MinorSoulstone");
+    protected override Type InfoType => typeof(MinorSoulstoneInfo);
     protected override byte MaxVariations => 6;
 
     public override void Defaults()
     {
-        Item.width = 42;
-        Item.height = 40;
+        Item.width = 24;
+        Item.height = 22;
         Item.rare = ItemRarityID.Green;
-        Item.value = Item.buyPrice(0, 60, 0, 0);
+        Item.value = Item.buyPrice(0, 15, 0, 0);
     }
 
     public override bool PreDrawJewel(Texture2D texture, Vector2 position, Rectangle frame, Color color, float rotation, Vector2 origin, float scale, bool inInventory)
@@ -32,7 +32,7 @@ public class MajorSoulstone : Jewel
             _ => throw null,
         };
 
-        Main.spriteBatch.Draw(texture, position, frame with { X = id * 44 }, col, rotation, origin, scale, SpriteEffects.None, 0);
+        Main.spriteBatch.Draw(texture, position, frame with { X = id * 26 }, col, rotation, origin, scale, SpriteEffects.None, 0);
         return false;
     }
 }

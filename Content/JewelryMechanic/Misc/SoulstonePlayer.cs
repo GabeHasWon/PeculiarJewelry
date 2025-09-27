@@ -1,22 +1,21 @@
 ﻿using PeculiarJewelry.Content.JewelryMechanic.Stats;
-using PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos.Rares;
 using System.Collections.Generic;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Misc;
 
 internal class SoulstonePlayer : ModPlayer
 {
-    public class ActiveSoulstone
+    public class ActiveSoulstone()
     {
         public bool HasProjectile => ProjWho != -1;
 
+        public float MaxCooldown = 60 * 60;
+
         public int ProjWho = -1;
         public ClassEnum Class = ClassEnum.Melee;
+        public float Strength = 0.2f;
+        public float Cooldown = 60 * 60;
     }
-
-    // Hey man.
-    // Fix classes to be per ActiveSoulstone, so each wisp uses its own class.
-    // I removed the one from SoulstoneInfo so stuff is broken. Bye bye
 
     public class SoulstoneInfo
     {
@@ -68,21 +67,18 @@ internal class SoulstonePlayer : ModPlayer
         public override string ToString() => $"STR: {TotalStrength} - INST. COUNT: {Soulstones.Count} - TIER: {MaxTier}";
     }
 
-    public readonly Dictionary<StatType, SoulstoneInfo> InfoByInfo = new() { { StatType.SoulAgony, new() }, { StatType.SoulGrief, new() }, { StatType.SoulBetrayal, new() },
+    public readonly Dictionary<StatType, SoulstoneInfo> InfoByStatType = new() { { StatType.SoulAgony, new() }, { StatType.SoulGrief, new() }, { StatType.SoulBetrayal, new() },
         { StatType.SoulPlague, new() }, { StatType.SoulTorture, new() }, { StatType.SoulSacrifice, new() } };
 
     public override void PostUpdateEquips()
     {
-        foreach (var key in InfoByInfo.Keys)
+        foreach (var key in InfoByStatType.Keys)
         {
-            SoulstoneInfo info = InfoByInfo[key];
-
-            if (info.TotalStrength == 0)
-                continue;
+            SoulstoneInfo info = InfoByStatType[key];
 
             foreach (ActiveSoulstone stone in info.Soulstones)
             {
-                if (stone.HasProjectile)
+                if (stone.HasProjectile || --stone.Cooldown > 0)
                     continue;
 
                 if (Player.whoAmI == Main.myPlayer)
@@ -99,18 +95,17 @@ internal class SoulstonePlayer : ModPlayer
                     } while (Collision.SolidCollision(position, 32, 32) && tries < MaxTries);
 
                     if (tries >= MaxTries)
-                    {
                         continue;
-                    }
 
                     int projType = ModContent.ProjectileType<SoulstoneWisp>();
                     Terraria.DataStructures.IEntitySource src = Player.GetSource_FromThis();
-                    stone.ProjWho = Projectile.NewProjectile(src, position, Vector2.Zero, projType, 0, 0, Player.whoAmI, (float)stone.Class, (float)key);
+                    stone.ProjWho = Projectile.NewProjectile(src, position, Vector2.Zero, projType, 0, 0, Player.whoAmI, (float)stone.Class, (float)key, stone.Strength);
+                    stone.Cooldown = stone.MaxCooldown;
                 }
             }
         }
 
-        foreach (var key in InfoByInfo.Keys)
-            InfoByInfo[key].Reset();
+        foreach (var key in InfoByStatType.Keys)
+            InfoByStatType[key].Reset();
     }
 }

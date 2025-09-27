@@ -4,7 +4,7 @@ public class NPCBehaviourBoostGlobal : GlobalNPC
 {
     public override bool InstancePerEntity => true;
 
-    public float extraAISpeed = 0f;
+    public float modifiedAISpeed = 0f;
 
     private float _extraAITimer = 0;
     private bool _boosting = false;
@@ -12,7 +12,19 @@ public class NPCBehaviourBoostGlobal : GlobalNPC
     public override void ResetEffects(NPC npc)
     {
         _boosting = false;
-        extraAISpeed = 0;
+        modifiedAISpeed = 0;
+    }
+
+    public override bool PreAI(NPC npc)
+    {
+        if (_extraAITimer <= -1)
+        {
+            _extraAITimer++;
+            npc.position -= npc.velocity;
+            return false;
+        }
+        
+        return true;
     }
 
     public override void PostAI(NPC npc)
@@ -20,13 +32,13 @@ public class NPCBehaviourBoostGlobal : GlobalNPC
         if (_boosting)
             return;
 
-        if (extraAISpeed == 0)
+        if (modifiedAISpeed == 0)
         {
             _extraAITimer = 0;
             return;
         }
 
-        _extraAITimer += extraAISpeed;
+        _extraAITimer += modifiedAISpeed;
         var oldPosition = npc.position;
 
         while (_extraAITimer >= 1f)

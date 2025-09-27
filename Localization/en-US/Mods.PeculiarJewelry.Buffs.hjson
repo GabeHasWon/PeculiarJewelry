@@ -87,3 +87,18 @@ TortureDebuff: {
 	DisplayName: Torture Debuff
 	Description: Mods.PeculiarJewelry.Buffs.TortureDebuff.Description
 }
+
+GriefDebuff: {
+	DisplayName: Grief Debuff
+	Description: Mods.PeculiarJewelry.Buffs.GriefDebuff.Description
+}
+
+PlagueDebuff: {
+	DisplayName: Plague Debuff
+	Description: Mods.PeculiarJewelry.Buffs.PlagueDebuff.Description
+}
+
+BetrayalDebuff: {
+	DisplayName: Betrayal Debuff
+	Description: Mods.PeculiarJewelry.Buffs.BetrayalDebuff.Description
+}

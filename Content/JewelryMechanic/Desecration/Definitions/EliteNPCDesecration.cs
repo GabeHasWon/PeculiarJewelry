@@ -41,7 +41,7 @@ internal class EliteNPCDesecration : DesecrationModifier
             npc.lifeMax = (int)(npc.lifeMax * factor);
             npc.life = npc.lifeMax;
 
-            npc.GetGlobalNPC<NPCBehaviourBoostGlobal>().extraAISpeed += factor - 1;
+            npc.GetGlobalNPC<NPCBehaviourBoostGlobal>().modifiedAISpeed += factor - 1;
         }
 
         public override bool PreAI(NPC npc)

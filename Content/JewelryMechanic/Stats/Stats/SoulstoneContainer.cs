@@ -1,13 +1,16 @@
 ﻿using PeculiarJewelry.Content.JewelryMechanic.Misc;
 using PeculiarJewelry.Content.JewelryMechanic.Stats.Effects;
 using PeculiarJewelry.Content.JewelryMechanic.Stats.Effects.Custom.SoulstoneStats;
-using PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos.Rares;
 using System;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats.Stats;
 
-internal class SoulstoneContainer(StatType category, ClassEnum classType = ClassEnum.Invalid) : JewelStat(category)
+internal class SoulstoneContainer(StatType category, float cooldown, ClassEnum classType = ClassEnum.Invalid) : JewelStat(category)
 {
+    public static JewelryStatConfig Config => ModContent.GetInstance<JewelryStatConfig>();
+
+    public readonly float Cooldown = cooldown;
+
     private readonly SoulstonePlayer.ActiveSoulstone activeSoulstone = new();
 
     internal readonly SoulstoneStat stat = category switch
@@ -25,8 +28,21 @@ internal class SoulstoneContainer(StatType category, ClassEnum classType = Class
     {
         base.Apply(player, add, multiplier);
         activeSoulstone.Class = stat.Class;
-        player.GetModPlayer<SoulstonePlayer>().InfoByInfo[Type].Soulstones.Add(activeSoulstone);
+        activeSoulstone.Strength = Strength * ConfigModifier(Type) * multiplier;
+        activeSoulstone.MaxCooldown = Cooldown;
+        player.GetModPlayer<SoulstonePlayer>().InfoByStatType[Type].Soulstones.Add(activeSoulstone);
     }
 
     public override JewelStatEffect Get() => stat;
+
+    public static float ConfigModifier(StatType type) => type switch
+    {
+        StatType.SoulAgony => Config.SoulAgonyStrength,
+        StatType.SoulGrief => Config.SoulGriefStrength,
+        StatType.SoulPlague => Config.SoulPlagueStrength,
+        StatType.SoulBetrayal => Config.SoulBetrayalStrength,
+        StatType.SoulSacrifice => Config.SoulSacrificeStrength,
+        StatType.SoulTorture => Config.SoulTortureStrength,
+        _ => throw new ArgumentException("SoulstoneStat's Type is not a Soul stat type."),
+    };
 }

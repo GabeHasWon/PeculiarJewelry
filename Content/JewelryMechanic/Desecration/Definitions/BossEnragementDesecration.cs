@@ -30,7 +30,7 @@ internal class BossEnragementDesecration : DesecrationModifier
 
             if (_enraged)
             {
-                npc.GetGlobalNPC<NPCBehaviourBoostGlobal>().extraAISpeed += 0.5f + (0.5f * str);
+                npc.GetGlobalNPC<NPCBehaviourBoostGlobal>().modifiedAISpeed += 0.5f + (0.5f * str);
                 npc.GetGlobalNPC<DamageResistDesecration.ResistNPC>().damageResist *= 1 + (str * 0.1f);
                 npc.damage = (int)(npc.damage * (str + 1));
                 npc.defense = (int)(npc.defense * (str + 1) * 0.75f);

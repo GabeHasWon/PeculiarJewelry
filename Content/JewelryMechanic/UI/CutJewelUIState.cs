@@ -1,4 +1,5 @@
 ﻿using PeculiarJewelry.Content.Items;
+using PeculiarJewelry.Content.Items.JewelryItems.Rings;
 using PeculiarJewelry.Content.Items.Jewels;
 using PeculiarJewelry.Content.Items.JewelSupport;
 using PeculiarJewelry.Content.Items.RadiantEchoes;
@@ -19,6 +20,16 @@ internal class CutJewelUIState : UIState, IClosableUIState
 {
     private const int CutPanelHeight = 180;
     private const int RequiredEchosPerUpgrade = 1;
+
+    public readonly static Color SubstatUpgradeColor = Color.LightBlue;
+    public readonly static Color MajorStatUpgradeColor = Color.Yellow;
+
+    private readonly static Dictionary<string, Color> TooltipModColorIfAny = new()
+    {
+        { "SubstatUpgrade", SubstatUpgradeColor },
+        { "MajorStat", MajorStatUpgradeColor },
+        { "SubStat", SubstatUpgradeColor }
+    };
 
     private Jewel JewelItem => _storedItem.ModItem as Jewel;
 
@@ -128,7 +139,7 @@ internal class CutJewelUIState : UIState, IClosableUIState
         float originalChance = info.BaseJewelCutChance();
         float baseChance = originalChance;
         float baseOverrideChance = -1;
-        Dictionary<int, int> itemCountsById = new();
+        Dictionary<int, int> itemCountsById = [];
 
         foreach (var item in support)
         {
@@ -226,7 +237,7 @@ internal class CutJewelUIState : UIState, IClosableUIState
         {
             JewelInfo info = (item.ModItem as Jewel).info;
             var subStats = info.SubStats;
-            var tooltips = new List<TooltipLine>() { new TooltipLine(ModLoader.GetMod("PeculiarJewelry"), "ItemName", "Item") };
+            var tooltips = new List<TooltipLine>() { new(ModLoader.GetMod("PeculiarJewelry"), "ItemName", "Item") };
             item.ModItem.ModifyTooltips(tooltips);
 
             info.AddCutLines(tooltips, _hoveringAnvil);
@@ -306,6 +317,28 @@ internal class CutJewelUIState : UIState, IClosableUIState
             return text[plus..end];
         }
 
+        Color? color = null;
+        
+        foreach (string key in TooltipModColorIfAny.Keys)
+        {
+            if (text.Name.StartsWith(key))
+            {
+                color = TooltipModColorIfAny[key];
+                break;
+            }
+        }
+
+        string modText = null;
+
+        if (!info.ModifyCutLine(text, ref color, ref modText))
+        {
+            overrideColor = color;
+            return modText;
+        }
+
+        if (color.HasValue)
+            overrideColor = color.Value;
+
         if (text.Name == "JewelCuts")
         {
             string replacement = text.Text[..(text.Text.IndexOf('/') + 1)];
@@ -313,15 +346,10 @@ internal class CutJewelUIState : UIState, IClosableUIState
         }
 
         if (text.Name == "SubstatUpgrade")
-        {
-            overrideColor = Color.LightBlue;
             return text.Text;
-        }
 
         if (text.Name.StartsWith("MajorStat"))
         {
-            overrideColor = Color.Yellow;
-
             string replacement = Replacement(text.Text, out bool _, info.Major.Negative);
             (float min, float max) = info.BuffStatRange();
             float current = info.Major.GetEffectValue(Main.LocalPlayer, min);
@@ -331,8 +359,6 @@ internal class CutJewelUIState : UIState, IClosableUIState
 
         if (text.Name.StartsWith("SubStat"))
         {
-            overrideColor = Color.LightBlue;
-
             if (text.Text == "   -")
                 return text.Text;
 
@@ -418,6 +444,7 @@ internal class CutJewelUIState : UIState, IClosableUIState
             Height = StyleDimension.FromPixels(30),
         };
         button.OnLeftClick += TryCutJewel;
+        button.ApplyMouseInterfaceBlock();
         button.OnMouseOver += (UIMouseEvent evt, UIElement listeningElement) => _hoveringAnvil = true;
         button.OnMouseOut += (UIMouseEvent evt, UIElement listeningElement) => _hoveringAnvil = false;
         panel.Append(button);

@@ -21,17 +21,18 @@ internal class SoulstoneProjectile : ModProjectile
 
     public ClassEnum Class => (ClassEnum)Projectile.ai[0];
     public StatType SoulType => (StatType)Projectile.ai[1];
-
-    private int Target
-    {
-        get => (int)Projectile.ai[2];
-        set => Projectile.ai[2] = value;
-    }
+    public ref float Strength => ref Projectile.ai[2];
 
     private bool Initialized
     {
         get => Projectile.localAI[0] == 1;
         set => Projectile.localAI[0] = value ? 1 : 0;
+    }
+
+    private int Target
+    {
+        get => (int)Projectile.localAI[1];
+        set => Projectile.localAI[1] = value;
     }
 
     public override void SetStaticDefaults()
@@ -112,7 +113,7 @@ internal class SoulstoneProjectile : ModProjectile
         Target = cur.whoAmI;
     }
 
-    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) => SoulstoneNPC.AddStack(target, SoulType);
+    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) => SoulstoneNPC.AddStack(target, SoulType, Strength);
 
     public override void OnKill(int timeLeft)
     {
