@@ -8,6 +8,7 @@ Projectiles: {
 	TriggerProj.DisplayName: Trigger Proj
 	SoulstoneWisp.DisplayName: Wisp
 	SoulstoneProjectile.DisplayName: Soulstone Projectile
+	BetrayalExplosion.DisplayName: Betrayal Explosion
 }
 
 TierCutoffCondition: Only from bags of tier {0} or higher.

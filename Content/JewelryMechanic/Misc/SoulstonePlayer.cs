@@ -78,7 +78,7 @@ internal class SoulstonePlayer : ModPlayer
 
             foreach (ActiveSoulstone stone in info.Soulstones)
             {
-                if (stone.HasProjectile || --stone.Cooldown > 0)
+                if (stone.HasProjectile) // || --stone.Cooldown > 0)
                     continue;
 
                 if (Player.whoAmI == Main.myPlayer)

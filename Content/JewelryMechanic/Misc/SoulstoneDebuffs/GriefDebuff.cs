@@ -15,7 +15,7 @@ internal class GriefNPC : GlobalNPC
 
     public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
     {
-        if (projectile.friendly && projectile.TryGetOwner(out Player owner) && npc.HasBuff<GriefDebuff>())
-            owner.Heal(damageDone / 5);
+        if (projectile.friendly && projectile.TryGetOwner(out Player owner) && npc.HasBuff<GriefDebuff>() && damageDone / 5 is int dmg and not 0)
+            owner.Heal(dmg);
     }
 }

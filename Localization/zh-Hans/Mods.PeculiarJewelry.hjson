@@ -8,6 +8,7 @@ Projectiles: {
 	TriggerProj.DisplayName: 触发投射物
 	// SoulstoneWisp.DisplayName: Wisp
 	// SoulstoneProjectile.DisplayName: Soulstone Projectile
+	// BetrayalExplosion.DisplayName: Betrayal Explosion
 }
 
 TierCutoffCondition: 仅来自{0}级或更高级别的袋子。

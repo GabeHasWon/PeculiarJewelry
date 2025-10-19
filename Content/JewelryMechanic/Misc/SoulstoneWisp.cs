@@ -32,6 +32,7 @@ internal class SoulstoneWisp : ModProjectile
         Projectile.timeLeft = 2;
         Projectile.Size = new Vector2(34, 68);
         Projectile.tileCollide = false;
+        Projectile.netImportant = true;
     }
 
     public override void AI()
