@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json.Converters;
-using PeculiarJewelry.Content.JewelryMechanic.Desecration;
-using PeculiarJewelry.Content.JewelryMechanic.UI.Superimposition;
+﻿using PeculiarJewelry.Content.JewelryMechanic.UI.Superimposition;
 using ReLogic.Content;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
@@ -34,7 +32,17 @@ internal class ChooseJewelMechanicUIState(int whoAmI) : UIState
     {
         base.Update(gameTime);
 
-        if (LapidaristOwner.DistanceSQ(Main.LocalPlayer.Center) > 400 * 400 || Main.npcChatText == string.Empty)
+        NPC npc = LapidaristOwner;
+        npc.ai[0] = 0f;
+        npc.ai[1] = 300f;
+        npc.localAI[3] = 100f;
+
+        if (Main.LocalPlayer.Center.X < npc.Center.X)
+            npc.direction = -1;
+        else
+            npc.direction = 1;
+
+        if (npc.DistanceSQ(Main.LocalPlayer.Center) > 100 * 100 || Main.npcChatText == string.Empty)
             JewelUISystem.SwitchUI(null);
     }
 
@@ -63,7 +71,10 @@ internal class ChooseJewelMechanicUIState(int whoAmI) : UIState
             Main.npcChatText = Language.GetTextValue("Mods.PeculiarJewelry.NPCs.Lapidarist.UIDialogue.Open.Cut");
             Main.playerInventory = true;
 
-            JewelUISystem.SwitchUI(new CutJewelUIState());
+            JewelUISystem.SwitchUI(new CutJewelUIState()
+            {
+                attachedNpc = LapidaristOwner.whoAmI
+            });
         };
 
         cutButton.OnRightClick += CutHelp;
@@ -84,12 +95,16 @@ internal class ChooseJewelMechanicUIState(int whoAmI) : UIState
             Top = StyleDimension.FromPixels(6),
             VAlign = 1f,
         };
+
         setButton.OnLeftClick += (UIMouseEvent evt, UIElement listeningElement) =>
         {
             Main.npcChatText = Language.GetTextValue("Mods.PeculiarJewelry.NPCs.Lapidarist.UIDialogue.Open.Set");
             Main.playerInventory = true;
 
-            JewelUISystem.SwitchUI(new SetJewelUIState());
+            JewelUISystem.SwitchUI(new SetJewelUIState()
+            {
+                attachedNpc = LapidaristOwner.whoAmI
+            });
         };
 
         setButton.OnRightClick += SetHelp;
@@ -118,7 +133,10 @@ internal class ChooseJewelMechanicUIState(int whoAmI) : UIState
             Main.npcChatText = Language.GetTextValue("Mods.PeculiarJewelry.NPCs.Lapidarist.UIDialogue.Open.Imposition");
             Main.playerInventory = true;
 
-            JewelUISystem.SwitchUI(new SuperimpositionUIState());
+            JewelUISystem.SwitchUI(new SuperimpositionUIState()
+            {
+                attachedNpc = LapidaristOwner.whoAmI
+            });
         };
 
         impositionButton.OnRightClick += ImposHelp;
@@ -148,7 +166,10 @@ internal class ChooseJewelMechanicUIState(int whoAmI) : UIState
             Main.npcChatText = Language.GetTextValue("Mods.PeculiarJewelry.NPCs.Lapidarist.UIDialogue.Open.Desecration");
             Main.playerInventory = true;
 
-            JewelUISystem.SwitchUI(new DesecrationUIState());
+            JewelUISystem.SwitchUI(new DesecrationUIState()
+            {
+                attachedNpc = LapidaristOwner.whoAmI
+            });
         };
 
         desecrationButton.OnRightClick += DeseHelp;
@@ -178,7 +199,10 @@ internal class ChooseJewelMechanicUIState(int whoAmI) : UIState
             Main.npcChatText = Language.GetTextValue("Mods.PeculiarJewelry.NPCs.Lapidarist.UIDialogue.Open.Examination");
             Main.playerInventory = true;
 
-            JewelUISystem.SwitchUI(new ExaminationUIState());
+            JewelUISystem.SwitchUI(new ExaminationUIState()
+            {
+                attachedNpc = LapidaristOwner.whoAmI
+            });
         };
 
         examinationButton.OnRightClick += ExamHelp;

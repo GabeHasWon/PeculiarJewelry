@@ -7,6 +7,8 @@ namespace PeculiarJewelry.Content.JewelryMechanic.UI;
 
 internal class ExaminationUIState : UIState, IClosableUIState
 {
+    internal int attachedNpc = -1;
+
     private ItemSlotUI _slot = null;
     private UINPCDialoguePanel _dialogue = null;
     private int _idleChatId = 0;
@@ -33,6 +35,22 @@ internal class ExaminationUIState : UIState, IClosableUIState
             _dialogue.SetText(Localize("Idle." + _idleChatId));
 
         _lastHasItem = _slot.HasItem;
+
+        if (attachedNpc != -1)
+        {
+            NPC npc = Main.npc[attachedNpc];
+            npc.ai[0] = 0f;
+            npc.ai[1] = 300f;
+            npc.localAI[3] = 100f;
+
+            if (Main.LocalPlayer.Center.X < npc.Center.X)
+                npc.direction = -1;
+            else
+                npc.direction = 1;
+
+            if (npc.DistanceSQ(Main.LocalPlayer.Center) > 100 * 100)
+                Close();
+        }
     }
 
     public override void OnInitialize()

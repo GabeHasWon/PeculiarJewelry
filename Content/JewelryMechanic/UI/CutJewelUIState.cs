@@ -33,6 +33,8 @@ internal class CutJewelUIState : UIState, IClosableUIState
 
     private Jewel JewelItem => _storedItem.ModItem as Jewel;
 
+    internal int attachedNpc = -1;
+
     private ItemSlotUI _cutSlot = null;
     private ItemSlotUI[] _supportItems = null;
     private Item _storedItem = null;
@@ -55,6 +57,22 @@ internal class CutJewelUIState : UIState, IClosableUIState
         _hasJewel = _storedItem.ModItem is Jewel;
         ResetStatPanelWith(_storedItem);
         UpdateInfo();
+
+        if (attachedNpc != -1)
+        {
+            NPC npc = Main.npc[attachedNpc];
+            npc.ai[0] = 0f;
+            npc.ai[1] = 300f;
+            npc.localAI[3] = 100f;
+            
+            if (Main.LocalPlayer.Center.X < npc.Center.X)
+                npc.direction = -1;
+            else
+                npc.direction = 1;
+
+            if (npc.DistanceSQ(Main.LocalPlayer.Center) > 100 * 100)
+                Close();
+        }
     }
 
     private void UpdateInfo(string status = null)

@@ -10,13 +10,36 @@ using Terraria.UI;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.UI;
 
-internal class DesecrationUIState : UIState
+internal class DesecrationUIState : UIState, IClosableUIState
 {
     private readonly Dictionary<string, float> TemporaryStrength = [];
+
+    internal int attachedNpc = -1;
 
     private UIPanel _helpPanel = null;
 
     private static string Localize(string postfix) => Language.GetTextValue("Mods.PeculiarJewelry.UI.Misc." + postfix);
+
+    public override void Update(GameTime gameTime)
+    {
+        base.Update(gameTime);
+
+        if (attachedNpc != -1)
+        {
+            NPC npc = Main.npc[attachedNpc];
+            npc.ai[0] = 0f;
+            npc.ai[1] = 300f;
+            npc.localAI[3] = 100f;
+
+            if (Main.LocalPlayer.Center.X < npc.Center.X)
+                npc.direction = -1;
+            else
+                npc.direction = 1;
+
+            if (npc.DistanceSQ(Main.LocalPlayer.Center) > 100 * 100)
+                Close();
+        }
+    }
 
     public override void OnInitialize()
     {
@@ -74,11 +97,7 @@ internal class DesecrationUIState : UIState
             HAlign = 0.5f,
         };
 
-        exit.OnLeftClick += (UIMouseEvent evt, UIElement listeningElement) =>
-        {
-            JewelUISystem.SwitchUI(null);
-            SoundEngine.PlaySound(SoundID.MenuClose);
-        };
+        exit.OnLeftClick += (evt, listeningElement) => JewelUISystem.SwitchUI(null);
 
         Append(exit);
         InfoPanel();
@@ -303,5 +322,10 @@ internal class DesecrationUIState : UIState
 
         uiText.SetText(str + "/" + (dese.StrengthCap != -1 ? dese.StrengthCap : "∞"));
         uiText.TextColor = hasTemp ? Color.Red : Color.White;
+    }
+
+    public void Close()
+    {
+        SoundEngine.PlaySound(SoundID.MenuClose);
     }
 }

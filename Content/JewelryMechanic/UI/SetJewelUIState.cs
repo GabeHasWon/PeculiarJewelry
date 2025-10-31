@@ -26,6 +26,8 @@ internal class SetJewelUIState : UIState, IClosableUIState
 
     DynamicSpriteFont Font => FontAssets.MouseText.Value;
 
+    internal int attachedNpc = -1;
+
     UIPanel _helpPanel = null;
     ItemSlotUI _jewelrySlot = null;
     ItemSlotUI[] _jewelSlots = null;
@@ -34,6 +36,27 @@ internal class SetJewelUIState : UIState, IClosableUIState
     bool[] _displayJewel = null;
 
     private static string Localize(string postfix) => Language.GetTextValue("Mods.PeculiarJewelry.UI.SetMenu." + postfix);
+
+    public override void Update(GameTime gameTime)
+    {
+        base.Update(gameTime);
+
+        if (attachedNpc != -1)
+        {
+            NPC npc = Main.npc[attachedNpc];
+            npc.ai[0] = 0f;
+            npc.ai[1] = 300f;
+            npc.localAI[3] = 100f;
+
+            if (Main.LocalPlayer.Center.X < npc.Center.X)
+                npc.direction = -1;
+            else
+                npc.direction = 1;
+
+            if (npc.DistanceSQ(Main.LocalPlayer.Center) > 100 * 100)
+                Close();
+        }
+    }
 
     public override void OnInitialize()
     {

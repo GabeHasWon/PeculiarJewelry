@@ -17,6 +17,8 @@ internal class SuperimpositionUIState : UIState, IClosableUIState
     private readonly List<JewelStat> _storedStats = [];
     private readonly Dictionary<JewelStat, bool> _storedStatsSide = [];
 
+    internal int attachedNpc = -1;
+
     private UIPanel _helpPanel;
     private ItemSlotUI _leftJewel;
     private ItemSlotUI _rightJewel;
@@ -83,6 +85,22 @@ internal class SuperimpositionUIState : UIState, IClosableUIState
                 _leftTrigger.Highlight(UICommon.DefaultUIBlue, UICommon.DefaultUIBlue, true);
                 _rightTrigger.Hide();
             }
+        }
+
+        if (attachedNpc != -1)
+        {
+            NPC npc = Main.npc[attachedNpc];
+            npc.ai[0] = 0f;
+            npc.ai[1] = 300f;
+            npc.localAI[3] = 100f;
+
+            if (Main.LocalPlayer.Center.X < npc.Center.X)
+                npc.direction = -1;
+            else
+                npc.direction = 1;
+
+            if (npc.DistanceSQ(Main.LocalPlayer.Center) > 100 * 100)
+                Close();
         }
     }
 
