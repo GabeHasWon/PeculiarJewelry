@@ -41,21 +41,8 @@ internal class SetJewelUIState : UIState, IClosableUIState
     {
         base.Update(gameTime);
 
-        if (attachedNpc != -1)
-        {
-            NPC npc = Main.npc[attachedNpc];
-            npc.ai[0] = 0f;
-            npc.ai[1] = 300f;
-            npc.localAI[3] = 100f;
-
-            if (Main.LocalPlayer.Center.X < npc.Center.X)
-                npc.direction = -1;
-            else
-                npc.direction = 1;
-
-            if (npc.DistanceSQ(Main.LocalPlayer.Center) > 100 * 100)
-                Close();
-        }
+        UIHelper.HoldTownNPC(attachedNpc);
+        UIHelper.CheckNPCInRange(Main.LocalPlayer, Main.npc[attachedNpc], (x, y) => JewelUISystem.SwitchUI(null));
     }
 
     public override void OnInitialize()

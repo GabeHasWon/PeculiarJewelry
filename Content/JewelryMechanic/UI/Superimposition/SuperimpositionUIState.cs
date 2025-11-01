@@ -89,18 +89,8 @@ internal class SuperimpositionUIState : UIState, IClosableUIState
 
         if (attachedNpc != -1)
         {
-            NPC npc = Main.npc[attachedNpc];
-            npc.ai[0] = 0f;
-            npc.ai[1] = 300f;
-            npc.localAI[3] = 100f;
-
-            if (Main.LocalPlayer.Center.X < npc.Center.X)
-                npc.direction = -1;
-            else
-                npc.direction = 1;
-
-            if (npc.DistanceSQ(Main.LocalPlayer.Center) > 100 * 100)
-                Close();
+            UIHelper.HoldTownNPC(attachedNpc);
+            UIHelper.CheckNPCInRange(Main.LocalPlayer, Main.npc[attachedNpc], (x, y) => JewelUISystem.SwitchUI(null));
         }
     }
 
@@ -215,13 +205,24 @@ internal class SuperimpositionUIState : UIState, IClosableUIState
 
         UIButton<string> generateButton = new(Localize("Combine"))
         {
-            HAlign = 0.2f,
+            Left = StyleDimension.FromPixels(40),
             VAlign = 1f,
             Width = StyleDimension.FromPixels(100),
             Height = StyleDimension.FromPixels(34)
         };
         generateButton.OnLeftClick += GenerateJewel;
         panel.Append(generateButton);
+
+        UIButton<string> exitButton = new(Language.GetTextValue("Mods.PeculiarJewelry.UI.Misc.Exit"))
+        {
+            HAlign = 0,
+            VAlign = 1f,
+            Width = StyleDimension.FromPixels(100),
+            Height = StyleDimension.FromPixels(34),
+            Left = StyleDimension.FromPixels(176)
+        };
+        exitButton.OnLeftClick += (_, _) => JewelUISystem.SwitchUI(null);
+        panel.Append(exitButton);
 
         panel.Append(new UIText(Localize("Shard"))
         {
@@ -240,7 +241,7 @@ internal class SuperimpositionUIState : UIState, IClosableUIState
         {
             Width = StyleDimension.FromPixels(30),
             Height = StyleDimension.FromPixels(30),
-            HAlign = 0.55f,
+            HAlign = 0.5f,
             VAlign = 1f
         };
         questionButton.OnLeftClick += ToggleQuestionPanel;

@@ -32,25 +32,15 @@ internal class ChooseJewelMechanicUIState(int whoAmI) : UIState
     {
         base.Update(gameTime);
 
-        NPC npc = LapidaristOwner;
-        npc.ai[0] = 0f;
-        npc.ai[1] = 300f;
-        npc.localAI[3] = 100f;
-
-        if (Main.LocalPlayer.Center.X < npc.Center.X)
-            npc.direction = -1;
-        else
-            npc.direction = 1;
-
-        if (npc.DistanceSQ(Main.LocalPlayer.Center) > 100 * 100 || Main.npcChatText == string.Empty)
-            JewelUISystem.SwitchUI(null);
+        UIHelper.HoldTownNPC(_lapidaristWhoAmI);
+        UIHelper.CheckNPCInRange(Main.LocalPlayer, Main.npc[_lapidaristWhoAmI], (x, y) => JewelUISystem.SwitchUI(null));
     }
 
     public override void OnInitialize()
     {
         UIPanel panel = new() // Main back panel
         {
-            Width = StyleDimension.FromPixels(546),
+            Width = StyleDimension.FromPixels(586),
             Height = StyleDimension.FromPixels(70),
             HAlign = 0.5f,
             VAlign = 0.25f
@@ -215,6 +205,17 @@ internal class ChooseJewelMechanicUIState(int whoAmI) : UIState
             Top = StyleDimension.FromPixels(-20)
         };
         examinationButton.Append(examText);
+
+        UIImageButton close = new(ModContent.Request<Texture2D>("PeculiarJewelry/Content/JewelryMechanic/UI/Close"))
+        {
+            Width = StyleDimension.FromPixels(32),
+            Height = StyleDimension.FromPixels(32),
+            HAlign = 1f,
+            Top = StyleDimension.FromPixels(6),
+        };
+
+        close.OnLeftClick += (_, _) => JewelUISystem.SwitchUI(null);
+        panel.Append(close);
     }
 
     private void ImposHelp(UIMouseEvent e, UIElement lE) => Main.npcChatText = Language.GetTextValue("Mods.PeculiarJewelry.NPCs.Lapidarist.UIDialogue.Help.Imposition");

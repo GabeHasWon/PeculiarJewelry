@@ -2,6 +2,7 @@
 using PeculiarJewelry.Content.JewelryMechanic.Misc;
 using PeculiarJewelry.Content.JewelryMechanic.UI;
 using PeculiarJewelry.Content.JewelryMechanic.UI.JewelStorage;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.ObjectData;
 
@@ -53,5 +54,21 @@ public class KeepsakeChestTile : ModTile
         JewelUISystem.SwitchUI(new JewelryStorageUI());
         Main.playerInventory = true;
         return true;
+    }
+
+    public override void MouseOver(int i, int j)
+    {
+        Player player = Main.LocalPlayer;
+        player.cursorItemIconID = ModContent.ItemType<MajorJewel>();
+        player.cursorItemIconText = "";
+        player.noThrow = 2;
+        player.cursorItemIconEnabled = true;
+    }
+
+    public override void MouseOverFar(int i, int j)
+    {
+        Player player = Main.LocalPlayer;
+        player.cursorItemIconEnabled = false;
+        player.cursorItemIconID = ItemID.None;
     }
 }
