@@ -92,8 +92,15 @@ internal static class JewelIO
 
         if (info is MajorJewelInfo major)
         {
-            writer.Write(major.effect.GetType().AssemblyQualifiedName);
-            writer.Write((byte)major.effect.Context);
+            if (major.effect is not null)
+            {
+                writer.Write(major.effect.GetType().AssemblyQualifiedName);
+                writer.Write((byte)major.effect.Context);
+            }
+            else
+            {
+                writer.Write("na");
+            }
         }
 
         writer.Write((short)info.tier);
@@ -117,9 +124,9 @@ internal static class JewelIO
         for (int i = 0; i < count; ++i)
             info.SubStats.Add(ReadStat(reader));
 
-        if (info is MajorJewelInfo major)
+        if (info is MajorJewelInfo major && reader.ReadString() is { } str && str != "na")
         {
-            major.effect = Activator.CreateInstance(Type.GetType(reader.ReadString())) as TriggerEffect;
+            major.effect = Activator.CreateInstance(Type.GetType(str)) as TriggerEffect;
             major.effect.ForceSetContext((TriggerContext)reader.ReadByte());
         }
 

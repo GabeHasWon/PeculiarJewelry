@@ -1,0 +1,10 @@
+﻿namespace PeculiarJewelry.Content.JewelryMechanic.Stats.Effects.Custom.SpectroliteStats;
+
+internal class KittenStat : JewelStatEffect
+{
+    public override StatType Type => StatType.SpectroliteKitten;
+    public override Color Color => new(213, 150, 255);
+
+    public override void Apply(Player player, float strength) { }
+    protected override float InternalEffectBonus(float multiplier, Player player) => 1f;
+}

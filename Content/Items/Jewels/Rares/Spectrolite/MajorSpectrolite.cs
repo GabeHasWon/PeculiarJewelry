@@ -2,12 +2,12 @@ using PeculiarJewelry.Content.JewelryMechanic.Stats;
 using PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos.Rares;
 using System;
 
-namespace PeculiarJewelry.Content.Items.Jewels.Rares.Soulstone;
+namespace PeculiarJewelry.Content.Items.Jewels.Rares.Spectrolite;
 
 public class MajorSpectrolite : Jewel
 {
     public override LocalizedText ExaminationLocalization => Language.GetText("Mods.PeculiarJewelry.UI.Exam.Help.MajorSpectrolite");
-    protected override Type InfoType => typeof(MajorSoulstoneInfo);
+    protected override Type InfoType => typeof(MajorSpectroliteInfo);
     protected override byte MaxVariations => 3;
 
     public override void Defaults()

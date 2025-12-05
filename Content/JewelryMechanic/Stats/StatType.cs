@@ -171,7 +171,15 @@ public enum StatType
     SoulBetrayal,
     SoulPlague,
     SoulTorture,
-    SoulMax
+    SoulMax,
+
+    SpectroliteFairy,
+    SpectroliteBeetle,
+    SpectroliteCactus,
+    SpectroliteSlime,
+    SpectroliteKitten,
+    SpectroliteCreeper,
+    SpectroliteMax
 }
 
 public static class StatTypeLocalization

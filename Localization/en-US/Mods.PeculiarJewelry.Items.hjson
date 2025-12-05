@@ -3051,3 +3051,8 @@ MinorSoulstone: {
 	DisplayName: Minor Soulstone
 	Tooltip: ""
 }
+
+MajorSpectrolite: {
+	DisplayName: Major Spectrolite
+	Tooltip: ""
+}

@@ -271,6 +271,11 @@ public abstract partial class JewelInfo
     internal virtual void SaveData(TagCompound tag) { }
     internal virtual void LoadData(TagCompound tag) { }
 
+    /// <summary>
+    /// Overrides the color this displays as in the inventory and tooltip.
+    /// </summary>
+    /// <param name="color"></param>
+    /// <returns></returns>
     internal virtual bool OverrideDisplayColor(out Color color)
     {
         color = default;

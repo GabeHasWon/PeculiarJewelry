@@ -47,7 +47,7 @@ internal class LegionStat : JewelStatEffect
             while (totalSpeed > 1f)
             {
                 CobaltBonus.CobaltBonusProjectile.RepeatAI(projectile, (int)totalSpeed);
-                totalSpeed -= (int)totalSpeed;
+                totalSpeed--;
             }
 
             return true;

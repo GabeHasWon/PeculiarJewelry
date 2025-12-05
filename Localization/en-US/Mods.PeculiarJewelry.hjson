@@ -9,6 +9,8 @@ Projectiles: {
 	SoulstoneWisp.DisplayName: Wisp
 	SoulstoneProjectile.DisplayName: Soulstone Projectile
 	BetrayalExplosion.DisplayName: Betrayal Explosion
+	SpectroliteFairy.DisplayName: Spectrolite Fairy
+	SpectroliteCactus.DisplayName: Spectrolite Cactus
 }
 
 TierCutoffCondition: Only from bags of tier {0} or higher.
