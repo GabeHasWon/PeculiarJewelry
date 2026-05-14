@@ -1,6 +1,8 @@
-﻿namespace PeculiarJewelry.Content.JewelryMechanic.Stats.Effects.Custom.SpectroliteStats;
+﻿using PeculiarJewelry.Content.Items.Jewels.Rares.Spectrolite;
 
-internal class SlimeStat : JewelStatEffect
+namespace PeculiarJewelry.Content.JewelryMechanic.Stats.Effects.Custom.SpectroliteStats;
+
+internal class SlimeStat : SpectroliteStatEffect
 {
     public override StatType Type => StatType.SpectroliteSlime;
     public override Color Color => new(255, 132, 195);

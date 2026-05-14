@@ -24,7 +24,7 @@ public class AllureGlobalNPC : GlobalNPC
     {
         int skill = spawnInfo.Player.fishingSkill;
 
-        if (skill > 0)
+        if (skill >= 0)
         {
             return;
         }

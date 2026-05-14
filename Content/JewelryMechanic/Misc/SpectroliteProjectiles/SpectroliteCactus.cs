@@ -1,14 +1,20 @@
 ﻿using PeculiarJewelry.Content.JewelryMechanic.Stats;
 using System;
 using System.Collections.Generic;
-using Terraria;
-using Terraria.ModLoader;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Misc.SpectroliteProjectiles;
 
-internal class SpectroliteCactus : ModProjectile
+internal class SpectroliteCactus : SpectroliteProjectile
 {
     private Player Owner => Main.player[Projectile.owner];
+
+    public ref float SineTimerX => ref Projectile.localAI[0];
+    public ref float SineTimerY => ref Projectile.localAI[1];
+
+    public ref float UsedTimer => ref Projectile.ai[0];
+    public ref float Strength => ref Projectile.ai[1];
+
+    public override StatType StatType => StatType.SpectroliteCactus;
 
     public override void SetStaticDefaults() => Main.projFrames[Type] = 2;
 
@@ -19,34 +25,33 @@ internal class SpectroliteCactus : ModProjectile
         Projectile.Size = new Vector2(24, 16);
     }
 
+    public override bool? CanDamage() => false;
+
     public override void AI()
     {
-        const float XMod = 0.2f;
+        const float XMod = 0.05f;
 
         Projectile.timeLeft++;
+        UsedTimer--;
 
-        float xOff = (float)Math.Sin(Projectile.ai[0]++ * XMod);
+        if (Strength < 1)
+            Projectile.frame = 1;
+        else
+            Projectile.frame = 0;
 
-        Projectile.Center = Owner.Center + new Vector2(0, Owner.gfxOffY);
+        float xOff = (float)Math.Sin(SineTimerX++ * XMod);
+
+        Projectile.Center = Owner.Center + new Vector2(0, Owner.gfxOffY - 20);
         Projectile.position.X += xOff * 42f;
-        Projectile.position.Y += (float)Math.Sin(Projectile.ai[1]++ * 0.06f) * 8f;
+        Projectile.position.Y += (float)Math.Sin(SineTimerY++ * 0.06f) * 8f;
         Projectile.rotation = xOff * 0.2f;
 
         Lighting.AddLight(Projectile.Center, new Vector3(0.4f, 0.12f, 0.24f) * 0.8f);
 
-        if (Math.Cos(Projectile.ai[0] * XMod) > 0)
+        if (Math.Cos(SineTimerX * XMod) > 0)
             Projectile.hide = true;
         else
             Projectile.hide = false;
-
-        if (Owner.GetModPlayer<SpectrolitePlayer>().Stats.TryGetValue(StatType.SpectroliteFairy, out float value) && value > 0)
-        {
-
-        }
-        else
-        {
-            Projectile.Kill();
-        }
     }
 
     public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
@@ -54,4 +59,6 @@ internal class SpectroliteCactus : ModProjectile
         if (Projectile.hide)
             overPlayers.Add(index);
     }
+
+    public override Color? GetAlpha(Color lightColor) => UsedTimer > 0 ? Color.Lerp(lightColor, Color.Black, 0.5f) : lightColor;
 }

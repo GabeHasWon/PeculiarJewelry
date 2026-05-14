@@ -162,3 +162,33 @@ SoulTorture: {
 	// DisplayName: Torture
 	// Description: Haunted enemies deal significantly less damage
 }
+
+SpectroliteFairy: {
+	// DisplayName: Whimsy
+	// Description: A fairy follows you, healing you occasionally
+}
+
+SpectroliteBeetle: {
+	// DisplayName: Stability
+	// Description: A beetle follows you, reducing incoming damage when guarding you
+}
+
+SpectroliteCactus: {
+	// DisplayName: Thorns
+	// Description: A friendly cactus orbits you, redirecting incoming damage into attackers and healing you proportionally
+}
+
+SpectroliteSlime: {
+	// DisplayName: Joy
+	// Description: A heart slime holds on to you, taking a certain amount of damage before you take any
+}
+
+SpectroliteKitten: {
+	// DisplayName: Calm
+	// Description: A kitten follows you, increasing your life regen until you get hit
+}
+
+SpectroliteCreeper: {
+	// DisplayName: Volatility
+	// Description: A creeper head orbits you, blocking projectiles and acting as a shield
+}

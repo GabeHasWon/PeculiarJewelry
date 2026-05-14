@@ -3051,3 +3051,8 @@ MajorSpectrolite: {
 	// DisplayName: Major Spectrolite
 	// Tooltip: ""
 }
+
+MinorSpectrolite: {
+	// DisplayName: Minor Spectrolite
+	// Tooltip: ""
+}

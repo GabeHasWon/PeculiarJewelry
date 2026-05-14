@@ -1,6 +1,8 @@
-﻿namespace PeculiarJewelry.Content.JewelryMechanic.Stats.Effects.Custom.SpectroliteStats;
+﻿using PeculiarJewelry.Content.Items.Jewels.Rares.Spectrolite;
 
-internal class BeetleStat : JewelStatEffect
+namespace PeculiarJewelry.Content.JewelryMechanic.Stats.Effects.Custom.SpectroliteStats;
+
+internal class BeetleStat : SpectroliteStatEffect
 {
     public override StatType Type => StatType.SpectroliteBeetle;
     public override Color Color => new(213, 150, 255);

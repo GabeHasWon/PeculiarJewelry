@@ -1,1 +1,3 @@
-- Made Abundance round up towards nearest whole minion
+v2
+- Fixed Earthfish spawning randomly
+- 

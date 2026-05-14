@@ -48,9 +48,7 @@ internal class BetrayalExplosion : ModProjectile
         Projectile.velocity *= 0.94f;
 
         if (Projectile.frame > 5)
-        {
             Projectile.Kill();
-        }
     }
 
     public override void OnHitNPC(NPC npc, NPC.HitInfo hit, int damageDone)

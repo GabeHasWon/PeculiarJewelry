@@ -16,9 +16,7 @@ internal class SacrificeNPC : GlobalNPC
         if (!npc.HasBuff<SacrificeDebuff>())
         {
             if (elapsedDoT > 1)
-            {
                 ApplyDoT(npc, (int)elapsedDoT, ref elapsedDoT, Color.Gray, Color.Black);
-            }
 
             elapsedDoT = 0;
             return true;
@@ -38,16 +36,10 @@ internal class SacrificeNPC : GlobalNPC
         darkColor ??= Color.Orange;
 
         if (!npc.dontTakeDamage && !npc.immortal)
-        {
             if (npc.realLife == -1)
-            {
                 npc.life -= damage;
-            }
             else
-            {
                 Main.npc[npc.realLife].life -= damage;
-            }
-        }
 
         elapsedDoT -= damage;
 

@@ -21,6 +21,8 @@ Help: {
 	// MajorCursed: Not often you see a [c/9152AF:Major Cursed Jewel]. They offer massive upside and large downside; their negative stats benefit your positive stats, and are upgraded accordingly. More finnicky than the normal jewel, but offers a precise amount of power few jewels can give. Upwards of four stats can be negative on these - including the major stat - with boons to follow.
 	// MajorSoulstone: Macabre in their beauty; [c/8c5656:Major Soul Stones] offer horror...for your enemies. They offer you strong offense, though - these stones call upon the veil between, letting a soul through if you choose to let it. This soul will enact wrath on the strongest nearby enemy, with a debilitating affliction to boot. I love jewels, but I keep my eyes on these.
 	// MinorSoulstone: Pulsating and still, [c/8c5656:Minor Soul Stones] call upon dead and horrified to kill and horrify. Weaker than their Major counterparts, these nevertheless spawn souls which chase the strongest nearby foe. They take longer to debuff, but ultimately offer the same strength.
+	// MajorSpectrolite: "[c/AABBCD:Major Spectrolite] is my least favorite to work with. Darn things keep moving around...because their goal to support you. They grant you a little helper which gives you a nice boon occasionally. Please, don't bring too many of these. They're a hassle."
+	// MinorSpectrolite: Much like their larger variant, [c/AABBCD:Minor Spectrolite] grant you a small helper to give you a boon. They're slightly weaker, but no less annoying to work with.
 }
 
 Idle: {

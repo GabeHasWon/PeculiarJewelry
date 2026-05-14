@@ -1,8 +1,9 @@
-﻿using PeculiarJewelry.Content.JewelryMechanic.Misc;
+﻿using PeculiarJewelry.Content.Items.Jewels.Rares.Spectrolite;
+using PeculiarJewelry.Content.JewelryMechanic.Misc;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats.Effects.Custom.SpectroliteStats;
 
-internal class FairyStat : JewelStatEffect
+internal class FairyStat : SpectroliteStatEffect
 {
     public override StatType Type => StatType.SpectroliteFairy;
     public override Color Color => new(213, 150, 255);

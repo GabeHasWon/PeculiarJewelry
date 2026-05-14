@@ -1,6 +1,8 @@
-﻿namespace PeculiarJewelry.Content.JewelryMechanic.Stats.Effects.Custom.SpectroliteStats;
+﻿using PeculiarJewelry.Content.Items.Jewels.Rares.Spectrolite;
 
-internal class CreeperStat : JewelStatEffect
+namespace PeculiarJewelry.Content.JewelryMechanic.Stats.Effects.Custom.SpectroliteStats;
+
+internal class CreeperStat : SpectroliteStatEffect
 {
     public override StatType Type => StatType.SpectroliteCreeper;
     public override Color Color => new(213, 150, 255);

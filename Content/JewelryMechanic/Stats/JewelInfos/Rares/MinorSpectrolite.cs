@@ -1,16 +1,16 @@
 ﻿namespace PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos.Rares;
 
-internal class MajorSpectroliteInfo : JewelInfo
+internal class MinorSpectroliteInfo : JewelInfo
 {
-    public override string Prefix => "Major";
+    public override string Prefix => "Minor";
     public override string JewelTitle => "Spectrolite";
     public override bool HasExclusivity => false;
-    public override bool CountsAsMajor => true;
+    public override bool CountsAsMajor => false;
 
     internal override void InternalSetup() => SubStats = [];
 
     public override JewelStat GenStat() => Major is not null ? Major : new JewelStat((StatType)Main.rand.Next((int)StatType.SoulMax + 1, (int)StatType.SpectroliteMax))
     {
-        Strength = 1,
+        Strength = 0.5f
     };
 }
