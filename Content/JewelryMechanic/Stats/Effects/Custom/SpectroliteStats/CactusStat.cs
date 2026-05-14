@@ -1,6 +1,7 @@
 ﻿using PeculiarJewelry.Content.Items.Jewels.Rares.Spectrolite;
 using PeculiarJewelry.Content.JewelryMechanic.Misc;
 using PeculiarJewelry.Content.JewelryMechanic.Misc.SpectroliteProjectiles;
+using System.Runtime.CompilerServices;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats.Effects.Custom.SpectroliteStats;
 
@@ -51,17 +52,7 @@ internal class CactusStat : SpectroliteStatEffect
 
     public override StatType Type => StatType.SpectroliteCactus;
     public override Color Color => new(73, 120, 17);
-
-    public override void Apply(Player player, float strength)
-    {
-        player.GetModPlayer<SpectrolitePlayer>().Stats[Type] += InternalEffectBonus(strength, player);
-
-        if (player.ownedProjectileCounts[ModContent.ProjectileType<SpectroliteCactus>()] < player.GetModPlayer<SpectrolitePlayer>().Stats[Type])
-        {
-            Vector2 position = player.Center - new Vector2(0, 60);
-            Projectile.NewProjectile(player.GetSource_FromThis(), position, Vector2.Zero, ModContent.ProjectileType<SpectroliteCactus>(), 0, 0, player.whoAmI, 0, strength);
-        }
-    }
+    public override int ProjId => ModContent.ProjectileType<SpectroliteCactus>();
 
     protected override float InternalEffectBonus(float multiplier, Player player) => 1f;
 }

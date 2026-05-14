@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats.Effects;
 
+/// <summary>
+/// Defines a singleton wrapper over which an individual stat is applied.
+/// </summary>
 public abstract class JewelStatEffect : ModType
 {
     public static readonly Dictionary<StatType, JewelStatEffect> StatsByType = [];

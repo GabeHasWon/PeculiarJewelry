@@ -5,15 +5,21 @@ namespace PeculiarJewelry.Content.JewelryMechanic.Misc;
 
 internal class SpectrolitePlayer : ModPlayer
 {
-    internal Dictionary<StatType, float> Stats = new()
+    public class ValuePair(int Stacks = 0, float Value = 0)
     {
-        { StatType.SpectroliteFairy, 0 }, { StatType.SpectroliteBeetle, 0 }, { StatType.SpectroliteCactus, 0 }, { StatType.SpectroliteSlime, 0 }, { StatType.SpectroliteKitten, 0 },
-        { StatType.SpectroliteCreeper, 0 }
+        public int Stacks = Stacks;
+        public float Value = Value;
+    }
+
+    internal Dictionary<StatType, ValuePair> Stats = new()
+    {
+        { StatType.SpectroliteFairy, new() }, { StatType.SpectroliteBeetle, new() }, { StatType.SpectroliteCactus, new() }, { StatType.SpectroliteSlime, new() }, 
+        { StatType.SpectroliteKitten, new() }, { StatType.SpectroliteCreeper, new() }
     };
 
     public override void ResetEffects()
     {
         foreach (var key in Stats.Keys)
-            Stats[key] = 0;
+            Stats[key] = new();
     }
 }

@@ -10,9 +10,9 @@ internal abstract class SpectroliteProjectile : ModProjectile
     {
         Player owner = Main.player[Projectile.owner];
 
-        if (owner.GetModPlayer<SpectrolitePlayer>().Stats.TryGetValue(StatType, out float value) && value > 0)
+        if (owner.GetModPlayer<SpectrolitePlayer>().Stats.TryGetValue(StatType, out SpectrolitePlayer.ValuePair value) && value.Stacks > 0)
         {
-            if (owner.ownedProjectileCounts[Type] > value)
+            if (owner.ownedProjectileCounts[Type] > value.Stacks)
             {
                 owner.ownedProjectileCounts[Type]--;
                 Projectile.Kill();

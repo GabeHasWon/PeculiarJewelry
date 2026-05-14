@@ -13,6 +13,7 @@ internal class SpectroliteCactus : SpectroliteProjectile
 
     public ref float UsedTimer => ref Projectile.ai[0];
     public ref float Strength => ref Projectile.ai[1];
+    public ref float IsBig => ref Projectile.ai[2];
 
     public override StatType StatType => StatType.SpectroliteCactus;
 
@@ -34,10 +35,7 @@ internal class SpectroliteCactus : SpectroliteProjectile
         Projectile.timeLeft++;
         UsedTimer--;
 
-        if (Strength < 1)
-            Projectile.frame = 1;
-        else
-            Projectile.frame = 0;
+        Projectile.frame = (int)IsBig;
 
         float xOff = (float)Math.Sin(SineTimerX++ * XMod);
 

@@ -29,14 +29,5 @@ internal class SpectroliteFairy : ModProjectile
         {
             Projectile.velocity = Projectile.velocity.RotatedBy(-0.01f);
         }
-
-        if (Owner.GetModPlayer<SpectrolitePlayer>().Stats.TryGetValue(StatType.SpectroliteFairy, out float value) && value > 0)
-        {
-
-        }
-        else
-        {
-            Projectile.Kill();
-        }
     }
 }

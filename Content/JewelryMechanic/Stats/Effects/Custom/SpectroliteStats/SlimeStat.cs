@@ -6,7 +6,7 @@ internal class SlimeStat : SpectroliteStatEffect
 {
     public override StatType Type => StatType.SpectroliteSlime;
     public override Color Color => new(255, 132, 195);
+    public override int ProjId => ProjectileID.RottenEgg;
 
-    public override void Apply(Player player, float strength) { }
     protected override float InternalEffectBonus(float multiplier, Player player) => 1f;
 }
