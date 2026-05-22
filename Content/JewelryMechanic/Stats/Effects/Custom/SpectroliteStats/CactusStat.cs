@@ -1,7 +1,5 @@
 ﻿using PeculiarJewelry.Content.Items.Jewels.Rares.Spectrolite;
-using PeculiarJewelry.Content.JewelryMechanic.Misc;
 using PeculiarJewelry.Content.JewelryMechanic.Misc.SpectroliteProjectiles;
-using System.Runtime.CompilerServices;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats.Effects.Custom.SpectroliteStats;
 

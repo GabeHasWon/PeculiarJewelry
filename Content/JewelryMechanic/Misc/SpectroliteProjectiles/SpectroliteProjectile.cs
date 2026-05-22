@@ -6,6 +6,13 @@ internal abstract class SpectroliteProjectile : ModProjectile
 {
     public abstract StatType StatType { get; }
 
+    public float MaxTimer => 50 * 60 / Strength;
+
+    protected Player Owner => Main.player[Projectile.owner];
+
+    public ref float Strength => ref Projectile.ai[1];
+    public ref float IsBig => ref Projectile.ai[2];
+
     public sealed override bool PreAI()
     {
         Player owner = Main.player[Projectile.owner];

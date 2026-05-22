@@ -6,14 +6,11 @@ namespace PeculiarJewelry.Content.JewelryMechanic.Misc.SpectroliteProjectiles;
 
 internal class SpectroliteCactus : SpectroliteProjectile
 {
-    private Player Owner => Main.player[Projectile.owner];
-
     public ref float SineTimerX => ref Projectile.localAI[0];
     public ref float SineTimerY => ref Projectile.localAI[1];
+    public ref float SineTimerZ => ref Projectile.localAI[2];
 
     public ref float UsedTimer => ref Projectile.ai[0];
-    public ref float Strength => ref Projectile.ai[1];
-    public ref float IsBig => ref Projectile.ai[2];
 
     public override StatType StatType => StatType.SpectroliteCactus;
 
@@ -24,6 +21,7 @@ internal class SpectroliteCactus : SpectroliteProjectile
         Projectile.timeLeft = 2;
         Projectile.friendly = true;
         Projectile.Size = new Vector2(24, 16);
+        Projectile.tileCollide = false;
     }
 
     public override bool? CanDamage() => false;
@@ -32,8 +30,15 @@ internal class SpectroliteCactus : SpectroliteProjectile
     {
         const float XMod = 0.05f;
 
+        if (SineTimerX == 0)
+        {
+            SineTimerX = Main.rand.NextFloat(200);
+            SineTimerY = Main.rand.NextFloat(200);
+        }
+
         Projectile.timeLeft++;
         UsedTimer--;
+        SineTimerZ += 1 - MathF.Max(0, UsedTimer / MaxTimer);
 
         Projectile.frame = (int)IsBig;
 
@@ -50,6 +55,11 @@ internal class SpectroliteCactus : SpectroliteProjectile
             Projectile.hide = true;
         else
             Projectile.hide = false;
+
+        if (Math.Sin(SineTimerX * XMod) > 0)
+            Projectile.spriteDirection = 1;
+        else
+            Projectile.spriteDirection = -1;
     }
 
     public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
@@ -58,5 +68,5 @@ internal class SpectroliteCactus : SpectroliteProjectile
             overPlayers.Add(index);
     }
 
-    public override Color? GetAlpha(Color lightColor) => UsedTimer > 0 ? Color.Lerp(lightColor, Color.Black, 0.5f) : lightColor;
+    public override Color? GetAlpha(Color lightColor) => UsedTimer > 0 ? Color.Lerp(lightColor, Color.Black, MathF.Sin(SineTimerZ) * 0.5f) : lightColor;
 }
