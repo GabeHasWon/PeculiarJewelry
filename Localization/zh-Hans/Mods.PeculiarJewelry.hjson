@@ -11,6 +11,8 @@ Projectiles: {
 	// BetrayalExplosion.DisplayName: Betrayal Explosion
 	// SpectroliteFairy.DisplayName: Spectrolite Fairy
 	// SpectroliteCactus.DisplayName: Spectrolite Cactus
+	// SpectroliteHeartSlime.DisplayName: Spectrolite Heart Slime
+	// SpectroliteCat.DisplayName: Spectrolite Cat
 }
 
 TierCutoffCondition: 仅来自{0}级或更高级别的袋子。

@@ -11,6 +11,8 @@ Projectiles: {
 	BetrayalExplosion.DisplayName: Betrayal Explosion
 	SpectroliteFairy.DisplayName: Spectrolite Fairy
 	SpectroliteCactus.DisplayName: Spectrolite Cactus
+	SpectroliteHeartSlime.DisplayName: Spectrolite Heart Slime
+	SpectroliteCat.DisplayName: Spectrolite Cat
 }
 
 TierCutoffCondition: Only from bags of tier {0} or higher.

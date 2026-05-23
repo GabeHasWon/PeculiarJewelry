@@ -6,7 +6,7 @@ internal abstract class SpectroliteProjectile : ModProjectile
 {
     public abstract StatType StatType { get; }
 
-    public float MaxTimer => 50 * 60 / Strength;
+    public virtual float MaxTimer => 20 * 60 / Strength;
 
     protected Player Owner => Main.player[Projectile.owner];
 

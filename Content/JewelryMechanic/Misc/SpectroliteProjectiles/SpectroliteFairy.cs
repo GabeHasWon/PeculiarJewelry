@@ -48,7 +48,10 @@ internal class SpectroliteFairy : SpectroliteProjectile
                 Timer = 0;
 
                 for (int i = 0; i < 12; ++i)
-                    Dust.NewDustPerfect(Main.rand.NextVector2FromRectangle(Projectile.Hitbox), DustID.PinkFairy, Main.rand.NextVector2CircularEdge(4, 4) * Main.rand.NextFloat(0.5f, 1f));
+                {
+                    Vector2 dir = Projectile.DirectionTo(Owner.Center).RotatedByRandom(0.4f) * Main.rand.NextFloat(0.6f, 12f);
+                    Dust.NewDustPerfect(Main.rand.NextVector2FromRectangle(Projectile.Hitbox), DustID.PinkFairy, dir);
+                }
             }
 
             if (Main.rand.NextBool(12))

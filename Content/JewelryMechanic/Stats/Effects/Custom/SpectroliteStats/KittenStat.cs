@@ -7,7 +7,7 @@ internal class KittenStat : SpectroliteStatEffect
 {
     public override StatType Type => StatType.SpectroliteKitten;
     public override Color Color => new(213, 150, 255);
-    public override int ProjId => ModContent.ProjectileType<SpectroliteCactus>();
+    public override int ProjId => ModContent.ProjectileType<SpectroliteCat>();
 
     protected override float InternalEffectBonus(float multiplier, Player player) => 1f;
 }
