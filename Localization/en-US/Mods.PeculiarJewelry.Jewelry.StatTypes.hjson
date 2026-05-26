@@ -189,6 +189,6 @@ SpectroliteKitten: {
 }
 
 SpectroliteCreeper: {
-	DisplayName: Volatility
-	Description: A creeper head orbits you, blocking projectiles and acting as a shield
+	DisplayName: Observation
+	Description: A creeper orbits you, blocking a limited amount of projectiles
 }

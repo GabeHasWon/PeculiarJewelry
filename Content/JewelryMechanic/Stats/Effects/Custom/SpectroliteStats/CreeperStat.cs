@@ -6,8 +6,8 @@ namespace PeculiarJewelry.Content.JewelryMechanic.Stats.Effects.Custom.Spectroli
 internal class CreeperStat : SpectroliteStatEffect
 {
     public override StatType Type => StatType.SpectroliteCreeper;
-    public override Color Color => new(160, 255, 199);
-    public override int ProjId => ModContent.ProjectileType<SpectroliteCactus>();
+    public override Color Color => new(190, 190, 190);
+    public override int ProjId => ModContent.ProjectileType<SpectroliteCreeper>();
 
     protected override float InternalEffectBonus(float multiplier, Player player) => 1f;
 }

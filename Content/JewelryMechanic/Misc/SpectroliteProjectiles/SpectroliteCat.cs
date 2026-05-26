@@ -51,7 +51,7 @@ internal class SpectroliteCat : SpectroliteProjectile
         VisualTimer += Timer >= MaxTimer ? 0.03f : 0.01f;
         Projectile.Center = Vector2.Lerp(Projectile.Center, Owner.Center - new Vector2(0, 60) + new Vector2(60, 0).RotatedBy(VisualTimer) * new Vector2(1, 0.25f), 0.2f);
         Projectile.timeLeft = 2;
-        Projectile.rotation = MathF.Sin(Timer) * 0.3f;
+        Projectile.rotation = MathF.Sin(VisualTimer) * 0.3f;
 
         if (Timer > MaxTimer)
         {

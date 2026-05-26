@@ -4,6 +4,7 @@ using PeculiarJewelry.Content.Items.Jewels.Rares.Gelid;
 using PeculiarJewelry.Content.Items.Jewels.Rares.Lucky;
 using PeculiarJewelry.Content.Items.Jewels.Rares.Pearl;
 using PeculiarJewelry.Content.Items.Jewels.Rares.Soulstone;
+using PeculiarJewelry.Content.Items.Jewels.Rares.Spectrolite;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -13,20 +14,20 @@ namespace PeculiarJewelry.Content.JewelryMechanic;
 internal class JewelRarePool
 {
     [Flags]
-    public enum OpenRareTypes
+    public enum OpenRareTypes : ushort
     {
         None = 0,
-        Pearl,
-        Cursed,
-        Amber,
-        Soulstone,
-        Lucky,
-        Opal,
-        CatsEye,
-        Spectrolite,
-        Moonstone,
-        Ancient,
-        Gelid
+        Pearl = 1,
+        Cursed = 1 << 1,
+        Amber = 1 << 2,
+        Soulstone = 1 << 3,
+        Lucky = 1 << 4,
+        Opal = 1 << 5,
+        CatsEye = 1 << 6,
+        Spectrolite = 1 << 7,
+        Moonstone = 1 << 8,
+        Ancient = 1 << 9,
+        Gelid = 1 << 10
     }
 
     public static bool CheckForBiomes(Player player, out OpenRareTypes flags, out int count)
@@ -94,6 +95,9 @@ internal class JewelRarePool
 
         if (rareTypes.HasFlag(OpenRareTypes.Soulstone))
             types.Add(JewelryCommon.MajorMinorType<MajorSoulstone, MinorSoulstone>());
+
+        if (rareTypes.HasFlag(OpenRareTypes.Spectrolite))
+            types.Add(JewelryCommon.MajorMinorType<MajorSpectrolite, MinorSpectrolite>());
 
         return types.Count == 0 ? -1 : Main.rand.Next(types);
     }

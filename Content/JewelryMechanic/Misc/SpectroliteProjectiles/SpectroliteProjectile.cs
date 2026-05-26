@@ -15,7 +15,7 @@ internal abstract class SpectroliteProjectile : ModProjectile
     public ref float Strength => ref Projectile.ai[1];
     public ref float IsBig => ref Projectile.ai[2];
 
-    public Guid selfGuid = default;
+    internal Guid selfGuid = default;
 
     public sealed override bool PreAI()
     {
