@@ -10,8 +10,6 @@ internal class SpectroliteCactus : SpectroliteProjectile
     public ref float SineTimerY => ref Projectile.localAI[1];
     public ref float SineTimerZ => ref Projectile.localAI[2];
 
-    public ref float UsedTimer => ref Projectile.ai[0];
-
     public override StatType StatType => StatType.SpectroliteCactus;
 
     public override void SetStaticDefaults() => Main.projFrames[Type] = 2;
@@ -37,8 +35,8 @@ internal class SpectroliteCactus : SpectroliteProjectile
         }
 
         Projectile.timeLeft++;
-        UsedTimer--;
-        SineTimerZ += 1 - MathF.Max(0, UsedTimer / MaxTimer);
+        Timer--;
+        SineTimerZ += 1 - MathF.Max(0, Timer / MaxTimer);
 
         Projectile.frame = (int)IsBig;
 
@@ -68,5 +66,5 @@ internal class SpectroliteCactus : SpectroliteProjectile
             overPlayers.Add(index);
     }
 
-    public override Color? GetAlpha(Color lightColor) => UsedTimer > 0 ? Color.Lerp(lightColor, Color.Black, MathF.Sin(SineTimerZ) * 0.5f) : lightColor;
+    public override Color? GetAlpha(Color lightColor) => Timer > 0 ? Color.Lerp(lightColor, Color.Black, MathF.Sin(SineTimerZ) * 0.5f) : lightColor;
 }

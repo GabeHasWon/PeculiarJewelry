@@ -1,4 +1,5 @@
 ﻿using PeculiarJewelry.Content.Items.Jewels.Rares.Spectrolite;
+using System;
 using Terraria.ModLoader.IO;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats.JewelInfos.Rares;
@@ -12,7 +13,8 @@ internal class MajorSpectroliteInfo : JewelInfo
 
     internal override void InternalSetup() => SubStats = [];
 
-    public override JewelStat GenStat() => Major is not null ? Major : new SpectroliteContainer((StatType)Main.rand.Next((int)StatType.SoulMax + 1, (int)StatType.SpectroliteMax), true)
+    public override JewelStat GenStat() 
+        => Major is not null ? Major : new SpectroliteContainer((StatType)Main.rand.Next((int)StatType.SoulMax + 1, (int)StatType.SpectroliteMax), true, Guid.NewGuid())
     {
         Strength = 1,
     };
@@ -21,8 +23,9 @@ internal class MajorSpectroliteInfo : JewelInfo
     {
         float str = Major.Strength;
         var type = Major.Type;
-
-        Major = new SpectroliteContainer(type, true) 
+        Guid guid = Guid.NewGuid();
+        
+        Major = new SpectroliteContainer(type, true, guid) 
         {
             Strength = str 
         };

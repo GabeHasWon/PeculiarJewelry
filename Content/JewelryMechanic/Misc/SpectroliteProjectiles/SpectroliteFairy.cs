@@ -7,7 +7,6 @@ internal class SpectroliteFairy : SpectroliteProjectile
 {
     public override StatType StatType => StatType.SpectroliteFairy;
 
-    private ref float Timer => ref Projectile.ai[0];
     private ref float RotationSpeed => ref Projectile.localAI[0];
 
     public int HealAmount => (int)(Owner.statLifeMax2 * 0.1f);

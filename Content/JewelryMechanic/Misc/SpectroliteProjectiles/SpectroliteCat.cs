@@ -28,9 +28,10 @@ internal class SpectroliteCat : SpectroliteProjectile
     }
 
     public override float MaxTimer => 10 * 60 / MathHelper.Lerp(Strength, 1, 0.3f);
-    public ref float Timer => ref Projectile.ai[0];
 
     public override StatType StatType => StatType.SpectroliteKitten;
+
+    private ref float VisualTimer => ref Projectile.localAI[0];
 
     public override void SetStaticDefaults() => Main.projFrames[Type] = 2;
 
@@ -46,8 +47,9 @@ internal class SpectroliteCat : SpectroliteProjectile
 
     public override void AI()
     {
-        Timer += Timer >= MaxTimer ? 0.03f : 0.01f;
-        Projectile.Center = Vector2.Lerp(Projectile.Center, Owner.Center - new Vector2(0, 60) + (new Vector2(60, 0).RotatedBy(Timer) * new Vector2(1, 0.25f)), 0.2f);
+        Timer++;
+        VisualTimer += Timer >= MaxTimer ? 0.03f : 0.01f;
+        Projectile.Center = Vector2.Lerp(Projectile.Center, Owner.Center - new Vector2(0, 60) + new Vector2(60, 0).RotatedBy(VisualTimer) * new Vector2(1, 0.25f), 0.2f);
         Projectile.timeLeft = 2;
         Projectile.rotation = MathF.Sin(Timer) * 0.3f;
 

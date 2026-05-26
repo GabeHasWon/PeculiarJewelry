@@ -13,6 +13,7 @@ Projectiles: {
 	SpectroliteCactus.DisplayName: Spectrolite Cactus
 	SpectroliteHeartSlime.DisplayName: Spectrolite Heart Slime
 	SpectroliteCat.DisplayName: Spectrolite Cat
+	SpectroliteBeetle.DisplayName: Spectrolite Beetle
 }
 
 TierCutoffCondition: Only from bags of tier {0} or higher.

@@ -24,10 +24,10 @@ internal class CactusStat : SpectroliteStatEffect
 
             foreach (Projectile projectile in Main.ActiveProjectiles)
             {
-                if (projectile.owner != Player.whoAmI || projectile.ModProjectile is not SpectroliteCactus cactus || cactus.UsedTimer > 0)
+                if (projectile.owner != Player.whoAmI || projectile.ModProjectile is not SpectroliteCactus cactus || cactus.Timer > 0)
                     continue;
 
-                cactus.UsedTimer = (int)(50 * 60 / cactus.Strength);
+                cactus.Timer = (int)(50 * 60 / cactus.Strength);
                 Protected = true;
                 break;
             }

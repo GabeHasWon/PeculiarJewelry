@@ -1,4 +1,5 @@
 ﻿using PeculiarJewelry.Content.JewelryMechanic.Stats;
+using System;
 using System.Collections.Generic;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Misc;
@@ -9,6 +10,7 @@ internal class SpectrolitePlayer : ModPlayer
     {
         public int Stacks = Stacks;
         public float Value = Value;
+        public bool[] IsBig = new bool[12];
     }
 
     internal Dictionary<StatType, ValuePair> Stats = new()
@@ -17,9 +19,22 @@ internal class SpectrolitePlayer : ModPlayer
         { StatType.SpectroliteKitten, new() }, { StatType.SpectroliteCreeper, new() }
     };
 
+    public HashSet<Guid> ProjGuids = [];
+    
+    private readonly HashSet<Guid> _oldProjGuids = [];
+
     public override void ResetEffects()
     {
         foreach (var key in Stats.Keys)
             Stats[key] = new();
+
+        _oldProjGuids.Clear();
+
+        foreach (Guid guid in ProjGuids)
+            _oldProjGuids.Add(guid);
+
+        ProjGuids.Clear();
     }
+
+    public bool HasGuid(Guid guid) => ProjGuids.Contains(guid) || _oldProjGuids.Contains(guid);
 }

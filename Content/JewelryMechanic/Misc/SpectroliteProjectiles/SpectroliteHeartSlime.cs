@@ -9,7 +9,6 @@ internal class SpectroliteHeartSlime : SpectroliteProjectile
     public override StatType StatType => StatType.SpectroliteSlime;
 
     public override float MaxTimer => 50 * 60;
-    internal ref float Timer => ref Projectile.ai[0];
 
     private Vector2 AttachPosition
     {
