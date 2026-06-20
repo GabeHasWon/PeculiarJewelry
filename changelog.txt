@@ -1,3 +1,74 @@
-v2
+v0.2.0.0 - The Rare Jewels Update
+(Beta)
+
+--- ADDITIONS ---
+- New "Rare" jewels that have special behavior, or entirely new functionality.
+
+Rare Jewels (and where they drop most often):
+AMBER (Desert): Either Full or Pure, allows a jewel to slot in any accessory instead of providing random stats - Full is pre-filled, Pure is fillable
+
+ANCIENT (Marble/Granite): Major/Minor, less total cuts and much less likely cuts BUT much, much stronger upgrades per cut
+
+CAT'S EYE (Underworld): Major/Minor, instead of granting stats they boost a material set's count. This allows set bonuses to be achieved easier without using more jewelry
+
+CURSED (Corruption/Crimson): Major/Minor, alongside normal stats, all but one of their stats may be negative, which reduce their associated stat but multiply the positive stats on the jewel accordingly
+Multiplier is this:
+	((total negative stats * -2) / total positive stats) + 1
+The more negative stats (or less positive stats), the stronger the boost.
+
+GELID (Hallow): Major/Minor, normal jewels but they're way easier to upgrade...and way weaker as a result
+
+IMPURE: A special case, Impure jewels are Major/Minor and hold stats like normal jewels, but disregard class restrictions. 
+They are much more likely to drop when the player is in more biomes, replacing the chance for normal jewels to drop
+
+LUCKY (Forest/Underground): Major/Minor, alongside normal stants, grant a small amount of luck, and are easier to upgrade, more likely to be cut successfully, and cannot be broken by pliers
+
+OPALS (Jungle/Glowing Mushroom): Major/Minor, but contain only sub stats. Each upgrade improves two random sub stats
+
+PEARL (Ocean): Major/Minor, but contain only trigger effects (3 for major, 1 for minor)
+
+SOULSTONE (Dungeon): Major/Minor, but do not use stats. Instead, they spawn a ghostly wisp, which can be collected. Collecting them enough will shoot them towards a nearby enemy, causing a massively impactful debuff:
+1. Soulstone of Agony - Double damage taken
+2. Soulstone of Grief - Heal damaging players
+3. Soulstone of Sacrifice - Deal a massive damage over time based on max health
+4. Soulstone of Betrayal - Friendly units blow up and hurt the target when killed
+5. Soulstone of Plague - Halved behavior speed
+6. Soulstone of Torture - Massive damage dealt reduction
+
+SPECTROLITE (Snow): Major/Minor, but instead of using stats, they summon a helpful active minion. The minion does not use summon slots, and using two or more Spectrolite will spawn multiple minions.
+Fairy: Heals the player for a small amount
+Beetle: Reduces the next damage taken by 15%, stacks with other beetles but not itself
+Cactus: A portion of the damage taken is redirected to the attacker, with the redirected damage portion being healed back to the player, stacks uses not effect strength
+Heart slime: Grants a temporary heart that absorbs a certain amount of damage before disappearing, stacks with other heart slimes but not itself
+Kitten: Grants increased regeneration until the next hit, stacks with other kittens but not itself
+Creeper: Takes damage for the player, blocking projectiles, and dies itself after taking enough hits
+
+- Added "Examination" menu that explains every jewel in the game
+- Added configs for Soulstone jewels
+- Added an Impure Jewel into the Lapidarist's stock
+
+--- CHANGES ---
+- "Jewel Perfection": Lower tier (Ordinary) jewelry reduces the effect of jewels, whereas higher tier (Perfect) jewels keep it at 100% functionality
+- Various small improvements to how grinding works
+- Added hover icons/text to the Keepsake Chest
+- Disabled the Luminite tiara, which wouldn't work properly at the moment due to a lack of API
+- Modified how some stats round due to changes in the backend; most integral stats (such as max minions) will now hit the next value quicker
+- Added negative functionality for most stats
+- Made the Lapidarist stand still and face the player when the player is using any jewel menu
+
+--- BUGFIXES ---
 - Fixed Earthfish spawning randomly
-- 
+- Localized "of" for jewel names (Major Jewel of X)
+- Properly allowed all jewelry to have increased allowed major counts
+- Fixed issue where ammo would not be consumed properly, ever
+- Fixed Meteorite material bonus not working properly
+- Fixed Tenacity stat not working properly
+
+PLUS
+Almost certainly a bunch more things I didn't log properly. Whoops!
+
+--- NOTE ---
+THIS IS A BETA, AND WILL NOT BE STABLE. PLEASE REPORT TO THE DISCORD IF YOU FIND ANY ISSUES!
+If you have an existing world with Peculiar Jewelry, it is fairly likely it won't work properly!
+
+https://discord.com/invite/gVUw3W8ypD

@@ -1,7 +1,7 @@
 ﻿using PeculiarJewelry.Content.Items.JewelryItems;
 using System.Collections.Generic;
 
-namespace PeculiarJewelry.Content.JewelryMechanic.Globals;
+namespace PeculiarJewelry.Common.Globals;
 
 internal class JewelrySets : ModSystem
 {
@@ -24,10 +24,8 @@ internal class JewelrySets : ModSystem
             HashSet<int> set = [];
 
             foreach (var item in ModContent.GetContent<ModItem>())
-            {
                 if (item is BasicJewelry jewelry && jewelry.MaterialCategory == MaterialToName[id])
                     set.Add(item.Type);
-            }
 
             MatIdToItemSet.Add(id, set);
         }

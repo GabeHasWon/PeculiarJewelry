@@ -1,7 +1,8 @@
-﻿using System.Linq;
+﻿using PeculiarJewelry.Content.JewelryMechanic;
+using System.Linq;
 using Terraria.DataStructures;
 
-namespace PeculiarJewelry.Content.JewelryMechanic.Globals;
+namespace PeculiarJewelry.Common.Globals;
 
 internal class JewelGlobalItem : GlobalItem
 {
@@ -12,12 +13,10 @@ internal class JewelGlobalItem : GlobalItem
     public override void OnSpawn(Item item, IEntitySource source)
     {
         if (source is EntitySource_TileBreak tile && WorldGen.InWorld(tile.TileCoords.X, tile.TileCoords.Y) && GemOres.Contains(Main.tile[tile.TileCoords].TileType))
-        {
             if (Main.rand.NextBool(60))
             {
                 item.SetDefaults(JewelryCommon.MajorMinorType());
                 return;
             }
-        }
     }
 }

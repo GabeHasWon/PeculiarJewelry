@@ -1,4 +1,5 @@
-﻿using PeculiarJewelry.Content.JewelryMechanic.UI.Superimposition;
+﻿using PeculiarJewelry.Common;
+using PeculiarJewelry.Content.JewelryMechanic.UI.Superimposition;
 using ReLogic.Content;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;

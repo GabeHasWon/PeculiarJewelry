@@ -1,4 +1,4 @@
-﻿using PeculiarJewelry.Content.JewelryMechanic.Globals;
+﻿using PeculiarJewelry.Common.Globals;
 using System;
 using System.Linq;
 using Terraria.GameContent;

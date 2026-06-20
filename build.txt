@@ -1,5 +1,5 @@
-displayName = Peculiar Jewelry
+displayName = Peculiar Jewelry (Beta)
 author = GabeHasWon
-version = 0.1.1.3
+version = 0.2.0.0
 modReferences = BossChecklist, StockableShops
 dllReferences = NetEasy_v0.1.8, NetSerializer

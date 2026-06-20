@@ -1,4 +1,5 @@
-﻿using PeculiarJewelry.Content.JewelryMechanic.Desecration;
+﻿using PeculiarJewelry.Common;
+using PeculiarJewelry.Content.JewelryMechanic.Desecration;
 using PeculiarJewelry.Content.JewelryMechanic.Syncing;
 using System;
 using System.Collections.Generic;

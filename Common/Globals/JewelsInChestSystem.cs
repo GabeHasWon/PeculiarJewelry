@@ -1,9 +1,10 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using PeculiarJewelry.Content.Items.JewelryItems;
+using PeculiarJewelry.Content.JewelryMechanic;
 using PeculiarJewelry.Content.JewelryMechanic.Stats;
 using System;
 
-namespace PeculiarJewelry.Content.JewelryMechanic.Globals;
+namespace PeculiarJewelry.Common.Globals;
 
 internal class JewelsInChestSystem : ModSystem
 {

@@ -1,4 +1,5 @@
-﻿using PeculiarJewelry.Content.Items;
+﻿using PeculiarJewelry.Common;
+using PeculiarJewelry.Content.Items;
 using PeculiarJewelry.Content.Items.JewelryItems.Rings;
 using PeculiarJewelry.Content.Items.Jewels;
 using PeculiarJewelry.Content.Items.JewelSupport;

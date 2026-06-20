@@ -1,7 +1,7 @@
 ﻿namespace PeculiarJewelry.Content.JewelryMechanic.Stats.Effects;
 
 /// <summary>
-/// Max life. MP safe.
+/// No functionality. Used as a placeholder only.
 /// </summary>
 internal class NoneStat : JewelStatEffect
 {

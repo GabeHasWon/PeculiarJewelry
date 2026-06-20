@@ -7,6 +7,8 @@ internal class MoonstonePlayer : ModPlayer
 {
     public Dictionary<StatType, int> DesiredProjectileCountByStatType = [];
 
+    public override bool IsLoadingEnabled(Mod mod) => false;
+
     public override void ResetEffects()
     {
         foreach (var item in DesiredProjectileCountByStatType)

@@ -1,4 +1,5 @@
-﻿using PeculiarJewelry.Content.Items.Jewels;
+﻿using PeculiarJewelry.Common;
+using PeculiarJewelry.Content.Items.Jewels;
 using Terraria.DataStructures;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;

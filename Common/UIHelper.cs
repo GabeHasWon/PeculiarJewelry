@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PeculiarJewelry.Content.JewelryMechanic.UI;
+namespace PeculiarJewelry.Common;
 
 internal static class UIHelper
 {
@@ -12,9 +12,7 @@ internal static class UIHelper
         Rectangle value2 = new((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
 
         if (!rectangle.Intersects(value2) || player.chest != -1 || !npc.active)
-        {
             distanceAction(player, npc);
-        }
     }
 
     public static void HoldTownNPC(int whoAmI, Player player = null)

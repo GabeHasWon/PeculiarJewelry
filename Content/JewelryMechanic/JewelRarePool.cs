@@ -1,7 +1,10 @@
 ﻿using PeculiarJewelry.Content.Items.Jewels.Rares.Amber;
 using PeculiarJewelry.Content.Items.Jewels.Rares.Ancient;
+using PeculiarJewelry.Content.Items.Jewels.Rares.CatEye;
+using PeculiarJewelry.Content.Items.Jewels.Rares.Cursed;
 using PeculiarJewelry.Content.Items.Jewels.Rares.Gelid;
 using PeculiarJewelry.Content.Items.Jewels.Rares.Lucky;
+using PeculiarJewelry.Content.Items.Jewels.Rares.Opal;
 using PeculiarJewelry.Content.Items.Jewels.Rares.Pearl;
 using PeculiarJewelry.Content.Items.Jewels.Rares.Soulstone;
 using PeculiarJewelry.Content.Items.Jewels.Rares.Spectrolite;
@@ -98,6 +101,15 @@ internal class JewelRarePool
 
         if (rareTypes.HasFlag(OpenRareTypes.Spectrolite))
             types.Add(JewelryCommon.MajorMinorType<MajorSpectrolite, MinorSpectrolite>());
+
+        if (rareTypes.HasFlag(OpenRareTypes.Cursed))
+            types.Add(JewelryCommon.MajorMinorType<MajorCursed, MinorCursed>());
+
+        if (rareTypes.HasFlag(OpenRareTypes.CatsEye))
+            types.Add(JewelryCommon.MajorMinorType<MajorCatEye, MinorCatEye>());
+
+        if (rareTypes.HasFlag(OpenRareTypes.Opal))
+            types.Add(JewelryCommon.MajorMinorType<MajorOpal, MinorOpal>());
 
         return types.Count == 0 ? -1 : Main.rand.Next(types);
     }

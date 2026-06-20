@@ -17,5 +17,5 @@ internal class CustomSets
             ProjectileID.Twinkle, ProjectileID.NebulaBolt, ProjectileID.NebulaSphere, ProjectileID.NebulaLaser, ProjectileID.VortexLaser, ProjectileID.VortexAcid,
             ProjectileID.AncientDoomProjectile, ProjectileID.DesertDjinnCurse, ProjectileID.DD2DrakinShot, ProjectileID.DD2LightningBugZap, ProjectileID.DD2GoblinBomb,
             ProjectileID.DD2BetsyFireball, ProjectileID.BloodShot, ProjectileID.HallowBossLastingRainbow, ProjectileID.HallowBossRainbowStreak, ProjectileID.TorchGod,
-            ProjectileID.InsanityShadowHostile, ProjectileID.MiniBoulder, ProjectileID.);
+            ProjectileID.InsanityShadowHostile, ProjectileID.MiniBoulder );
 }

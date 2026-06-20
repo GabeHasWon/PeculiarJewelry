@@ -9,6 +9,8 @@ public class MajorMoonstone : Jewel
     protected override Type InfoType => typeof(MajorMoonstoneInfo);
     protected override byte MaxVariations => 3;
 
+    public override bool IsLoadingEnabled(Mod mod) => false;
+
     public override void Defaults()
     {
         Item.width = 42;

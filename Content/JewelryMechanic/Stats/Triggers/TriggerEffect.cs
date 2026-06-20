@@ -119,7 +119,7 @@ internal abstract class TriggerEffect : ModType
             InternalConditionalEffect(Context, player, coefficient, tier);
 
             if (meteoriteCount >= 1)
-                _lingerTime = (int)player.GetModPlayer<CatEyePlayer>().GetBonus("Hellstone", 180);
+                _lingerTime = (int)player.GetModPlayer<CatEyePlayer>().GetBonus("Meteorite", 180);
         }
     }
 
