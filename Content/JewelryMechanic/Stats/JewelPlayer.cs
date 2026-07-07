@@ -5,8 +5,10 @@ using PeculiarJewelry.Content.JewelryMechanic.MaterialBonuses;
 using PeculiarJewelry.Content.JewelryMechanic.MaterialBonuses.Bonuses;
 using PeculiarJewelry.Content.JewelryMechanic.Stats.Triggers;
 using PeculiarJewelry.Content.JewelryMechanic.Syncing;
+using PeculiarJewelry.Content.NPCs;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ModLoader.IO;
 
 namespace PeculiarJewelry.Content.JewelryMechanic.Stats;
 
@@ -15,6 +17,19 @@ namespace PeculiarJewelry.Content.JewelryMechanic.Stats;
 /// </summary>
 internal class JewelPlayer : ModPlayer
 {
+    private class JewelPlayerItem : GlobalItem
+    {
+        public override void OnConsumeMana(Item item, Player player, int manaConsumed)
+        {
+            foreach (var trigger in player.GetModPlayer<JewelPlayer>().TriggerJewelInfos)
+                trigger.InstantTrigger(TriggerContext.OnUseMana, player);
+
+            if (player.statMana - manaConsumed <= 0)
+                foreach (var trigger in player.GetModPlayer<JewelPlayer>().TriggerJewelInfos)
+                    trigger.InstantTrigger(TriggerContext.OnRunOutOfMana, player);
+        }
+    }
+
     public List<MajorJewelInfo> TriggerJewelInfos
     {
         get
@@ -34,6 +49,7 @@ internal class JewelPlayer : ModPlayer
 
     internal int timeSinceLastHit = 0;
     internal int landCooldown = 0;
+    internal bool showNotice = true;
 
     private bool _jumpFlag = false;
 
@@ -124,6 +140,9 @@ internal class JewelPlayer : ModPlayer
         }
         else
             _jumpFlag = false;
+
+        if (Player.TalkNPC is { } npc && npc.type == ModContent.NPCType<Lapidarist>())
+            showNotice = false;
     }
 
     public override void OnHurt(Player.HurtInfo info)
@@ -153,16 +172,6 @@ internal class JewelPlayer : ModPlayer
         TriggerOnHit(target);
     }
 
-    private class JewelPlayerItem : GlobalItem
-    {
-        public override void OnConsumeMana(Item item, Player player, int manaConsumed)
-        {
-            foreach (var trigger in player.GetModPlayer<JewelPlayer>().TriggerJewelInfos)
-                trigger.InstantTrigger(TriggerContext.OnUseMana, player);
-
-            if (player.statMana - manaConsumed <= 0)
-                foreach (var trigger in player.GetModPlayer<JewelPlayer>().TriggerJewelInfos)
-                    trigger.InstantTrigger(TriggerContext.OnRunOutOfMana, player);
-        }
-    }
+    public override void SaveData(TagCompound tag) => tag.Add("notice", showNotice);
+    public override void LoadData(TagCompound tag) => showNotice = tag.GetBool("notice");
 }

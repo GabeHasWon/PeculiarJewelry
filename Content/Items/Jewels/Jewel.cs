@@ -155,6 +155,9 @@ public abstract class Jewel : ModItem, IGrindableItem, IStorableItem
             if (info.MaxCuts > 0)
                 tooltips.Add(new TooltipLine(modItem.Mod, "JewelCuts", info.MaxCuts - info.cuts + "/" + info.MaxCuts + Localize("Jewelry.CutsRemaining")));
         }
+
+        if (Main.LocalPlayer.GetModPlayer<JewelPlayer>().showNotice)
+            tooltips.Add(new TooltipLine(modItem.Mod, "Notice", $"[c/888888:{Language.GetTextValue("Mods.PeculiarJewelry.ShowNotice")}]"));
     }
 
     public sealed override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)

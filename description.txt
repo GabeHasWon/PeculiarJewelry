@@ -14,6 +14,8 @@ You can also now obtain jewels which have specific, new functionality - allowing
 Alongside this, there's a system which allows you to gamble - fight significantly harder bosses for more powerful jewels? It's up to you.
 A mysterious and well dressed man called the Lapidarist will help you get through it.
 
+----
+
 If you want to talk more, report issues or showcase your insane build, join the Discord!:
 Discord: https://discord.com/invite/gVUw3W8ypD
 

@@ -1,6 +1,5 @@
 ﻿using PeculiarJewelry.Common;
 using PeculiarJewelry.Content.Items;
-using PeculiarJewelry.Content.Items.JewelryItems.Rings;
 using PeculiarJewelry.Content.Items.Jewels;
 using PeculiarJewelry.Content.Items.JewelSupport;
 using PeculiarJewelry.Content.Items.RadiantEchoes;
@@ -142,7 +141,7 @@ internal class CutJewelUIState : UIState, IClosableUIState
         _ => throw new ArgumentException("Uh oh! You aren't in a threshold but you are somehow."),
     };
 
-    private static float JewelCutChance(JewelInfo info, ItemSlotUI[] support, out float delta, bool consumeSupport = true)
+    private float JewelCutChance(JewelInfo info, ItemSlotUI[] support, out float delta, bool consumeSupport = true)
     {
         delta = 0f;
         float originalChance = info.BaseJewelCutChance();
@@ -173,7 +172,7 @@ internal class CutJewelUIState : UIState, IClosableUIState
         if (baseOverrideChance != -1)
         {
             if (!consumeSupport)
-                ClearSupportItems(support);
+                TryClearSupportItems(support);
 
             delta = baseOverrideChance;
             return baseOverrideChance;
@@ -188,13 +187,13 @@ internal class CutJewelUIState : UIState, IClosableUIState
         }
 
         if (!consumeSupport)
-            ClearSupportItems(support);
+            TryClearSupportItems(support);
 
         delta = baseChance - originalChance;
         return baseChance;
     }
 
-    private static void ClearSupportItems(ItemSlotUI[] support, int onlyType = -1)
+    private void TryClearSupportItems(ItemSlotUI[] support, int onlyType = -1, bool onlyIfInvalid = false)
     {
         foreach (var item in support)
         {
@@ -203,6 +202,12 @@ internal class CutJewelUIState : UIState, IClosableUIState
 
             if (onlyType != -1 && item.Item.type != onlyType)
                 continue;
+
+            if (onlyIfInvalid && _cutSlot.Item.ModItem is Jewel jewel && item.Item.ModItem is JewelSupportItem supportItem && supportItem.CanBePlacedInSupportSlot(jewel.info))
+                continue;
+
+            if (onlyIfInvalid)
+                Item.NewItem(new EntitySource_OverfullInventory(Main.LocalPlayer), Main.LocalPlayer.Hitbox, item.Item.Clone());
 
             item.Item.stack--;
 
@@ -435,6 +440,12 @@ internal class CutJewelUIState : UIState, IClosableUIState
             HAlign = 0.5f,
             Top = StyleDimension.FromPixels(20)
         };
+
+        _cutSlot.OnUpdate += _ =>
+        {
+            if (_cutSlot.HasItem)
+                TryClearSupportItems(_supportItems, -1, true);
+        };
         panel.Append(_cutSlot);
 
         UIText cutText = new(Localize("Name"))
@@ -454,8 +465,8 @@ internal class CutJewelUIState : UIState, IClosableUIState
         };
         button.OnLeftClick += TryCutJewel;
         button.ApplyMouseInterfaceBlock();
-        button.OnMouseOver += (UIMouseEvent evt, UIElement listeningElement) => _hoveringAnvil = true;
-        button.OnMouseOut += (UIMouseEvent evt, UIElement listeningElement) => _hoveringAnvil = false;
+        button.OnMouseOver += (evt, listeningElement) => _hoveringAnvil = true;
+        button.OnMouseOut += (evt, listeningElement) => _hoveringAnvil = false;
         panel.Append(button);
 
         UIText cutJewelText = new(Localize("Cut"))
@@ -529,29 +540,27 @@ internal class CutJewelUIState : UIState, IClosableUIState
 
     private bool CanInputSupportItem(Item item, ItemSlotUI self)
     {
-        if (JewelItem is null)
+        if (item.IsAir || Main.LocalPlayer.selectedItem != 58)
+            return true;
+
+        if (item.ModItem is not JewelSupportItem support)
             return false;
 
-        if (item.ModItem is not JewelSupportItem && !item.IsAir && item == Main.mouseItem)
-            return false;
-
+        // Duplication
         foreach (var slot in _supportItems)
             if (!slot.Item.IsAir && item.type == slot.Item.type)
                 return false;
-        
-        return item.ModItem is not JewelSupportItem support || support.CanBePlacedInSupportSlot(JewelItem.info);
+
+        return JewelItem is null || support.CanBePlacedInSupportSlot(JewelItem.info);
     }
 
-    private void SetDialoguePanel()
+    private void SetDialoguePanel() => Append(new UINPCDialoguePanel()
     {
-        Append(new UINPCDialoguePanel()
-        {
-            HAlign = 0.5f,
-            Top = StyleDimension.FromPixelsAndPercent(106, 0.15f),
-            Width = StyleDimension.FromPixels(320),
-            Height = StyleDimension.FromPixels(600)
-        });
-    }
+        HAlign = 0.5f,
+        Top = StyleDimension.FromPixelsAndPercent(106, 0.15f),
+        Width = StyleDimension.FromPixels(320),
+        Height = StyleDimension.FromPixels(600)
+    });
 
     private void TryCutJewel(UIMouseEvent evt, UIElement listeningElement)
     {
@@ -584,7 +593,7 @@ internal class CutJewelUIState : UIState, IClosableUIState
             int dustType = info.CutDustType;
             if (Main.LocalPlayer.CountItem(dustType, dustPrice) < dustPrice)
             {
-                UpdateInfo(Language.GetText("Mods.PeculiarJewelry.UI.CutMenu.NoDust").WithFormatArgs(dustType).Value);
+                UpdateInfo(Language.GetText("Mods.PeculiarJewelry.UI.CutMenu.NoDust").Format(dustType));
                 return;
             }
 
@@ -612,7 +621,7 @@ internal class CutJewelUIState : UIState, IClosableUIState
         SoundEngine.PlaySound(SoundID.NPCHit4, Main.LocalPlayer.Center);
 
         if (hasLuckyCoin)
-            ClearSupportItems(_supportItems, ModContent.ItemType<LuckyCoin>());
+            TryClearSupportItems(_supportItems, ModContent.ItemType<LuckyCoin>());
 
         if (success)
         {
